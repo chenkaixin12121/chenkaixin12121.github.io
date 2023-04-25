@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://file.ckx.ink/upload/2020/04/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://file.ckx.ink/upload/2020/04/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://file.ckx.ink/upload/2020/04/favicon-16x16.png">
+  <link rel="mask-icon" href="https://file.ckx.ink/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic%7CRoboto+Slab:300,300italic,400,400italic,700,700italic%7CPT+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/pace-js/themes/blue/pace-theme-minimal.css">
+  <script src="/lib/pace-js/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.ckx.ink","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="原文：http:&#x2F;&#x2F;tutorials.jenkov.com&#x2F;java-nio&#x2F;index.html译文：http:&#x2F;&#x2F;ifeve.com&#x2F;overview">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaNIO">
+<meta property="og:url" content="https://blog.ckx.ink/2021/12/05/201427.html">
+<meta property="og:site_name" content="开心">
+<meta property="og:description" content="原文：http:&#x2F;&#x2F;tutorials.jenkov.com&#x2F;java-nio&#x2F;index.html译文：http:&#x2F;&#x2F;ifeve.com&#x2F;overview">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://file.ckx.ink/upload/2021/12/image-6068c769c7da4c448eb5d1ad494b61e4.png">
+<meta property="og:image" content="https://file.ckx.ink/upload/2021/12/image-7f1835082fc24005963bb364c5cc2205.png">
+<meta property="og:image" content="https://file.ckx.ink/upload/2021/12/image-16650a7868e94a758bcf0beff5760ed2.png">
+<meta property="og:image" content="https://file.ckx.ink/upload/2021/12/image-681a5b5ec0d840499281429aed30db83.png">
+<meta property="og:image" content="https://file.ckx.ink/upload/2021/12/image-065dc27d313e4ed8a533e9cee9a5b0bf.png">
+<meta property="og:image" content="https://file.ckx.ink/upload/2021/12/image-efd988fe4d2d483a941db097b9dd8eb4.png">
+<meta property="og:image" content="https://file.ckx.ink/upload/2021/12/image-6d619fc94d1a4a918769e3a6c65bcbaa.png">
+<meta property="article:published_time" content="2021-12-05T12:14:27.000Z">
+<meta property="article:modified_time" content="2023-04-24T10:15:22.862Z">
+<meta property="article:author" content="开心">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://file.ckx.ink/upload/2021/12/image-6068c769c7da4c448eb5d1ad494b61e4.png">
+
+
+<link rel="canonical" href="https://blog.ckx.ink/2021/12/05/201427.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.ckx.ink/2021/12/05/201427.html","path":"2021/12/05/201427.html","title":"JavaNIO"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JavaNIO | 开心</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">开心</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">盛年不重来，一日难再晨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-reader"><a href="https://reader.ckx.ink/" rel="section" target="_blank"><i class="fa fa-book fa-fw"></i>reader</a></li><li class="menu-item menu-item-openai"><a href="https://openai.ckx.ink/" rel="section" target="_blank"><i class="fa fa-robot fa-fw"></i>openai</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Channels-%E5%92%8C-Buffers"><span class="nav-number">1.1.</span> <span class="nav-text">Channels 和 Buffers</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Selectors"><span class="nav-number">1.2.</span> <span class="nav-text">Selectors</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Channel"><span class="nav-number">2.</span> <span class="nav-text">Channel</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Channel-%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.1.</span> <span class="nav-text">Channel 实现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC-Channel-%E7%A4%BA%E4%BE%8B"><span class="nav-number">2.2.</span> <span class="nav-text">基本 Channel 示例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Buffer"><span class="nav-number">3.</span> <span class="nav-text">Buffer</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Buffer-%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">3.1.</span> <span class="nav-text">Buffer 的基本使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Buffer-%E7%9A%84-capacity%E3%80%81position-%E5%92%8C-limit"><span class="nav-number">3.2.</span> <span class="nav-text">Buffer 的 capacity、position 和 limit</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#capacity"><span class="nav-number">3.2.1.</span> <span class="nav-text">capacity</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#position"><span class="nav-number">3.2.2.</span> <span class="nav-text">position</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#limit"><span class="nav-number">3.2.3.</span> <span class="nav-text">limit</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Buffer-%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.3.</span> <span class="nav-text">Buffer 的类型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Buffer-%E7%9A%84%E5%88%86%E9%85%8D"><span class="nav-number">3.4.</span> <span class="nav-text">Buffer 的分配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%86%E6%95%B0%E6%8D%AE%E5%86%99%E5%85%A5%E5%88%B0-Buffer"><span class="nav-number">3.5.</span> <span class="nav-text">将数据写入到 Buffer</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#flip"><span class="nav-number">3.6.</span> <span class="nav-text">flip</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%8E-Buffer-%E4%B8%AD%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="nav-number">3.7.</span> <span class="nav-text">从 Buffer 中读取数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rewind"><span class="nav-number">3.8.</span> <span class="nav-text">rewind()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#clear-%E5%92%8C-compact"><span class="nav-number">3.9.</span> <span class="nav-text">clear() 和 compact()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#mark-%E5%92%8C-reset"><span class="nav-number">3.10.</span> <span class="nav-text">mark() 和 reset()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#equals-%E5%92%8C-compareTo"><span class="nav-number">3.11.</span> <span class="nav-text">equals() 和 compareTo()</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#equals"><span class="nav-number">3.11.1.</span> <span class="nav-text">equals()</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#compareTo"><span class="nav-number">3.11.2.</span> <span class="nav-text">compareTo()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Scatter-x2F-Gather"><span class="nav-number">4.</span> <span class="nav-text">Scatter &#x2F; Gather</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Scattering-Reads"><span class="nav-number">4.1.</span> <span class="nav-text">Scattering Reads</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Gathering-Writes"><span class="nav-number">4.2.</span> <span class="nav-text">Gathering Writes</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Channel-to-Channel-Transfers"><span class="nav-number">5.</span> <span class="nav-text">Channel to Channel Transfers</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#transferFrom"><span class="nav-number">5.1.</span> <span class="nav-text">transferFrom()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#transferTo"><span class="nav-number">5.2.</span> <span class="nav-text">transferTo()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Selector"><span class="nav-number">6.</span> <span class="nav-text">Selector</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8-Selector"><span class="nav-number">6.1.</span> <span class="nav-text">为什么要使用 Selector</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-Selector"><span class="nav-number">6.2.</span> <span class="nav-text">创建 Selector</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%91-Selector-%E6%B3%A8%E5%86%8C-Channel"><span class="nav-number">6.3.</span> <span class="nav-text">向 Selector 注册 Channel</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SelectionKey"><span class="nav-number">6.4.</span> <span class="nav-text">SelectionKey</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#interest-%E9%9B%86%E5%90%88"><span class="nav-number">6.4.1.</span> <span class="nav-text">interest 集合</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#ready-%E9%9B%86%E5%90%88"><span class="nav-number">6.4.2.</span> <span class="nav-text">ready 集合</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Channel-Selector"><span class="nav-number">6.4.3.</span> <span class="nav-text">Channel + Selector</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%99%84%E5%8A%A0%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="nav-number">6.4.4.</span> <span class="nav-text">附加的对象</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%9A%E8%BF%87-Selector-%E9%80%89%E6%8B%A9-Channel"><span class="nav-number">6.5.</span> <span class="nav-text">通过 Selector 选择 Channel</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#selectedKeys"><span class="nav-number">6.5.1.</span> <span class="nav-text">selectedKeys()</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#wakeUp"><span class="nav-number">6.5.2.</span> <span class="nav-text">wakeUp()</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#close"><span class="nav-number">6.5.3.</span> <span class="nav-text">close()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#FileChannel"><span class="nav-number">7.</span> <span class="nav-text">FileChannel</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%89%93%E5%BC%80-FileChannel"><span class="nav-number">7.1.</span> <span class="nav-text">打开 FileChannel</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%8E-FileChannel-%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="nav-number">7.2.</span> <span class="nav-text">从 FileChannel 读取数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%91-FileChannel-%E5%86%99%E6%95%B0%E6%8D%AE"><span class="nav-number">7.3.</span> <span class="nav-text">向 FileChannel 写数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B3%E9%97%AD-FileChannel"><span class="nav-number">7.4.</span> <span class="nav-text">关闭 FileChannel</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#FileChannel-%E7%9A%84-position"><span class="nav-number">7.5.</span> <span class="nav-text">FileChannel 的 position()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#FileChannel-%E7%9A%84-size"><span class="nav-number">7.6.</span> <span class="nav-text">FileChannel 的 size()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#FileChannel-%E7%9A%84-truncate"><span class="nav-number">7.7.</span> <span class="nav-text">FileChannel 的 truncate()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#FileChannel-%E7%9A%84-force"><span class="nav-number">7.8.</span> <span class="nav-text">FileChannel 的 force()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SocketChannel"><span class="nav-number">8.</span> <span class="nav-text">SocketChannel</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%89%93%E5%BC%80-SocketChannel"><span class="nav-number">8.1.</span> <span class="nav-text">打开 SocketChannel</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B3%E9%97%AD-SocketChannel"><span class="nav-number">8.2.</span> <span class="nav-text">关闭 SocketChannel</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%8E-SocketChannel-%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="nav-number">8.3.</span> <span class="nav-text">从 SocketChannel 读取数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%99%E5%85%A5-SocketChannel"><span class="nav-number">8.4.</span> <span class="nav-text">写入 SocketChannel</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%9E%E9%98%BB%E5%A1%9E%E6%A8%A1%E5%BC%8F"><span class="nav-number">8.5.</span> <span class="nav-text">非阻塞模式</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#connect"><span class="nav-number">8.5.1.</span> <span class="nav-text">connect()</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#write"><span class="nav-number">8.5.2.</span> <span class="nav-text">write()</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#read"><span class="nav-number">8.5.3.</span> <span class="nav-text">read()</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%9E%E9%98%BB%E5%A1%9E%E6%A8%A1%E5%BC%8F%E4%B8%8E-Selector"><span class="nav-number">8.6.</span> <span class="nav-text">非阻塞模式与 Selector</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ServerSocketChannel"><span class="nav-number">9.</span> <span class="nav-text">ServerSocketChannel</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E4%B8%80%E4%B8%AA-ServerSocketChannel"><span class="nav-number">9.1.</span> <span class="nav-text">打开一个 ServerSocketChannel</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E4%B8%80%E4%B8%AA-ServerSocketChannel"><span class="nav-number">9.2.</span> <span class="nav-text">关闭一个 ServerSocketChannel</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9B%91%E5%90%AC%E6%96%B0%E8%BF%9B%E6%9D%A5%E7%9A%84%E8%BF%9E%E6%8E%A5"><span class="nav-number">9.3.</span> <span class="nav-text">监听新进来的连接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%9D%9E%E9%98%BB%E5%A1%9E%E6%A8%A1%E5%BC%8F-1"><span class="nav-number">9.4.</span> <span class="nav-text">非阻塞模式</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E9%98%BB%E5%A1%9E%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">10.</span> <span class="nav-text">非阻塞服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DatagramChannel"><span class="nav-number">11.</span> <span class="nav-text">DatagramChannel</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%89%93%E5%BC%80-DatagramChannel"><span class="nav-number">11.1.</span> <span class="nav-text">打开 DatagramChannel</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%A5%E6%94%B6%E6%95%B0%E6%8D%AE"><span class="nav-number">11.2.</span> <span class="nav-text">接收数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE"><span class="nav-number">11.3.</span> <span class="nav-text">发送数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E5%88%B0%E7%89%B9%E5%AE%9A%E7%9A%84%E5%9C%B0%E5%9D%80"><span class="nav-number">11.4.</span> <span class="nav-text">连接到特定的地址</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pipe"><span class="nav-number">12.</span> <span class="nav-text">Pipe</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%AE%A1%E9%81%93"><span class="nav-number">12.1.</span> <span class="nav-text">创建管道</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%91%E7%AE%A1%E9%81%93%E5%86%99%E6%95%B0%E6%8D%AE"><span class="nav-number">12.2.</span> <span class="nav-text">向管道写数据</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%8E%E7%AE%A1%E9%81%93%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="nav-number">12.3.</span> <span class="nav-text">从管道读取数据</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NIO-%E5%92%8C-IO"><span class="nav-number">13.</span> <span class="nav-text">NIO 和 IO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Path"><span class="nav-number">14.</span> <span class="nav-text">Path</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#File"><span class="nav-number">15.</span> <span class="nav-text">File</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#AsynchronousFileChannel"><span class="nav-number">16.</span> <span class="nav-text">AsynchronousFileChannel</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="开心"
+      src="https://file.ckx.ink/upload/2020/04/android-chrome-512x512.png">
+  <p class="site-author-name" itemprop="name">开心</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chenkaixin12121" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chenkaixin12121" rel="noopener me" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:chenkaixin12121@163.com" title="E-Mail → mailto:chenkaixin12121@163.com" rel="noopener me" target="_blank">E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/lib/@creativecommons/vocabulary/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://dev-james.xyz/" title="https:&#x2F;&#x2F;dev-james.xyz" rel="noopener" target="_blank">James Blog</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://abalone.life/" title="https:&#x2F;&#x2F;abalone.life" rel="noopener" target="_blank">Abalone</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://blog.levnli.cn/" title="https:&#x2F;&#x2F;blog.levnli.cn" rel="noopener" target="_blank">木子李</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://huangdf.xyz/" title="https:&#x2F;&#x2F;huangdf.xyz&#x2F;" rel="noopener" target="_blank">柒月是ni的谎言</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.kiritoghy.cn/" title="https:&#x2F;&#x2F;www.kiritoghy.cn&#x2F;" rel="noopener" target="_blank">Kiritoghy</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+        <div class="pjax">
+        <div class="sidebar-inner sidebar-post-related">
+          <div class="animated">
+              <div class="links-of-blogroll-title"><i class="fa fa-signs-post fa-fw"></i>
+    相关文章
+  </div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2021/11/16/202646.html" rel="bookmark">
+        <time class="popular-posts-time">2021-11-16</time>
+        <br>
+      MySQL调优
+      </a>
+    </li>
+  </ul>
+
+          </div>
+        </div>
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.ckx.ink/2021/12/05/201427.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://file.ckx.ink/upload/2020/04/android-chrome-512x512.png">
+      <meta itemprop="name" content="开心">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="开心">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JavaNIO | 开心">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JavaNIO
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-12-05 20:14:27" itemprop="dateCreated datePublished" datetime="2021-12-05T20:14:27+08:00">2021-12-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-04-24 18:15:22" itemprop="dateModified" datetime="2023-04-24T18:15:22+08:00">2023-04-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>原文：<a target="_blank" rel="noopener" href="http://tutorials.jenkov.com/java-nio/index.html">http://tutorials.jenkov.com/java-nio/index.html</a><br>译文：<a target="_blank" rel="noopener" href="http://ifeve.com/overview">http://ifeve.com/overview</a></p>
+</blockquote>
+<span id="more"></span>
+
+<h4 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h4><p> NIO 由以下核心组件组成：</p>
+<ul>
+<li>Channels</li>
+<li>Buffers</li>
+<li>Selectors</li>
+</ul>
+<p>虽然 NIO 拥有比这些更多的类和组件，但在我看来 Channel，Buffer 和Selector 构成了 API 的核心，其余的组件，如 Pipe 和 FileLock 只是与三个核心组件结合使用的工具类</p>
+<h5 id="Channels-和-Buffers"><a href="#Channels-和-Buffers" class="headerlink" title="Channels 和 Buffers"></a>Channels 和 Buffers</h5><p>通常，所有的 IO 在 NIO 中都从一个 Channel 开始，Channel 有点像流，可以从 Channel 读取数据到 Buffer，也可以从 Buffer 写入数据到 Channel</p>
+<p><img data-src="https://file.ckx.ink/upload/2021/12/image-6068c769c7da4c448eb5d1ad494b61e4.png" alt="image.png"></p>
+<p>有几种 Channel 和 Buffer 类型，以下是 NIO 中主要  Channel 的实现列表：</p>
+<ul>
+<li>FileChannel</li>
+<li>DatagramChannel</li>
+<li>SocketChannel</li>
+<li>ServerSocketChannel</li>
+</ul>
+<p>如你所见，这些通道涵盖了 UDP 和 TCP、网络 IO、文件 IO</p>
+<p>以下是 Java NIO 中  Buffer 的核心实现列表：</p>
+<ul>
+<li>ByteBuffer</li>
+<li>CharBuffer</li>
+<li>DoubleBuffer</li>
+<li>FloatBuffer</li>
+<li>IntBuffer</li>
+<li>LongBuffer</li>
+<li>ShortBuffer</li>
+</ul>
+<p>这些 Buffer 涵盖了可以通过 IO 发送的基本数据类型：byte，short，int，long，float，double 和 char</p>
+<p>NIO 还有一个 MappedByteBuffer，是和内存映射文件一起使用的，不过，我会在本概述中忽略这一点</p>
+<h5 id="Selectors"><a href="#Selectors" class="headerlink" title="Selectors"></a>Selectors</h5><p>Selector 允许单个线程处理多个 Channel，如果你的应用程序打开了许多连接（通道），但每个连接上的流量很低，这会很方便，例如在聊天服务器中</p>
+<p>下面是一个线程使用 Selector 处理 3 个 Channel 的示例:</p>
+<p><img data-src="https://file.ckx.ink/upload/2021/12/image-7f1835082fc24005963bb364c5cc2205.png" alt="image.png"></p>
+<p>要使用 Selector，你需要向 Selector 注册 Channel，然后调用它的 select() 方法，该方法将一直阻塞，直到某个注册的 Channel 有事件就绪，一旦方法返回，线程就可以处理这些事件，比如有新连接进来，或者数据接收等</p>
+<h4 id="Channel"><a href="#Channel" class="headerlink" title="Channel"></a>Channel</h4><p>NIO 的 Channel 类似于流，但有一些不同：</p>
+<ul>
+<li>Channel 可以读取和写入数据，但流通常是单向的（读或写）</li>
+<li>Channel 可以异步读取和写入</li>
+<li>Channel 中的数据总是要先读到一个 Buffer，或者总是要从一个 Buffer 中写入</li>
+</ul>
+<p>如上所述，从 Channel 读取数据到 Buffer，并将数据从 Buffer 写入到 Channel，如下图所示</p>
+<p><img data-src="https://file.ckx.ink/upload/2021/12/image-16650a7868e94a758bcf0beff5760ed2.png" alt="image.png"></p>
+<h5 id="Channel-实现"><a href="#Channel-实现" class="headerlink" title="Channel 实现"></a>Channel 实现</h5><p>以下是 Java NIO 中最重要的 Channel 实现：</p>
+<ul>
+<li>FileChannel：从文件中读写数据</li>
+<li>DatagramChannel：通过 UDP 在网络上读写数据</li>
+<li>SocketChannel：通过 TCP 在网络上读写数据</li>
+<li>ServerSocketChannel：允许你监听传入的 TCP 连接，就像 Web 服务器一样，对于每个传入的连接，都会创建一个 SocketChannel</li>
+</ul>
+<h5 id="基本-Channel-示例"><a href="#基本-Channel-示例" class="headerlink" title="基本 Channel 示例"></a>基本 Channel 示例</h5><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">try (FileChannel inputChannel = new RandomAccessFile(&quot;C:\\Users\\Administrator\\Downloads\\chenkaixin12121.txt&quot;, &quot;rw&quot;).getChannel();) &#123;</span><br><span class="line">    // 创建容量为48字节的缓冲区</span><br><span class="line">    ByteBuffer buf = ByteBuffer.allocate(48);</span><br><span class="line">    // 读入缓冲区</span><br><span class="line">    while (inputChannel.read(buf) != -1) &#123;</span><br><span class="line">        // 使缓冲区为读取做好准备</span><br><span class="line">        buf.flip();</span><br><span class="line">        // 输出缓冲区的内容</span><br><span class="line">        System.out.print(StandardCharsets.UTF_8.decode(buf));</span><br><span class="line">        // 使缓冲区为写入做好准备</span><br><span class="line">        buf.clear();</span><br><span class="line">    &#125;</span><br><span class="line">&#125; catch (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意 buf.flip() 的调用，首先读取数据到 Buffer，然后反转 Buffer，接着再从 Buffer 中读取数据</p>
+</blockquote>
+<h4 id="Buffer"><a href="#Buffer" class="headerlink" title="Buffer"></a>Buffer</h4><p>Buffer 是与 Chanenl 交互时使用的，如您所知，数据从 Channel 读取到 Buffer，又从 Buffer 写入到 Channel</p>
+<p>缓冲区本质上是一个内存块，您可以在其中写入数据，然后可以再次读取数据，这个内存块包装在一个 Buffer 对象中，该对象提供了一组方法，使处理内存块更加容易</p>
+<h5 id="Buffer-的基本使用"><a href="#Buffer-的基本使用" class="headerlink" title="Buffer 的基本使用"></a>Buffer 的基本使用</h5><p>使用 Buffer 读取和写入数据通常遵循以下 4 个小步骤：</p>
+<ul>
+<li>将数据写入 Buffer</li>
+<li>调用 buffer.flip()</li>
+<li>从 Buffer 中读取数据</li>
+<li>调用 buffer.clear() 或 buffer.compact()</li>
+</ul>
+<p>当向 Buffer 写入数据时，Buffer 会记录下写了多少数据，一旦要读取数据，需要通过 flip() 方法将 Buffer 从写模式切换到读模式，在读模式下，可以读取之前写入到 Buffer 的所有数据</p>
+<p>一旦读完了所有的数据，就需要清空缓冲区，让它可以再次被写入，有两种方式能清空缓冲区：调用 clear() 或 compact() 方法，clear() 方法会清空整个缓冲区，compact() 方法只会清除已经读过的数据，未读的数据都被移到缓冲区的起始处，新写入的数据将放到缓冲区未读数据的后面</p>
+<h5 id="Buffer-的-capacity、position-和-limit"><a href="#Buffer-的-capacity、position-和-limit" class="headerlink" title="Buffer 的 capacity、position 和 limit"></a>Buffer 的 capacity、position 和 limit</h5><p>为了理解 Buffer 是如何工作的，你需要熟悉 Buffer 的三个属性</p>
+<ul>
+<li>capacity</li>
+<li>position</li>
+<li>limit</li>
+</ul>
+<p><img data-src="https://file.ckx.ink/upload/2021/12/image-681a5b5ec0d840499281429aed30db83.png" alt="image.png"></p>
+<h6 id="capacity"><a href="#capacity" class="headerlink" title="capacity"></a>capacity</h6><p>作为一个内存块，Buffer 有一个的固定大小，也称为 capacity，你只能往里写 capacity 个 byte、long、char 等类型，一旦 Buffer 满了，你需要清空它（读取数据或清除数据），然后才能继续写入数据</p>
+<h6 id="position"><a href="#position" class="headerlink" title="position"></a>position</h6><p>当你将数据写入 Buffer 时，position 表示当前的位置，初始的 position 值为 0，当一个 byte、long、char 等数据写到 Buffer 后，position 会向前移动到下一个可插入数据的 Buffer 单元，position 最大可为 capacity – 1</p>
+<p>当读取数据时，也是从某个特定位置读，当将 Buffer 从写模式切换到读模式，position 会被重置为 0，当从 Buffer 的 position 处读取数据时，position 将向前移动到下一个可读的位置</p>
+<h6 id="limit"><a href="#limit" class="headerlink" title="limit"></a>limit</h6><p>在写模式下，Buffer 的 limit 表示你最多能往 Buffer 里写多少数据， 写模式下，limit 等于 Buffer 的 capacity</p>
+<p>当切换 Buffer 到读模式时，limit 表示你最多能读到多少数据，因此，当切换 Buffer 到读模式时，limit 会被设置成写模式下的 position 值，换句话说，你能读到之前写入的所有数据（limit 被设置成已写数据的数量，这个值在写模式下就是 position）</p>
+<h5 id="Buffer-的类型"><a href="#Buffer-的类型" class="headerlink" title="Buffer 的类型"></a>Buffer 的类型</h5><p>Java NIO 有以下 Buffer 类型：</p>
+<ul>
+<li>ByteBuffer</li>
+<li>MappedByteBuffer</li>
+<li>CharBuffer</li>
+<li>DoubleBuffer</li>
+<li>FloatBuffer</li>
+<li>IntBuffer</li>
+<li>LongBuffer</li>
+<li>ShortBuffer</li>
+</ul>
+<h5 id="Buffer-的分配"><a href="#Buffer-的分配" class="headerlink" title="Buffer 的分配"></a>Buffer 的分配</h5><p>要获得一个 Buffer 对象，你必须先分配它，每个 Buffer 类都有一个allocate() 方法可以做到这一点，下面是一个分配 48 字节的 ByteBuffer 的示例：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ByteBuffer buf = ByteBuffer.allocate(48);</span><br></pre></td></tr></table></figure>
+
+<h5 id="将数据写入到-Buffer"><a href="#将数据写入到-Buffer" class="headerlink" title="将数据写入到 Buffer"></a>将数据写入到 Buffer</h5><p>你可以通过两种方式将数据写入到 Buffer</p>
+<ul>
+<li>将数据从 Channel 写入到 Buffer</li>
+<li>通过 Buffer 的 put() 方法将数据写入到 Buffer</li>
+</ul>
+<p>这是一个示例，展示了 Channel 如何将数据写入到 Buffer：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int bytesRead = inChannel.read(buf);</span><br></pre></td></tr></table></figure>
+
+<p>通过 put() 方法：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">buf.put(127);</span><br></pre></td></tr></table></figure>
+
+<p>put() 方法有很多版本，允许你以不同的方式将数据写入到 Buffer中，例如， 写入到一个指定的位置，或者把一个字节数组写入到 Buffer，更多 Buffer 实现的细节参考 JavaDoc</p>
+<h5 id="flip"><a href="#flip" class="headerlink" title="flip"></a>flip</h5><p>flip() 方法将 Buffer 从写入模式切换到读取模式，调用 flip() 方法会将 position 设置为 0，并将 limit 设置为之前 position 的值</p>
+<p>换句话说，position 现在标记读取位置，limit 标记写入 Buffer 的 byte、char 等 - 现在可以读取的 byte、char</p>
+<h5 id="从-Buffer-中读取数据"><a href="#从-Buffer-中读取数据" class="headerlink" title="从 Buffer 中读取数据"></a>从 Buffer 中读取数据</h5><p>有两种方法可以从 Buffer 读取数据：</p>
+<ul>
+<li>从 Buffer 读取数据到 Channel</li>
+<li>使用 get() 方法从 Buffer 中读取数据</li>
+</ul>
+<p>以下是从 Buffer 读取数据到 Channel 的例子：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int bytesWritten = inChannel.write(buf);</span><br></pre></td></tr></table></figure>
+
+<p>使用 get() 方法从 Buffer 中读取数据的例子：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">byte aByte = buf.get();</span><br></pre></td></tr></table></figure>
+
+<p>get() 方法还有许多其他版本，允许你以多种不同的方式从 Buffer 中读取数据 ，例如，在指定 position 读取，或从 Buffer 读取字节数组，有关具体 Buffer 实现的更多详细信息，请参阅 JavaDoc</p>
+<h5 id="rewind"><a href="#rewind" class="headerlink" title="rewind()"></a>rewind()</h5><p>buffer.rewind()将 position 设置回 0，这样你就可以重新读取 Buffer 中的所有数据，limit 保持不变，因此仍然能表示从 Buffer 中读取多少元素（byte、char等）</p>
+<h5 id="clear-和-compact"><a href="#clear-和-compact" class="headerlink" title="clear() 和 compact()"></a>clear() 和 compact()</h5><p>一旦你完成了从 Buffer 中读取数据，你必须让 Buffer 为再次写入做好准备，可以通过调用 clear() 或 compact() 来实现</p>
+<p>如果调用 clear()，position 将被重新设置为 0，而 limit 被设置为 capacity 的值，换句话说，Buffer 被清空，Buffer 中的数据未被清除，只是这些标记告诉我们可以从哪里开始往 Buffer 里写数据，</p>
+<p>如果Buffer中有一些未读的数据，调用clear()方法，数据将“被遗忘”，意味着不再有任何标记会告诉你哪些数据被读过，哪些还没有，</p>
+<p>如果 Buffer 中仍有未读的数据，且后续还需要这些数据，但是此时想要先先写些数据，那么使用 compact() 方法，</p>
+<p>compact() 方法将所有未读的数据拷贝到 Buffer 起始处，然后将 position 设到最后一个未读元素正后面，limit 属性依然像 clear() 方法一样，设置成capacity，现在 Buffer 准备好写数据了，但是不会覆盖未读的数据</p>
+<h5 id="mark-和-reset"><a href="#mark-和-reset" class="headerlink" title="mark() 和 reset()"></a>mark() 和 reset()</h5><p>可以通过调用 Buffer.mark() 方法标记 Buffer 中的一个特定的 position，然后可以通过调用 Buffer.reset() 方法恢复到这个 position，下面是一个例子:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">buffer.mark();</span><br><span class="line"></span><br><span class="line">// call buffer.get() a couple of times, e.g. during parsing.</span><br><span class="line"></span><br><span class="line">buffer.reset();  // set position back to mark.   </span><br></pre></td></tr></table></figure>
+
+<h5 id="equals-和-compareTo"><a href="#equals-和-compareTo" class="headerlink" title="equals() 和 compareTo()"></a>equals() 和 compareTo()</h5><p>可以使用 equals() 和 compareTo() 比较两个 Buffer</p>
+<h6 id="equals"><a href="#equals" class="headerlink" title="equals()"></a>equals()</h6><p>当满足下列条件时，表示两个 Buffer 相等： </p>
+<ul>
+<li>它们的类型相同（byte、char、int 等）</li>
+<li>Buffer 中剩余的 byte、char 等的个数相等</li>
+<li>Buffer 中所有剩余的 byte、char 等都相同</li>
+</ul>
+<p>如你所见，equals() 只是比较 Buffer 的一部分，不是每一个在它里面的元素都比较，实际上，它只比较 Buffer 中的剩余元素</p>
+<h6 id="compareTo"><a href="#compareTo" class="headerlink" title="compareTo()"></a>compareTo()</h6><p>compareTo() 方法比较两个 Buffer 的剩余元素（byte、char等）， 如果满足下列条件，则认为一个 Buffer “小于” 另一个 Buffer：</p>
+<ul>
+<li>第一个不相等的元素小于另一个 Buffer 中对应的元素</li>
+<li>所有元素都相等，但第一个 Buffer 比另一个先耗尽（第一个 Buffer 的元素个数比另一个少）</li>
+</ul>
+<blockquote>
+<p>剩余元素是从 position 到 limit 之间的元素</p>
+</blockquote>
+<h4 id="Scatter-x2F-Gather"><a href="#Scatter-x2F-Gather" class="headerlink" title="Scatter &#x2F; Gather"></a>Scatter &#x2F; Gather</h4><p>NIO 带有内置的分散&#x2F;聚集（Scatter &#x2F; Gather）支持，分散&#x2F;聚集是用于从 Channel 读取和写入 Channel 的概念</p>
+<p>分散：是指读操作时将读取的数据写入到多个 Buffer<br>聚集：是指写操作时将多个 Buffer 的数据写入同一个 Channel</p>
+<p>在需要分别处理传输数据的各个部分的情况下，分散&#x2F;聚集非常有用，例如，如果消息是由消息头和消息体组成，你可以将消息头和消息体保存在单独的 Buffer 中，这样做可以更轻松地分别处理消息头和消息体</p>
+<h5 id="Scattering-Reads"><a href="#Scattering-Reads" class="headerlink" title="Scattering Reads"></a>Scattering Reads</h5><p>Scattering Reads 是指数据从一个 Channel 读取到多个 Buffer 中，如下图描述：</p>
+<p><img data-src="https://file.ckx.ink/upload/2021/12/image-065dc27d313e4ed8a533e9cee9a5b0bf.png" alt="image.png"></p>
+<p>下面是一个代码示例：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ByteBuffer header = ByteBuffer.allocate(128);</span><br><span class="line">ByteBuffer body = ByteBuffer.allocate(1024);</span><br><span class="line"></span><br><span class="line">// write data into channel</span><br><span class="line"></span><br><span class="line">ByteBuffer[] bufferArray = &#123; header, body &#125;;</span><br><span class="line"></span><br><span class="line">channel.read(bufferArray);</span><br></pre></td></tr></table></figure>
+
+<p>注意 Buffer 首先被插入到数组，然后再将数组作为 channel.read() 的输入参数，read() 方法按照 Buffer 在数组中的顺序将从 Channel 中读取的数据写入到 Buffer，当一个 Buffer 被写满后，Channel 紧接着向另一个 Buffer<br>中写</p>
+<p>Scattering Reads 在移动下一个 Buffer 前，必须填满当前的 Buffer，这也意味着它不适用于动态消息（消息大小不固定），换句话说，如果存在消息头和消息体，消息头必须完成填充（例如 128 byte），Scattering Reads 才能正常工作</p>
+<h5 id="Gathering-Writes"><a href="#Gathering-Writes" class="headerlink" title="Gathering Writes"></a>Gathering Writes</h5><p>Gathering Writes 是指数据从多个 Buffer 写入到同一个 Channel，如下图描述：</p>
+<p><img data-src="https://file.ckx.ink/upload/2021/12/image-efd988fe4d2d483a941db097b9dd8eb4.png" alt="image.png"></p>
+<p>代码示例如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ByteBuffer header = ByteBuffer.allocate(128);</span><br><span class="line">ByteBuffer body = ByteBuffer.allocate(1024);</span><br><span class="line"></span><br><span class="line">// write data into channel</span><br><span class="line"></span><br><span class="line">ByteBuffer[] bufferArray = &#123; header, body &#125;;</span><br><span class="line"></span><br><span class="line">channel.write(bufferArray);</span><br></pre></td></tr></table></figure>
+
+<p>Buffer 数组是 write() 方法的入参，write() 方法会按照 Buffer 在数组中的顺序，将数据写入到 Channel，注意只有 position 和 limit 之间的数据才会被写入，因此，如果一个 Buffer 的容量为 128 byte，但是仅仅包含 58 byte 的数据，那么这 58 byte 的数据将被写入到 Channel 中，因此与Scattering Reads 相反，Gathering Writes 能较好的处理动态消息</p>
+<h4 id="Channel-to-Channel-Transfers"><a href="#Channel-to-Channel-Transfers" class="headerlink" title="Channel to Channel Transfers"></a>Channel to Channel Transfers</h4><p>在 Java NIO 中，如果两个 Channel 其中一个 Channel 是 FileChannel，那么你可以使用 transferTo() 和 transferFrom() 将数据直接从一个 Channel 传输到另一个 Channel</p>
+<h5 id="transferFrom"><a href="#transferFrom" class="headerlink" title="transferFrom()"></a>transferFrom()</h5><p>该 FileChannel.transferFrom() 方法将数据从源通道传输到 FileChannel，这是一个简单的例子：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">try (FileChannel fromChannel = new RandomAccessFile(&quot;C:\\Users\\Administrator\\Downloads\\test1.txt&quot;, &quot;rw&quot;).getChannel();</span><br><span class="line">     FileChannel toChannel = new RandomAccessFile(&quot;C:\\Users\\Administrator\\Downloads\\test2.txt&quot;, &quot;rw&quot;).getChannel()) &#123;</span><br><span class="line">    long position = 0;</span><br><span class="line">    long count = fromChannel.size();</span><br><span class="line">    toChannel.transferFrom(fromChannel, position, count);</span><br><span class="line">&#125; catch (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>参数 position 表示从 position 处开始向目标文件写入数据，count 表示最多传输的字节数，如果源通道的剩余空间小于 count 个字节，则所传输的字节数要小于请求的字节数，</p>
+<p>此外要注意，在 SoketChannel 的实现中，SocketChannel 只会传输此刻准备好的数据（可能不足 count 字节），因此，SocketChannel 可能不会将请求的所有数据（count 个字节）全部传输到 FileChannel 中</p>
+<h5 id="transferTo"><a href="#transferTo" class="headerlink" title="transferTo()"></a>transferTo()</h5><p>transferTo() 方法将数据从 FileChannel 传输到其他的 Channel 中，下面是一个简单的例子：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">try (FileChannel fromChannel = new RandomAccessFile(&quot;C:\\Users\\Administrator\\Downloads\\test1.txt&quot;, &quot;rw&quot;).getChannel();</span><br><span class="line">     FileChannel toChannel = new RandomAccessFile(&quot;C:\\Users\\Administrator\\Downloads\\test2.txt&quot;, &quot;rw&quot;).getChannel()) &#123;</span><br><span class="line">    long position = 0;</span><br><span class="line">    long count = fromChannel.size();</span><br><span class="line">    fromChannel.transferTo(position, count, toChannel);</span><br><span class="line">&#125; catch (IOException e) &#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>请注意该示例与前一个示例的相似程度，除了调用方法的 FileChannel 对象不一样外，其余的都是一样的，</p>
+<p>该 SocketChannel 的问题也存在于 transferTo() 方法中，该 SocketChannel 会一直传输字节直到目标 Buffer 会填满，然后停止</p>
+<h4 id="Selector"><a href="#Selector" class="headerlink" title="Selector"></a>Selector</h4><p>Selector 是一个组件，它可以检查一个或多个 Java NIO Channel 实例，并确定哪些 Channel 准备好进行读取或写入等操作，通过这种方式，单个线程可以管理多个 Channel，从而管理多个网络连接</p>
+<h5 id="为什么要使用-Selector"><a href="#为什么要使用-Selector" class="headerlink" title="为什么要使用 Selector"></a>为什么要使用 Selector</h5><p>仅使用单个线程来处理多个 Channel 的优点是你需要更少的线程来处理通道，实际上，你可以只使用一个线程来处理您的所有 Channel，对于操作系统来说，线程之间的切换是昂贵的，并且每个线程也占用操作系统中的一些资源（内存），因此，使用的线程越少越好</p>
+<p>但请记住，现代操作系统和 CPU 在多任务处理方面变得越来越好，因此多线程的开销会随着时间的推移而变小，事实上，如果一个 CPU 有多个内核，那么不进行多任务处理可能会浪费 CPU 能力，无论如何，该设计讨论属于不同的文章，在这里可以说，您可以使用单个线程用 Selector 处理多个 Channel</p>
+<h5 id="创建-Selector"><a href="#创建-Selector" class="headerlink" title="创建 Selector"></a>创建 Selector</h5><p>您可以通过调用 Selector.open() 方法来创建一个 Selector ，如下所示：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Selector selector = Selector.open();</span><br></pre></td></tr></table></figure>
+
+<h5 id="向-Selector-注册-Channel"><a href="#向-Selector-注册-Channel" class="headerlink" title="向 Selector 注册 Channel"></a>向 Selector 注册 Channel</h5><p>为了使用 Channel 与 Selector，你必须在 Selector 中注册 Channel，使用 SelectableChannel.register() 方法来完成 ，如下所示：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">channel.configureBlocking(false);</span><br><span class="line"></span><br><span class="line">SelectionKey key = channel.register(selector, SelectionKey.OP_READ);</span><br></pre></td></tr></table></figure>
+
+<p>和 Selector 一起使用时，Channel 必须处于非阻塞模式下，这意味着您不能将 FileChannel 与 Selector 一起使用，因为 FileChannel 不能切换到非阻塞模式，不过，套接字通道可以正常工作，</p>
+<p>注意该 register() 方法的第二个参数，这是一个“interest 集合”，意思是通过 Selector 监听 Channel 时对什么事件感兴趣，您可以监听四种不同的事件：</p>
+<ul>
+<li>Connect</li>
+<li>Accept</li>
+<li>Read</li>
+<li>Write</li>
+</ul>
+<p>通道触发了一个事件意思是该事件已经就绪，所以，某个 Channel 成功连接到另一个服务器称为“连接就绪”，一个 ServerSocketChannel 准备好接收新进入的连接称为“接收就绪”，一个有数据可读的通道可以说是“读就绪”，等待写数据的通道可以说是“写就绪”</p>
+<p>这四种事件用 SelectionKey 的四个常量来表示：</p>
+<ul>
+<li>SelectionKey.OP_CONNECT</li>
+<li>SelectionKey.OP_ACCEPT</li>
+<li>SelectionKey.OP_READ</li>
+<li>SelectionKey.OP_WRITE</li>
+</ul>
+<p>如果您对多个事件感兴趣，用“位或”操作符将常量连接起来，如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int interestSet = SelectionKey.OP_READ | SelectionKey.OP_WRITE;    </span><br></pre></td></tr></table></figure>
+
+<h5 id="SelectionKey"><a href="#SelectionKey" class="headerlink" title="SelectionKey"></a>SelectionKey</h5><p>正如您在上一节中看到的，当向 Selector 注册 Channel 时，该 register() 方法返回一个 SelectionKey 对象，这个 SelectionKey 对象包含一些有趣的属性：</p>
+<ul>
+<li>interest 集合</li>
+<li>ready 集合</li>
+<li>Channel</li>
+<li>Selector</li>
+<li>附加的对象（可选）</li>
+</ul>
+<h6 id="interest-集合"><a href="#interest-集合" class="headerlink" title="interest 集合"></a>interest 集合</h6><p>就像向 Selector 注册通道一节中所描述的，interest 集合是你所选择的感兴趣的事件集合，可以通过 SelectionKey 读写 interest 集合，像这样：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int interestSet = selectionKey.interestOps();</span><br><span class="line"></span><br><span class="line">boolean isInterestedInAccept = SelectionKey.OP_ACCEPT == (interests &amp; SelectionKey.OP_ACCEPT);</span><br><span class="line">boolean isInterestedInConnect = SelectionKey.OP_CONNECT == (interests &amp; SelectionKey.OP_CONNECT);</span><br><span class="line">boolean isInterestedInRead = SelectionKey.OP_READ == (interests &amp; SelectionKey.OP_READ);</span><br><span class="line">boolean isInterestedInWrite = SelectionKey.OP_WRITE == (interests &amp; SelectionKey.OP_WRITE);</span><br></pre></td></tr></table></figure>
+
+<h6 id="ready-集合"><a href="#ready-集合" class="headerlink" title="ready 集合"></a>ready 集合</h6><p>ready 集合是通道已经准备就绪的操作的集合，在一次选择（Selection）之后，你会首先访问这个 ready set，Selection 将在下一小节进行解释，可以这样访问 ready 集合：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int readySet = selectionKey.readyOps();</span><br></pre></td></tr></table></figure>
+
+<p>可以用像检测 interest 集合那样的方法，来检测 Channel 中什么事件或操作已经就绪，但是，也可以使用以下四个方法，它们都会返回一个布尔类型：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">selectionKey.isAcceptable();</span><br><span class="line">selectionKey.isConnectable();</span><br><span class="line">selectionKey.isReadable();</span><br><span class="line">selectionKey.isWritable();</span><br></pre></td></tr></table></figure>
+
+<h6 id="Channel-Selector"><a href="#Channel-Selector" class="headerlink" title="Channel + Selector"></a>Channel + Selector</h6><p>从 SelectionKey 访问 Channel 和 Selector 很简单，如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Channel  channel  = selectionKey.channel();</span><br><span class="line"></span><br><span class="line">Selector selector = selectionKey.selector();   </span><br></pre></td></tr></table></figure>
+
+<h6 id="附加的对象"><a href="#附加的对象" class="headerlink" title="附加的对象"></a>附加的对象</h6><p>可以将一个对象或者更多信息附着到 SelectionKey 上，这样就能方便的识别某个给定的通道，例如，可以附加与通道一起使用的 Buffer，或是包含聚集数据的某个对象，使用方法如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">selectionKey.attach(theObject);</span><br><span class="line"></span><br><span class="line">Object attachedObj = selectionKey.attachment();</span><br></pre></td></tr></table></figure>
+
+<p>还可以在使用 register() 方法向 Selector 注册 Channel 的时候附加对象，如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SelectionKey key = channel.register(selector, SelectionKey.OP_READ, theObject);</span><br></pre></td></tr></table></figure>
+
+<h5 id="通过-Selector-选择-Channel"><a href="#通过-Selector-选择-Channel" class="headerlink" title="通过 Selector 选择 Channel"></a>通过 Selector 选择 Channel</h5><p>一旦您用 Selector 注册了一个或多个通道，您就可以调用几个重载的 select() 方法，这些方法返回为您感兴趣的事件(连接、接受、读取或写入)“准备好”的 Channel，换句话说，如果您对“读就绪”的 Channel 感兴趣，select() 方法会返回读事件已经就绪的那些通道</p>
+<p>下面是 select() 方法：</p>
+<ul>
+<li>int select()：阻塞到至少有一个通道在你注册的事件上就绪了</li>
+<li>int select(long timeout)：作用与 select() 相同，只是它会阻塞一个最大的超时毫秒</li>
+<li>int selectNow()：根本不会阻塞，立即返回任何准备好的通道</li>
+</ul>
+<p>select() 方法返回的 int 值告诉我们有多少通道已经就绪，也就是说，自上次调用 select() 以来，有多少通道已经就绪，如果你调用 select()，它返回 1，因为有一个通道已经准备好了，如果再次调用 select()，又有一个通道就绪了，它会再次返回 1，如果对第一个就绪的 Channel 没有做任何操作，现在就有两个就绪的通道，但在每次 select() 方法调用之间，只有一个通道就绪了</p>
+<h6 id="selectedKeys"><a href="#selectedKeys" class="headerlink" title="selectedKeys()"></a>selectedKeys()</h6><p>一旦调用了 select() 方法，并且返回值表明有一个或更多个通道就绪了，然后可以通过调用 selector 的 selectedKeys() 方法，访问“已选择键集（selected key set）”中的就绪通道，如下所示：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;SelectionKey&gt; selectedKeys = selector.selectedKeys();</span><br></pre></td></tr></table></figure>
+
+<p>当像 Selector 注册 Channel 时，Channel.register() 方法会返回一个 SelectionKey 对象，这个对象代表了注册到该 Selector 的通道，可以通过 SelectionKey 的 selectedKeySet() 方法访问这些对象，</p>
+<p>可以遍历这个已选择的键集合来访问就绪的通道，如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Set&lt;SelectionKey&gt; selectedKeys = selector.selectedKeys();</span><br><span class="line">Iterator&lt;SelectionKey&gt; keyIterator = selectedKeys.iterator();</span><br><span class="line"></span><br><span class="line">while (keyIterator.hasNext()) &#123;</span><br><span class="line">    SelectionKey key = keyIterator.next();</span><br><span class="line">    if (key.isAcceptable()) &#123;</span><br><span class="line">        // a connection was accepted by a ServerSocketChannel.</span><br><span class="line">    &#125; else if (key.isConnectable()) &#123;</span><br><span class="line">        // a connection was established with a remote server.</span><br><span class="line">    &#125; else if (key.isReadable()) &#123;</span><br><span class="line">        // a channel is ready for reading</span><br><span class="line">    &#125; else if (key.isWritable()) &#123;</span><br><span class="line">        // a channel is ready for writing</span><br><span class="line">    &#125;</span><br><span class="line">    keyIterator.remove();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个循环遍历已选择键集中的每个键，并检测各个键所对应的通道的就绪事件</p>
+<p>注意每次迭代末尾的 keyIterator.remove() 调用，Selector 不会自己从已选择键集中移除 SelectionKey 实例，必须在处理完通道时自己移除，下次该通道变成就绪时，Selector 会再次将其放入已选择键集中，</p>
+<p>SelectionKey.channel() 方法返回的通道需要转型成你要处理的类型，如 ServerSocketChannel 或 SocketChannel 等</p>
+<h6 id="wakeUp"><a href="#wakeUp" class="headerlink" title="wakeUp()"></a>wakeUp()</h6><p>某个线程调用 select() 方法后阻塞了，即使没有通道已经就绪，也有办法让其从 select() 方法返回，只要让其它线程在第一个线程调用 select() 方法的那个对象上调用 Selector.wakeup() 方法即可，阻塞在 select() 方法上的线程会立马返回</p>
+<p>如果有其它线程调用了 wakeup() 方法，但当前没有线程阻塞在 select() 方法上，下个调用 select() 方法的线程会立即“醒来（wake up）</p>
+<h6 id="close"><a href="#close" class="headerlink" title="close()"></a>close()</h6><p>用完 Selector 后调用其 close() 方法会关闭该 Selector，且使注册到该 Selector 上的所有 SelectionKey 实例无效，通道本身并不会关闭</p>
+<h4 id="FileChannel"><a href="#FileChannel" class="headerlink" title="FileChannel"></a>FileChannel</h4><p>FileChannel 是连接到文件的 Channel，使用 FileChannel 可以从文件中读取数据，并将数据写入文件</p>
+<p>FileChannel 不能设置为非阻塞模式，它始终以阻塞模式运行</p>
+<h5 id="打开-FileChannel"><a href="#打开-FileChannel" class="headerlink" title="打开 FileChannel"></a>打开 FileChannel</h5><p>使用 FileChannel 前必须先打开它，但是我们不能直接打开 FileChannel，需要通过 InputStream、OutputStream 或 RandomAccessFile 获取 FileChannel，以下是通过 RandomAccessFile 打开 FileChannel 的方法：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RandomAccessFile aFile = new RandomAccessFile(&quot;data/nio-data.txt&quot;, &quot;rw&quot;);</span><br><span class="line">FileChannel inChannel = aFile.getChannel();</span><br></pre></td></tr></table></figure>
+
+<h5 id="从-FileChannel-读取数据"><a href="#从-FileChannel-读取数据" class="headerlink" title="从 FileChannel 读取数据"></a>从 FileChannel 读取数据</h5><p>要想从 FileChannel 中读取数据，请调用其中一种 read() 方法，下面是一个例子：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ByteBuffer buf = ByteBuffer.allocate(48); </span><br><span class="line"></span><br><span class="line">int bytesRead = inChannel.read(buf);</span><br></pre></td></tr></table></figure>
+
+<p>首先分配一个 Buffer，从 FileChannel 中读取的数据被读入到 Buffer 中，</p>
+<p>然后调用 FileChannel.read() 方法，此方法将数据从 FileChannel 读取到 Buffer， read() 方法返回的 int 值代表多少字节写入到 Buffer，如果返回 -1，则表示到达文件末尾</p>
+<h5 id="向-FileChannel-写数据"><a href="#向-FileChannel-写数据" class="headerlink" title="向 FileChannel 写数据"></a>向 FileChannel 写数据</h5><p>将数据写入到 FileChannel 是使用 FileChannel.write() 方法完成的，该方法将 Buffer 作为参数，下面是一个例子：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">String newData = &quot;New String to write to file...&quot; + System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">ByteBuffer buf = ByteBuffer.allocate(48);</span><br><span class="line">buf.clear();</span><br><span class="line">buf.put(newData.getBytes());</span><br><span class="line">buf.flip();</span><br><span class="line"></span><br><span class="line">while (buf.hasRemaining()) &#123;</span><br><span class="line">    channel.write(buf);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>请注意 FileChannel.write() 方法是在 while 循环中调用的，因为无法保证 write() 方法一次能向 FileChannel 写入多少字节，因此需要重复调用 write() 方法，直到 Buffer 没有更多字节要写入</p>
+<h5 id="关闭-FileChannel"><a href="#关闭-FileChannel" class="headerlink" title="关闭 FileChannel"></a>关闭 FileChannel</h5><p>当使用完 FileChannel 后，你必须关闭它，这是如何完成的：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">channel.close(); </span><br></pre></td></tr></table></figure>
+
+<h5 id="FileChannel-的-position"><a href="#FileChannel-的-position" class="headerlink" title="FileChannel 的 position()"></a>FileChannel 的 position()</h5><p>有可能需要在 FileChannel 的特定位置读取或写入，你可以通过 position() 方法获取对象的当前位置，</p>
+<p>还可以通过调用 position(long pos) 方法来设置 position，</p>
+<p>这里有两个例子：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">long pos = channel.position();</span><br><span class="line"></span><br><span class="line">channel.position(pos +123);</span><br></pre></td></tr></table></figure>
+
+<p>如果将 position 设置在文件结束符之后 ，并尝试从 Channel 中读取数据，读方法将返回 -1 - 文件结束标记</p>
+<p>如果将 position 设置在文件结束符之后，然后向 Channel 中写数据，文件将被扩展以适应 position 和写入的数据，这可能导致“文件漏洞”，即磁盘上的物理文件在写入的数据中存在间隙</p>
+<h5 id="FileChannel-的-size"><a href="#FileChannel-的-size" class="headerlink" title="FileChannel 的 size()"></a>FileChannel 的 size()</h5><p>FileChannel.size() 方法返回 Channel 连接到的文件的大小，这是一个简单的例子：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">long fileSize = channel.size();</span><br></pre></td></tr></table></figure>
+
+<h5 id="FileChannel-的-truncate"><a href="#FileChannel-的-truncate" class="headerlink" title="FileChannel 的 truncate()"></a>FileChannel 的 truncate()</h5><p>通过调用 FileChannel.truncate() 方法来截断文件，截断一个文件时，文件会把指定长度后面的部分给删除，下面是一个例子：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">channel.truncate(1024);</span><br></pre></td></tr></table></figure>
+
+<p>这个例子截取文件的前 1024 个字节，</p>
+<h5 id="FileChannel-的-force"><a href="#FileChannel-的-force" class="headerlink" title="FileChannel 的 force()"></a>FileChannel 的 force()</h5><p>FileChannel.force() 方法将 Channel 中所有未写入的数据刷新到磁盘，操作系统可能出于性能原因将数据缓存在内存中，因此不能保证写入 Channel 的数据一定会写到磁盘上，直到调用 force() 方法，</p>
+<p>该 force() 方法将一个布尔值作为参数，告知是否也将文件元数据（权限等）刷新到磁盘上，</p>
+<p>这是一个同时刷新文件数据和元数据的示例：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">channel.force(true);</span><br></pre></td></tr></table></figure>
+
+<h4 id="SocketChannel"><a href="#SocketChannel" class="headerlink" title="SocketChannel"></a>SocketChannel</h4><p>SocketChannel 是连接到 TCP 网络套接字的通道，它相当于 Java Networking 的 Sockets，有两种方法可以创建 SocketChannel：</p>
+<ul>
+<li>打开一个 SocketChannel 并连接到 Internet 上某处的服务器，</li>
+<li>一个新连接到达 SocketChannel 时，会创建一个 ServerSocketChannel</li>
+</ul>
+<h5 id="打开-SocketChannel"><a href="#打开-SocketChannel" class="headerlink" title="打开 SocketChannel"></a>打开 SocketChannel</h5><p>这是一个打开 SocketChannel 的方法：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SocketChannel socketChannel = SocketChannel.open();</span><br><span class="line">socketChannel.connect(new InetSocketAddress(&quot;http://jenkov.com&quot;, 80));</span><br></pre></td></tr></table></figure>
+
+<h5 id="关闭-SocketChannel"><a href="#关闭-SocketChannel" class="headerlink" title="关闭 SocketChannel"></a>关闭 SocketChannel</h5><p>可以通过调用 SocketChannel.close() 方法来关闭 SocketChannel，这是如何完成的：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socketChannel.close();</span><br></pre></td></tr></table></figure>
+
+<h5 id="从-SocketChannel-读取数据"><a href="#从-SocketChannel-读取数据" class="headerlink" title="从 SocketChannel 读取数据"></a>从 SocketChannel 读取数据</h5><p>要从 SocketChannel 中读取数据，请调用其中一种 read() 方法，下面是一个例子：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ByteBuffer buf = ByteBuffer.allocate(48); </span><br><span class="line"></span><br><span class="line">int bytesRead = socketChannel.read(buf);</span><br></pre></td></tr></table></figure>
+
+<p>首先分配 Buffer，从 SocketChannel 中读取的数据被读入到 Buffer 中，</p>
+<p>然后调用 SocketChannel.read() 方法，此方法将数据从 SocketChannel 读到 Buffer 中， 由 read() 方法返回的 int 值表示读了多少字节到 Buffer， 如果返回 -1，则表示到达流末尾（连接关闭）</p>
+<h5 id="写入-SocketChannel"><a href="#写入-SocketChannel" class="headerlink" title="写入 SocketChannel"></a>写入 SocketChannel</h5><p>将数据写入到 SocketChannel 是使用 SocketChannel.write() 方法完成的，该方法将一个 Buffer 作为参数，下面是一个例子：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">String newData = &quot;New String to write to file...&quot; + System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">ByteBuffer buf = ByteBuffer.allocate(48);</span><br><span class="line">buf.clear();</span><br><span class="line">buf.put(newData.getBytes());</span><br><span class="line">buf.flip();</span><br><span class="line"></span><br><span class="line">while (buf.hasRemaining()) &#123;</span><br><span class="line">    channel.write(buf);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>请注意 SocketChannel.write() 方法是在 while 循环中调用的，因为无法保证 write() 方法能写多少字节到 SocketChannel，因此我们重复调用 write() 直到 Buffer 没有更多字节要写入</p>
+<h5 id="非阻塞模式"><a href="#非阻塞模式" class="headerlink" title="非阻塞模式"></a>非阻塞模式</h5><p>可以将 SocketChannel 设置为非阻塞模式，设置了之后，就可以在异步模式下调用 connect()，read() 和 write()</p>
+<h6 id="connect"><a href="#connect" class="headerlink" title="connect()"></a>connect()</h6><p>如果 SocketChannel 是在非阻塞模式下，此时调用 connect()，该方法可能在连接建立之前就返回了，为了确定连接是否建立，可以调用 finishConnect() 的方法，像这样：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">socketChannel.configureBlocking(false);</span><br><span class="line">socketChannel.connect(new InetSocketAddress(&quot;http://jenkov.com&quot;, 80));</span><br><span class="line"></span><br><span class="line">while (!socketChannel.finishConnect()) &#123;</span><br><span class="line">    //wait, or do something else...    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h6 id="write"><a href="#write" class="headerlink" title="write()"></a>write()</h6><p>非阻塞模式下，write() 方法可能在尚未写出任何内容时就已经返回了，所以需要在循环中调用 write()，前面已经有例子了，这里就不赘述了</p>
+<h6 id="read"><a href="#read" class="headerlink" title="read()"></a>read()</h6><p>非阻塞模式下，read() 方法可能在尚未读取到任何数据时就已经返回了，所以需要关注它的 int 返回值，它会告诉你读取了多少字节</p>
+<h5 id="非阻塞模式与-Selector"><a href="#非阻塞模式与-Selector" class="headerlink" title="非阻塞模式与 Selector"></a>非阻塞模式与 Selector</h5><p>非阻塞模式与  Selector 一起工作得更好，通过将一个或多个 SocketChannel 注册到 Selector ，可以询问 Selector 哪个 Channel 已经准备好读取、写入等，如何使用 Selector 和 SocketChannel 将在本教程后面的文章中进行更详细的说明</p>
+<h4 id="ServerSocketChannel"><a href="#ServerSocketChannel" class="headerlink" title="ServerSocketChannel"></a>ServerSocketChannel</h4><p>ServerSocketChannel 是一个可以监听传入 TCP 连接的通道，就像标准 IO 中的 ServerSocket 一样，该 ServerSocketChannel 位于 java.nio.channels 包</p>
+<p>下面是一个例子：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();</span><br><span class="line">serverSocketChannel.socket().bind(new InetSocketAddress(9999));</span><br><span class="line"></span><br><span class="line">while (true) &#123;</span><br><span class="line">    SocketChannel socketChannel = serverSocketChannel.accept();</span><br><span class="line">    // do something with socketChannel...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="打开一个-ServerSocketChannel"><a href="#打开一个-ServerSocketChannel" class="headerlink" title="打开一个 ServerSocketChannel"></a>打开一个 ServerSocketChannel</h5><p>通过调用 ServerSocketChannel.open() 方法来打开 ServerSocketChannel，这是一个示例：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();</span><br></pre></td></tr></table></figure>
+
+<h5 id="关闭一个-ServerSocketChannel"><a href="#关闭一个-ServerSocketChannel" class="headerlink" title="关闭一个 ServerSocketChannel"></a>关闭一个 ServerSocketChannel</h5><p>关闭 ServerSocketChannel 是通过调用 ServerSocketChannel.close() 方法完成的，这是一个示例：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">serverSocketChannel.close();</span><br></pre></td></tr></table></figure>
+
+<h5 id="监听新进来的连接"><a href="#监听新进来的连接" class="headerlink" title="监听新进来的连接"></a>监听新进来的连接</h5><p>通过 ServerSocketChannel.accept() 方法监听新进来的连接，当 accept() 方法返回的时候，它返回一个包含新进来的连接的 SocketChannel，因此，accept() 方法会一直阻塞到有新连接到达</p>
+<p>通常不会仅仅只监听一个连接，在 while 循环中调用 accept() 方法，如下面的例子：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while (true) &#123;</span><br><span class="line">    SocketChannel socketChannel = serverSocketChannel.accept();</span><br><span class="line">    // do something with socketChannel...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当然，也可以在 while 循环中使用除了 true 以外的其它退出准则，</p>
+<h5 id="非阻塞模式-1"><a href="#非阻塞模式-1" class="headerlink" title="非阻塞模式"></a>非阻塞模式</h5><p>ServerSocketChannel 可以设置成非阻塞模式，在非阻塞模式下，accept() 方法会立刻返回，如果还没有新进来的连接，返回的将是 null， 因此，需要检查返回的 SocketChannel 是否是 null，如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();</span><br><span class="line">serverSocketChannel.socket().bind(new InetSocketAddress(9999));</span><br><span class="line">serverSocketChannel.configureBlocking(false);</span><br><span class="line"></span><br><span class="line">while (true) &#123;</span><br><span class="line">    SocketChannel socketChannel = serverSocketChannel.accept();</span><br><span class="line"></span><br><span class="line">    if ( socketChannel != null ) &#123;</span><br><span class="line">        // do something with socketChannel...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="非阻塞服务器"><a href="#非阻塞服务器" class="headerlink" title="非阻塞服务器"></a>非阻塞服务器</h4><h4 id="DatagramChannel"><a href="#DatagramChannel" class="headerlink" title="DatagramChannel"></a>DatagramChannel</h4><p>DatagramChannel 是一个可以发送和接收 UDP 数据包的通道，由于 UDP 是一种无连接的网络协议，所以不能像其他通道那样读取和写入，相反，它发送和接收的是数据包</p>
+<h5 id="打开-DatagramChannel"><a href="#打开-DatagramChannel" class="headerlink" title="打开 DatagramChannel"></a>打开 DatagramChannel</h5><p>这是打开一个 DatagramChannel 的方法：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DatagramChannel channel = DatagramChannel.open();</span><br><span class="line">channel.socket().bind(new InetSocketAddress(9999));</span><br></pre></td></tr></table></figure>
+
+<p>本示例打开的 DatagramChannel 可以在 UDP 的 9999 端口上接收数据包</p>
+<h5 id="接收数据"><a href="#接收数据" class="headerlink" title="接收数据"></a>接收数据</h5><p>通过调用 receive() 方法从 DatagramChannel 接收数据，如下所示：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ByteBuffer buf = ByteBuffer.allocate(48);</span><br><span class="line">buf.clear();</span><br><span class="line"></span><br><span class="line">channel.receive(buf);</span><br></pre></td></tr></table></figure>
+
+<p>receive() 方法将接收到的数据包的内容复制到给定的 Buffer，如果接收到的数据包包含的数据多于 Buffer 可以包含的数据，则剩余的数据将被静默丢弃</p>
+<h5 id="发送数据"><a href="#发送数据" class="headerlink" title="发送数据"></a>发送数据</h5><p>通过调用 DatagramChannel 的 send() 方法来发送数据，如下所示：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">String newData = &quot;New String to write to file...&quot; + System.currentTimeMillis();</span><br><span class="line">    </span><br><span class="line">ByteBuffer buf = ByteBuffer.allocate(48);</span><br><span class="line">buf.clear();</span><br><span class="line">buf.put(newData.getBytes());</span><br><span class="line">buf.flip();</span><br><span class="line"></span><br><span class="line">int bytesSent = channel.send(buf, new InetSocketAddress(&quot;jenkov.com&quot;, 80));</span><br></pre></td></tr></table></figure>
+
+<p>本示例将字符串发送到“jenkov.com”服务器的 UDP 80 端口上，因为没有在该端口上监听任何内容，所以不会发生任何事情，也不会通知你发到的数据包是否收到，因为 UDP 不保证数据的传输</p>
+<h5 id="连接到特定的地址"><a href="#连接到特定的地址" class="headerlink" title="连接到特定的地址"></a>连接到特定的地址</h5><p>可以将 DatagramChannel “连接”到网络中的特定地址的，由于 UDP 是无连接的，连接到特定地址并不会像 TCP 通道那样创建一个真正的连接，而是锁住 DatagramChannel，让其只能从特定地址收发数据，</p>
+<p>这里有个例子:</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">channel.connect(new InetSocketAddress(&quot;jenkov.com&quot;, 80));    </span><br></pre></td></tr></table></figure>
+
+<p>当连接后，也可以使用 read() 和 write() 方法，就像在用传统的通道一样，只是在数据传送方面没有任何保证，这里有几个例子：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int bytesRead = channel.read(buf);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int bytesWritten = channel.write(buf)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Pipe"><a href="#Pipe" class="headerlink" title="Pipe"></a>Pipe</h4><p>Java NIO 管道是 2 个线程之间的单向数据连接，Pipe 有一个 source 通道和一个 sink 通道，数据会被写到 sink 通道，从 source 通道读取，</p>
+<p>下面是Pipe原理图：</p>
+<p><img data-src="https://file.ckx.ink/upload/2021/12/image-6d619fc94d1a4a918769e3a6c65bcbaa.png" alt="image.png"></p>
+<h5 id="创建管道"><a href="#创建管道" class="headerlink" title="创建管道"></a>创建管道</h5><p>通过 Pipe.open() 方法打开管道，例如：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pipe pipe = Pipe.open();</span><br></pre></td></tr></table></figure>
+
+<h5 id="向管道写数据"><a href="#向管道写数据" class="headerlink" title="向管道写数据"></a>向管道写数据</h5><p>要向管道写数据，需要访问 sink 通道，像这样：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pipe.SinkChannel sinkChannel = pipe.sink();</span><br></pre></td></tr></table></figure>
+
+<p>通过调用 SinkChannel 的 write() 方法，将数据写入 SinkChannel，像这样：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">String newData = &quot;New String to write to file...&quot; + System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">ByteBuffer buf = ByteBuffer.allocate(48);</span><br><span class="line">buf.clear();</span><br><span class="line">buf.put(newData.getBytes());</span><br><span class="line">buf.flip();</span><br><span class="line"></span><br><span class="line">while (buf.hasRemaining()) &#123;</span><br><span class="line">    sinkChannel.write(buf);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="从管道读取数据"><a href="#从管道读取数据" class="headerlink" title="从管道读取数据"></a>从管道读取数据</h5><p>从读取管道的数据，需要访问 source 通道，像这样：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Pipe.SourceChannel sourceChannel = pipe.source();</span><br></pre></td></tr></table></figure>
+
+<p>调用 source 通道的 read() 方法来读取数据，像这样：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ByteBuffer buf = ByteBuffer.allocate(48);</span><br><span class="line"></span><br><span class="line">int bytesRead = inChannel.read(buf);</span><br></pre></td></tr></table></figure>
+
+<p>read() 方法返回的 int 值会告诉我们多少字节被读进了缓冲区</p>
+<h4 id="NIO-和-IO"><a href="#NIO-和-IO" class="headerlink" title="NIO 和 IO"></a>NIO 和 IO</h4><h4 id="Path"><a href="#Path" class="headerlink" title="Path"></a>Path</h4><h4 id="File"><a href="#File" class="headerlink" title="File"></a>File</h4><h4 id="AsynchronousFileChannel"><a href="#AsynchronousFileChannel" class="headerlink" title="AsynchronousFileChannel"></a>AsynchronousFileChannel</h4>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>开心
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.ckx.ink/2021/12/05/201427.html" title="JavaNIO">https://blog.ckx.ink/2021/12/05/201427.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/12/03/233421.html" rel="prev" title="JVM编译优化">
+                  <i class="fa fa-chevron-left"></i> JVM编译优化
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/12/19/134111.html" rel="next" title="Synchronized案例">
+                  Synchronized案例 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81ODIwNS8zNDY2OA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20013274号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">开心</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/chenkaixin12121" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@next-theme/pjax/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="/lib/jquery/dist/jquery.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="/lib/pangu/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="/lib/quicklink/dist/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://blog.ckx.ink/2021/12/05/201427.html"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>

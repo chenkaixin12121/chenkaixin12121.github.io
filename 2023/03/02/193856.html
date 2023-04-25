@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://file.ckx.ink/upload/2020/04/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://file.ckx.ink/upload/2020/04/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://file.ckx.ink/upload/2020/04/favicon-16x16.png">
+  <link rel="mask-icon" href="https://file.ckx.ink/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic%7CRoboto+Slab:300,300italic,400,400italic,700,700italic%7CPT+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/pace-js/themes/blue/pace-theme-minimal.css">
+  <script src="/lib/pace-js/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.ckx.ink","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="源码：https:&#x2F;&#x2F;github.com&#x2F;chenkaixin12121&#x2F;study&#x2F;tree&#x2F;master&#x2F;swagger_enum">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swagger枚举显示描述">
+<meta property="og:url" content="https://blog.ckx.ink/2023/03/02/193856.html">
+<meta property="og:site_name" content="开心">
+<meta property="og:description" content="源码：https:&#x2F;&#x2F;github.com&#x2F;chenkaixin12121&#x2F;study&#x2F;tree&#x2F;master&#x2F;swagger_enum">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://file.ckx.ink/upload/2023/03/Snipaste_2023-03-02_19-28-50.png">
+<meta property="og:image" content="https://file.ckx.ink/upload/2023/03/Snipaste_2023-03-02_19-27-48.png">
+<meta property="article:published_time" content="2023-03-02T11:38:56.000Z">
+<meta property="article:modified_time" content="2023-04-24T10:15:22.893Z">
+<meta property="article:author" content="开心">
+<meta property="article:tag" content="spring">
+<meta property="article:tag" content="swagger">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://file.ckx.ink/upload/2023/03/Snipaste_2023-03-02_19-28-50.png">
+
+
+<link rel="canonical" href="https://blog.ckx.ink/2023/03/02/193856.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.ckx.ink/2023/03/02/193856.html","path":"2023/03/02/193856.html","title":"Swagger枚举显示描述"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Swagger枚举显示描述 | 开心</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">开心</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">盛年不重来，一日难再晨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-reader"><a href="https://reader.ckx.ink/" rel="section" target="_blank"><i class="fa fa-book fa-fw"></i>reader</a></li><li class="menu-item menu-item-openai"><a href="https://openai.ckx.ink/" rel="section" target="_blank"><i class="fa fa-robot fa-fw"></i>openai</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#swagger%E6%96%87%E6%A1%A3%E4%B8%AD%E6%9E%9A%E4%B8%BE%E6%98%BE%E7%A4%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">swagger文档中枚举显示自定义描述</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%93%E6%9E%9C"><span class="nav-number">1.1.</span> <span class="nav-text">结果</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">1.2.</span> <span class="nav-text">代码</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%8E%A5%E6%94%B6%E8%87%AA%E5%AE%9A%E4%B9%89%E5%80%BC"><span class="nav-number">2.</span> <span class="nav-text">枚举反序列化接收自定义值</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="开心"
+      src="https://file.ckx.ink/upload/2020/04/android-chrome-512x512.png">
+  <p class="site-author-name" itemprop="name">开心</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">80</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chenkaixin12121" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chenkaixin12121" rel="noopener me" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:chenkaixin12121@163.com" title="E-Mail → mailto:chenkaixin12121@163.com" rel="noopener me" target="_blank">E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/lib/@creativecommons/vocabulary/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://dev-james.xyz/" title="https:&#x2F;&#x2F;dev-james.xyz" rel="noopener" target="_blank">James Blog</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://abalone.life/" title="https:&#x2F;&#x2F;abalone.life" rel="noopener" target="_blank">Abalone</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://blog.levnli.cn/" title="https:&#x2F;&#x2F;blog.levnli.cn" rel="noopener" target="_blank">木子李</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://huangdf.xyz/" title="https:&#x2F;&#x2F;huangdf.xyz&#x2F;" rel="noopener" target="_blank">柒月是ni的谎言</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://www.kiritoghy.cn/" title="https:&#x2F;&#x2F;www.kiritoghy.cn&#x2F;" rel="noopener" target="_blank">Kiritoghy</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+        <div class="pjax">
+        <div class="sidebar-inner sidebar-post-related">
+          <div class="animated">
+              <div class="links-of-blogroll-title"><i class="fa fa-signs-post fa-fw"></i>
+    相关文章
+  </div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2022/09/16/165812.html" rel="bookmark">
+        <time class="popular-posts-time">2022-09-16</time>
+        <br>
+      Jar文件打包成exe文件
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2023/03/19/163022.html" rel="bookmark">
+        <time class="popular-posts-time">2023-03-19</time>
+        <br>
+      Hexo博客搭建
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2021/10/16/155955.html" rel="bookmark">
+        <time class="popular-posts-time">2021-10-16</time>
+        <br>
+      CPU 过高问题定位
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2022/06/09/173852.html" rel="bookmark">
+        <time class="popular-posts-time">2022-06-09</time>
+        <br>
+      Gradle安装
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2021/11/07/195703.html" rel="bookmark">
+        <time class="popular-posts-time">2021-11-07</time>
+        <br>
+      Nginx+Keepalived实现双机主备和双主热备
+      </a>
+    </li>
+  </ul>
+
+          </div>
+        </div>
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.ckx.ink/2023/03/02/193856.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://file.ckx.ink/upload/2020/04/android-chrome-512x512.png">
+      <meta itemprop="name" content="开心">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="开心">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Swagger枚举显示描述 | 开心">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Swagger枚举显示描述
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-03-02 19:38:56" itemprop="dateCreated datePublished" datetime="2023-03-02T19:38:56+08:00">2023-03-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-04-24 18:15:22" itemprop="dateModified" datetime="2023-04-24T18:15:22+08:00">2023-04-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/spring/" itemprop="url" rel="index"><span itemprop="name">spring</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>源码：<a target="_blank" rel="noopener" href="https://github.com/chenkaixin12121/study/tree/master/swagger_enum">https://github.com/chenkaixin12121/study/tree/master/swagger_enum</a></p>
+</blockquote>
+<span id="more"></span>
+
+<h4 id="swagger文档中枚举显示自定义描述"><a href="#swagger文档中枚举显示自定义描述" class="headerlink" title="swagger文档中枚举显示自定义描述"></a>swagger文档中枚举显示自定义描述</h4><h5 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h5><p><img data-src="https://file.ckx.ink/upload/2023/03/Snipaste_2023-03-02_19-28-50.png" alt="Snipaste_2023-03-02_19-28-50"></p>
+<p><img data-src="https://file.ckx.ink/upload/2023/03/Snipaste_2023-03-02_19-27-48.png" alt="Snipaste_2023-03-02_19-27-48"></p>
+<h5 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> SwaggerDisplayEnum &#123;</span><br><span class="line"></span><br><span class="line">    String <span class="title function_">code</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;code&quot;</span>;</span><br><span class="line"></span><br><span class="line">    String <span class="title function_">desc</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;desc&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SwaggerEnumPlugin</span> <span class="keyword">implements</span> <span class="title class_">ModelPropertyBuilderPlugin</span>, ParameterBuilderPlugin &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * json格式枚举显示</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> context - context that can be used to override the model property attributes</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">apply</span><span class="params">(ModelPropertyContext context)</span> &#123;</span><br><span class="line">        Optional&lt;BeanPropertyDefinition&gt; optional = context.getBeanPropertyDefinition();</span><br><span class="line">        <span class="keyword">if</span> (!optional.isPresent()) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Class&lt;?&gt; fieldType = optional.get().getField().getRawType();</span><br><span class="line">        List&lt;EnumKeyValue&gt; enumKeyValueList = <span class="built_in">this</span>.getDisplayValueList(fieldType);</span><br><span class="line">        <span class="keyword">if</span> (CollectionUtils.isEmpty(enumKeyValueList)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        List&lt;String&gt; displayValueList = enumKeyValueList.stream().map(e -&gt; e.getCode() + <span class="string">&quot;:&quot;</span> + e.getDesc()).collect(Collectors.toList());</span><br><span class="line">        List&lt;String&gt; availableValueList = enumKeyValueList.stream().map(EnumKeyValue::getCode).collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">        <span class="type">PropertySpecificationBuilder</span> <span class="variable">specificationBuilder</span> <span class="operator">=</span> context.getSpecificationBuilder();</span><br><span class="line">        <span class="type">Field</span> <span class="variable">descField</span> <span class="operator">=</span> ReflectionUtils.findField(specificationBuilder.getClass(), <span class="string">&quot;description&quot;</span>);</span><br><span class="line">        ReflectionUtils.makeAccessible(descField);</span><br><span class="line">        <span class="type">String</span> <span class="variable">joinText</span> <span class="operator">=</span> (ReflectionUtils.getField(descField, specificationBuilder) == <span class="literal">null</span> ? <span class="string">&quot;&quot;</span> :</span><br><span class="line">                (ReflectionUtils.getField(descField, specificationBuilder) + <span class="string">&quot;:&quot;</span>)) + String.join(<span class="string">&quot;,&quot;</span>, displayValueList);</span><br><span class="line">        specificationBuilder.description(joinText);</span><br><span class="line"></span><br><span class="line">        <span class="type">AllowableListValues</span> <span class="variable">allowableListValues</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AllowableListValues</span>(availableValueList, <span class="string">&quot;Integer&quot;</span>);</span><br><span class="line">        specificationBuilder.enumerationFacet(builder -&gt; builder.allowedValues(allowableListValues));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">supports</span><span class="params">(DocumentationType documentationType)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 表单提交枚举显示</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> parameterContext - context that can be used to override the parameter attributes</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">apply</span><span class="params">(ParameterContext parameterContext)</span> &#123;</span><br><span class="line">        Class&lt;?&gt; type = parameterContext.resolvedMethodParameter().getParameterType().getErasedType();</span><br><span class="line">        List&lt;EnumKeyValue&gt; enumKeyValueList = <span class="built_in">this</span>.getDisplayValueList(type);</span><br><span class="line">        <span class="keyword">if</span> (CollectionUtils.isEmpty(enumKeyValueList)) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        List&lt;String&gt; displayValueList = enumKeyValueList.stream().map(e -&gt; e.getCode() + <span class="string">&quot;:&quot;</span> + e.getDesc()).collect(Collectors.toList());</span><br><span class="line">        List&lt;String&gt; availableValueList = enumKeyValueList.stream().map(EnumKeyValue::getCode).collect(Collectors.toList());</span><br><span class="line"></span><br><span class="line">        <span class="type">RequestParameterBuilder</span> <span class="variable">requestParameterBuilder</span> <span class="operator">=</span> parameterContext.requestParameterBuilder();</span><br><span class="line">        <span class="type">Field</span> <span class="variable">descField</span> <span class="operator">=</span> ReflectionUtils.findField(requestParameterBuilder.getClass(), <span class="string">&quot;description&quot;</span>);</span><br><span class="line">        ReflectionUtils.makeAccessible(descField);</span><br><span class="line">        <span class="type">String</span> <span class="variable">joinText</span> <span class="operator">=</span> (ReflectionUtils.getField(descField, requestParameterBuilder) == <span class="literal">null</span> ? <span class="string">&quot;&quot;</span> :</span><br><span class="line">                (ReflectionUtils.getField(descField, requestParameterBuilder) + <span class="string">&quot;:&quot;</span>)) + String.join(<span class="string">&quot;,&quot;</span>, displayValueList);</span><br><span class="line">        requestParameterBuilder.description(joinText);</span><br><span class="line"></span><br><span class="line">        requestParameterBuilder.query(simpleParameterSpecificationBuilder -&gt; simpleParameterSpecificationBuilder.model(modelSpecificationBuilder -&gt; modelSpecificationBuilder.scalarModel(ScalarType.INTEGER)).enumerationFacet(enumerationElementFacetBuilder -&gt; enumerationElementFacetBuilder.allowedValues(<span class="keyword">new</span> <span class="title class_">AllowableListValues</span>(availableValueList, <span class="string">&quot;Integer&quot;</span>))));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> List&lt;EnumKeyValue&gt; <span class="title function_">getDisplayValueList</span><span class="params">(Class&lt;?&gt; type)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!Enum.class.isAssignableFrom(type)) &#123;</span><br><span class="line">            <span class="keyword">return</span> Collections.emptyList();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">SwaggerDisplayEnum</span> <span class="variable">annotation</span> <span class="operator">=</span> AnnotationUtils.findAnnotation(type, SwaggerDisplayEnum.class);</span><br><span class="line">        <span class="keyword">if</span> (annotation == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> Collections.emptyList();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Object[] enumConstants = type.getEnumConstants();</span><br><span class="line">        <span class="type">String</span> <span class="variable">code</span> <span class="operator">=</span> annotation.code();</span><br><span class="line">        <span class="type">String</span> <span class="variable">desc</span> <span class="operator">=</span> annotation.desc();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(enumConstants).filter(Objects::nonNull).map(item -&gt; &#123;</span><br><span class="line">            Class&lt;?&gt; currentClass = item.getClass();</span><br><span class="line">            <span class="type">Field</span> <span class="variable">codeField</span> <span class="operator">=</span> ReflectionUtils.findField(currentClass, code);</span><br><span class="line">            ReflectionUtils.makeAccessible(codeField);</span><br><span class="line">            <span class="type">Object</span> <span class="variable">codeStr</span> <span class="operator">=</span> ReflectionUtils.getField(codeField, item);</span><br><span class="line"></span><br><span class="line">            <span class="type">Field</span> <span class="variable">descField</span> <span class="operator">=</span> ReflectionUtils.findField(currentClass, desc);</span><br><span class="line">            ReflectionUtils.makeAccessible(descField);</span><br><span class="line">            <span class="type">Object</span> <span class="variable">descStr</span> <span class="operator">=</span> ReflectionUtils.getField(descField, item);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">EnumKeyValue</span>(codeStr.toString(), descStr.toString());</span><br><span class="line">        &#125;).collect(Collectors.toList());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">EnumKeyValue</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String code;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String desc;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="枚举反序列化接收自定义值"><a href="#枚举反序列化接收自定义值" class="headerlink" title="枚举反序列化接收自定义值"></a>枚举反序列化接收自定义值</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NoArgsConstructor</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JsonEnumDeserializer</span> <span class="keyword">extends</span> <span class="title class_">JsonDeserializer</span>&lt;IBaseEnum&gt; <span class="keyword">implements</span> <span class="title class_">ContextualDeserializer</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Class&lt;? <span class="keyword">extends</span> <span class="title class_">IBaseEnum</span>&gt; propertyClass;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> IBaseEnum <span class="title function_">deserialize</span><span class="params">(JsonParser p, DeserializationContext ctxt)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        String paramCode;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            paramCode = p.getValueAsString();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (JsonParseException e) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> Arrays.stream(propertyClass.getEnumConstants())</span><br><span class="line">                .filter(e -&gt; &#123;</span><br><span class="line">                    <span class="type">String</span> <span class="variable">code</span> <span class="operator">=</span> e.getCode().toString();</span><br><span class="line">                    <span class="keyword">if</span> (StringUtils.isNumeric(paramCode)) &#123;</span><br><span class="line">                        <span class="keyword">return</span> Integer.valueOf(code).equals(Integer.valueOf(paramCode));</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">return</span> StringUtils.equals(code, paramCode);</span><br><span class="line">                &#125;)</span><br><span class="line">                .findAny()</span><br><span class="line">                .orElseThrow(() -&gt; <span class="keyword">new</span> <span class="title class_">ResultException</span>(BUSINESS_ERROR.getCode(), <span class="string">&quot;枚举字段不匹配： &quot;</span> + propertyClass.getSimpleName()));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SuppressWarnings(&#123;&quot;unchecked&quot;&#125;)</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> JsonDeserializer&lt;?&gt; createContextual(DeserializationContext deserializationContext, BeanProperty property) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Code2EnumDeserializer</span>((Class&lt;? <span class="keyword">extends</span> <span class="title class_">IBaseEnum</span>&gt;) property.getType().getRawClass());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ParamEnumConverter</span> <span class="keyword">implements</span> <span class="title class_">ConverterFactory</span>&lt;String, IBaseEnum&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T <span class="keyword">extends</span> <span class="title class_">IBaseEnum</span>&gt; Converter&lt;String, T&gt; <span class="title function_">getConverter</span><span class="params">(Class&lt;T&gt; targetType)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">StringToBaseEnum</span>&lt;&gt;(targetType);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">StringToBaseEnum</span>&lt;T <span class="keyword">extends</span> <span class="title class_">IBaseEnum</span>&gt; <span class="keyword">implements</span> <span class="title class_">Converter</span>&lt;String, T&gt; &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">final</span> Class&lt;T&gt; enumType;</span><br><span class="line"></span><br><span class="line">        StringToBaseEnum(Class&lt;T&gt; enumType) &#123;</span><br><span class="line">            <span class="built_in">this</span>.enumType = enumType;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> T <span class="title function_">convert</span><span class="params">(String source)</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (StringUtils.isNotBlank(source)) &#123;</span><br><span class="line">                T[] enums = <span class="built_in">this</span>.enumType.getEnumConstants();</span><br><span class="line">                <span class="keyword">for</span> (T e : enums) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (e.getCode().toString().equals(source)) &#123;</span><br><span class="line">                        <span class="keyword">return</span> e;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebMvcConfig</span> <span class="keyword">implements</span> <span class="title class_">WebMvcConfigurer</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addFormatters</span><span class="params">(FormatterRegistry registry)</span> &#123;</span><br><span class="line">        registry.addConverterFactory(<span class="keyword">new</span> <span class="title class_">ParamEnumConverter</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ApiModel(value = &quot;订单信息&quot;)</span></span><br><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderInfo</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@ApiModelProperty(value = &quot;订单号&quot;, required = true)</span></span><br><span class="line">    <span class="keyword">private</span> String orderNo;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@JsonDeserialize(using = JsonEnumDeserializer.class)</span></span><br><span class="line">    <span class="meta">@ApiModelProperty(value = &quot;订单状态&quot;, required = true)</span></span><br><span class="line">    <span class="keyword">private</span> OrderStatusEnum status;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>开心
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.ckx.ink/2023/03/02/193856.html" title="Swagger枚举显示描述">https://blog.ckx.ink/2023/03/02/193856.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/spring/" rel="tag"><i class="fa fa-tag"></i> spring</a>
+              <a href="/tags/swagger/" rel="tag"><i class="fa fa-tag"></i> swagger</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/02/08/101221.html" rel="prev" title="WebFlux使用FilePart">
+                  <i class="fa fa-chevron-left"></i> WebFlux使用FilePart
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/03/19/163022.html" rel="next" title="Hexo博客搭建">
+                  Hexo博客搭建 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81ODIwNS8zNDY2OA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20013274号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">开心</span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/chenkaixin12121" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@next-theme/pjax/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="/lib/jquery/dist/jquery.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="/lib/pangu/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="/lib/quicklink/dist/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://blog.ckx.ink/2023/03/02/193856.html"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>
