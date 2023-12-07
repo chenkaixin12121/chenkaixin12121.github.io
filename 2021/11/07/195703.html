@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://file.ckx.ink/upload/2020/04/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://file.ckx.ink/upload/2020/04/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://file.ckx.ink/upload/2020/04/favicon-16x16.png">
+  <link rel="mask-icon" href="https://file.ckx.ink/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic%7CRoboto+Slab:300,300italic,400,400italic,700,700italic%7CPT+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/pace-js/themes/blue/pace-theme-minimal.css">
+  <script src="/lib/pace-js/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.ckx.ink","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Nginx+Keepalived实现双机主备和双主热备">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx+Keepalived实现双机主备和双主热备">
+<meta property="og:url" content="https://blog.ckx.ink/2021/11/07/195703.html">
+<meta property="og:site_name" content="开心">
+<meta property="og:description" content="Nginx+Keepalived实现双机主备和双主热备">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://file.ckx.ink/upload/2021/11/Snipaste_2021-11-07_22-59-10-0324ed8c358346069e4d9eefb70697de.png">
+<meta property="og:image" content="https://file.ckx.ink/upload/2021/11/Snipaste_2021-11-07_23-05-12-c0c1ab6e51d540bcb044d8641e371114.png">
+<meta property="og:image" content="https://file.ckx.ink/upload/2021/11/Snipaste_2021-11-07_22-59-37-8a35213cf69540f7be677920ea374028.png">
+<meta property="og:image" content="https://file.ckx.ink/upload/2021/11/Snipaste_2021-11-07_23-35-45-859f68c0b6b648de8bc9388deb9676d4.png">
+<meta property="article:published_time" content="2021-11-07T11:57:03.000Z">
+<meta property="article:modified_time" content="2023-12-07T09:39:06.005Z">
+<meta property="article:author" content="开心">
+<meta property="article:tag" content="Nginx">
+<meta property="article:tag" content="Keepalived">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://file.ckx.ink/upload/2021/11/Snipaste_2021-11-07_22-59-10-0324ed8c358346069e4d9eefb70697de.png">
+
+
+<link rel="canonical" href="https://blog.ckx.ink/2021/11/07/195703.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.ckx.ink/2021/11/07/195703.html","path":"2021/11/07/195703.html","title":"Nginx+Keepalived实现双机主备和双主热备"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Nginx+Keepalived实现双机主备和双主热备 | 开心</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">开心</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">盛年不重来，一日难再晨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-reader"><a href="https://reader.ckx.ink/" rel="section" target="_blank"><i class="fa fa-book fa-fw"></i>reader</a></li><li class="menu-item menu-item-openai"><a href="https://openai.ckx.ink/" rel="section" target="_blank"><i class="fa fa-robot fa-fw"></i>openai</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%A4%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">两台服务器</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Nginx"><span class="nav-number">2.</span> <span class="nav-text">安装Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">2.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96"><span class="nav-number">2.2.</span> <span class="nav-text">依赖</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">2.3.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C"><span class="nav-number">2.4.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E4%B8%A4%E4%B8%AA-Nginx-%E7%9A%84-index-html"><span class="nav-number">2.5.</span> <span class="nav-text">修改两个 Nginx 的 index.html</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE-Nginx"><span class="nav-number">2.6.</span> <span class="nav-text">访问 Nginx</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Keepalived"><span class="nav-number">3.</span> <span class="nav-text">安装 Keepalived</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD-1"><span class="nav-number">3.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-1"><span class="nav-number">3.2.</span> <span class="nav-text">配置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%86-Keepalived-%E8%AE%BE%E4%B8%BA%E6%9C%8D%E5%8A%A1"><span class="nav-number">3.3.</span> <span class="nav-text">将 Keepalived 设为服务</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8C%E6%9C%BA%E4%B8%BB%E5%A4%87"><span class="nav-number">4.</span> <span class="nav-text">双机主备</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%88%E4%B8%BB%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">修改配置文件（主）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%88%E5%A4%87%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">修改配置文件（备）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%87%8D%E5%90%AF-Keepalived-%E5%90%8E%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95"><span class="nav-number">4.3.</span> <span class="nav-text">重启 Keepalived 后进行测试</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-Nginx-%E8%87%AA%E5%8A%A8%E9%87%8D%E5%90%AF"><span class="nav-number">4.4.</span> <span class="nav-text">配置 Nginx 自动重启</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%8C%E4%B8%BB%E7%83%AD%E5%A4%87"><span class="nav-number">5.</span> <span class="nav-text">双主热备</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%88104%EF%BC%89"><span class="nav-number">5.1.</span> <span class="nav-text">修改配置文件（104）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%EF%BC%88105%EF%BC%89"><span class="nav-number">5.2.</span> <span class="nav-text">修改配置文件（105）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">6.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86"><span class="nav-number">6.1.</span> <span class="nav-text">问题处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E6%96%87%E4%BB%B6%E5%AE%9A%E6%97%B6%E5%88%87%E5%89%B2"><span class="nav-number">6.2.</span> <span class="nav-text">日志文件定时切割</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="开心"
+      src="https://file.ckx.ink/upload/2020/04/android-chrome-512x512.png">
+  <p class="site-author-name" itemprop="name">开心</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chenkaixin12121" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chenkaixin12121" rel="noopener me" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:chenkaixin12121@163.com" title="E-Mail → mailto:chenkaixin12121@163.com" rel="noopener me" target="_blank">E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/lib/@creativecommons/vocabulary/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://dev-james.xyz/" title="https:&#x2F;&#x2F;dev-james.xyz" rel="noopener" target="_blank">James Blog</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://blog.levnli.cn/" title="https:&#x2F;&#x2F;blog.levnli.cn" rel="noopener" target="_blank">木子李</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://huangdf.xyz/" title="https:&#x2F;&#x2F;huangdf.xyz&#x2F;" rel="noopener" target="_blank">柒月是ni的谎言</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+        <div class="pjax">
+        <div class="sidebar-inner sidebar-post-related">
+          <div class="animated">
+              <div class="links-of-blogroll-title"><i class="fa fa-signs-post fa-fw"></i>
+    相关文章
+  </div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2021/11/09/222019.html" rel="bookmark">
+        <time class="popular-posts-time">2021-11-09</time>
+        <br>
+      LVS+Nginx+Keepalived高可用集群
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2021/10/27/201356.html" rel="bookmark">
+        <time class="popular-posts-time">2021-10-27</time>
+        <br>
+      Nginx相关配置
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2021/11/20/161804.html" rel="bookmark">
+        <time class="popular-posts-time">2021-11-20</time>
+        <br>
+      分库分表-ShardingJDBC
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2022/08/31/104700.html" rel="bookmark">
+        <time class="popular-posts-time">2022-08-31</time>
+        <br>
+      Frp配置内网穿透
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2022/11/30/103745.html" rel="bookmark">
+        <time class="popular-posts-time">2022-11-30</time>
+        <br>
+      Linux常用软件安装脚本
+      </a>
+    </li>
+  </ul>
+
+          </div>
+        </div>
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.ckx.ink/2021/11/07/195703.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://file.ckx.ink/upload/2020/04/android-chrome-512x512.png">
+      <meta itemprop="name" content="开心">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="开心">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Nginx+Keepalived实现双机主备和双主热备 | 开心">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Nginx+Keepalived实现双机主备和双主热备
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-11-07 19:57:03" itemprop="dateCreated datePublished" datetime="2021-11-07T19:57:03+08:00">2021-11-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-12-07 17:39:06" itemprop="dateModified" datetime="2023-12-07T17:39:06+08:00">2023-12-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/" itemprop="url" rel="index"><span itemprop="name">安装配置</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>Nginx+Keepalived实现双机主备和双主热备</p>
+</blockquote>
+<span id="more"></span>
+
+<h4 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h4><h5 id="两台服务器"><a href="#两台服务器" class="headerlink" title="两台服务器"></a>两台服务器</h5><p>192.168.1.104<br>192.168.1.105<br>192.168.1.110  VIP<br>192.168.1.111  VIP</p>
+<blockquote>
+<p>开启 112 端口，此为 Keepalived 通信端口</p>
+</blockquote>
+<h4 id="安装Nginx"><a href="#安装Nginx" class="headerlink" title="安装Nginx"></a>安装Nginx</h4><h5 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://nginx.org/download/nginx-1.20.1.tar.gz</span><br><span class="line">tar -zxvf nginx-1.20.1.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h5 id="依赖"><a href="#依赖" class="headerlink" title="依赖"></a>依赖</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install gcc-c++</span><br><span class="line">yum install -y pcre pcre-devel</span><br><span class="line">yum install -y zlib zlib-devel</span><br><span class="line">yum install -y openssl openssl-devel</span><br></pre></td></tr></table></figure>
+
+<h5 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建临时目录</span></span><br><span class="line"><span class="built_in">mkdir</span> /var/temp/nginx -p</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入到nginx目录后执行此命令，为了创建makefile文件</span></span><br><span class="line">./configure \</span><br><span class="line">--prefix=/usr/local/nginx \</span><br><span class="line">--pid-path=/var/run/nginx/nginx.pid \</span><br><span class="line">--lock-path=/var/lock/nginx.lock \</span><br><span class="line">--error-log-path=/var/log/nginx/error.log \</span><br><span class="line">--http-log-path=/var/log/nginx/access.log \</span><br><span class="line">--with-http_gzip_static_module \</span><br><span class="line">--http-client-body-temp-path=/var/temp/nginx/client \</span><br><span class="line">--http-proxy-temp-path=/var/temp/nginx/proxy \</span><br><span class="line">--http-fastcgi-temp-path=/var/temp/nginx/fastcgi \</span><br><span class="line">--http-uwsgi-temp-path=/var/temp/nginx/uwsgi \</span><br><span class="line">--http-scgi-temp-path=/var/temp/nginx/scgi \</span><br><span class="line">--with-http_ssl_module</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编译并安装</span></span><br><span class="line">make &amp;&amp; make install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置软链接</span></span><br><span class="line"><span class="built_in">ln</span> -s /usr/local/nginx/sbin/nginx /usr/bin/nginx</span><br><span class="line"><span class="built_in">ln</span> -s /usr/local/nginx/conf/ /etc/nginx</span><br></pre></td></tr></table></figure>
+
+<h5 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /usr/local/nginx</span><br><span class="line">sbin/nginx</span><br></pre></td></tr></table></figure>
+
+<h5 id="修改两个-Nginx-的-index-html"><a href="#修改两个-Nginx-的-index-html" class="headerlink" title="修改两个 Nginx 的 index.html"></a>修改两个 Nginx 的 index.html</h5><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim html/index.html</span><br><span class="line">将 h1 标签下 Welcome to nginx! 后添加当前主机的 ip，主要为了和另外一台机器做区分</span><br><span class="line">sbin/nginx -s reload</span><br></pre></td></tr></table></figure>
+
+<h5 id="访问-Nginx"><a href="#访问-Nginx" class="headerlink" title="访问 Nginx"></a>访问 Nginx</h5><p><img data-src="https://file.ckx.ink/upload/2021/11/Snipaste_2021-11-07_22-59-10-0324ed8c358346069e4d9eefb70697de.png" alt="image.png"><br><img data-src="https://file.ckx.ink/upload/2021/11/Snipaste_2021-11-07_23-05-12-c0c1ab6e51d540bcb044d8641e371114.png" alt="image.png"></p>
+<h4 id="安装-Keepalived"><a href="#安装-Keepalived" class="headerlink" title="安装 Keepalived"></a>安装 Keepalived</h4><h5 id="下载-1"><a href="#下载-1" class="headerlink" title="下载"></a>下载</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://www.keepalived.org/software/keepalived-2.2.4.tar.gz</span><br><span class="line">tar -zxvf keepalived-2.2.4.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h5 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> keepalived-2.2.4</span><br><span class="line">./configure --prefix=/usr/local/keepalived --sysconf=/etc</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
+
+<h5 id="将-Keepalived-设为服务"><a href="#将-Keepalived-设为服务" class="headerlink" title="将 Keepalived 设为服务"></a>将 Keepalived 设为服务</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /data/software/keepalived-2.2.4/keepalived/etc</span><br><span class="line"><span class="built_in">cp</span> init.d/keepalived /etc/init.d/</span><br><span class="line"><span class="built_in">cp</span> sysconfig/keepalived /etc/sysconfig/</span><br><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl start keepalived.service</span><br></pre></td></tr></table></figure>
+
+<h4 id="双机主备"><a href="#双机主备" class="headerlink" title="双机主备"></a>双机主备</h4><h5 id="修改配置文件（主）"><a href="#修改配置文件（主）" class="headerlink" title="修改配置文件（主）"></a>修改配置文件（主）</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/keepalived/keepalived.conf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File <span class="keyword">for</span> keepalived</span><br><span class="line">global_defs &#123;</span><br><span class="line">   <span class="comment"># 路由id：当前安装keepalived节点主机的标识符，全局唯一</span></span><br><span class="line">   router_id keep_104</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    <span class="comment"># 表示的状态，当前的104为Nginx主节点，MASTER/BACKUP</span></span><br><span class="line">    state MASTER</span><br><span class="line">    <span class="comment"># 当前实例绑定的网卡</span></span><br><span class="line">    interface ens33</span><br><span class="line">    <span class="comment"># 保证主备节点一致</span></span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    <span class="comment"># 优先级/权重，谁的优先级高，在MASTER挂掉之后，就会成为MASTER</span></span><br><span class="line">    priority 100</span><br><span class="line">    <span class="comment"># 主备之间同步检查的时间间隔，默认1秒</span></span><br><span class="line">    advert_int 1</span><br><span class="line">    <span class="comment"># 认证授权的密码，防止非法节点的进入</span></span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.1.110</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost keepalived]<span class="comment"># ip addr # 可以看到，我们的 VIP 已经设置成功</span></span><br><span class="line">1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">    inet 127.0.0.1/8 scope host lo</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 ::1/128 scope host </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">2: ens33: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span><br><span class="line">    <span class="built_in">link</span>/ether 00:0c:29:3a:50:37 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 192.168.1.104/24 brd 192.168.1.255 scope global noprefixroute dynamic ens33</span><br><span class="line">       valid_lft 7148sec preferred_lft 7148sec</span><br><span class="line">    inet 192.168.1.110/32 scope global ens33</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::6734:7460:379a:910f/64 scope <span class="built_in">link</span> noprefixroute </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">3: docker0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc noqueue state DOWN group default </span><br><span class="line">    <span class="built_in">link</span>/ether 02:42:4e:e6:fa:e4 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">    inet 172.17.0.1/16 scope global docker0</span><br><span class="line">       valid_lft forever preferred_lft forever</span><br><span class="line">    inet6 fe80::42:4eff:fee6:fae4/64 scope <span class="built_in">link</span> </span><br><span class="line">       valid_lft forever preferred_lft forever</span><br></pre></td></tr></table></figure>
+
+<h5 id="修改配置文件（备）"><a href="#修改配置文件（备）" class="headerlink" title="修改配置文件（备）"></a>修改配置文件（备）</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/keepalived/keepalived.conf</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File <span class="keyword">for</span> keepalived</span><br><span class="line">global_defs &#123;</span><br><span class="line">   <span class="comment"># 路由id：当前安装keepalived节点主机的标识符，全局唯一</span></span><br><span class="line">   router_id keep_105</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    <span class="comment"># 表示的状态，当前的104为Nginx主节点，MASTER/BACKUP</span></span><br><span class="line">    state BACKUP</span><br><span class="line">    <span class="comment"># 当前实例绑定的网卡</span></span><br><span class="line">    interface ens33</span><br><span class="line">    <span class="comment"># 保证主备节点一致</span></span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    <span class="comment"># 优先级/权重，谁的优先级高，在MASTER挂掉之后，就会成为MASTER</span></span><br><span class="line">    priority 80</span><br><span class="line">    <span class="comment"># 主备之间同步检查的时间间隔，默认1秒</span></span><br><span class="line">    advert_int 1</span><br><span class="line">    <span class="comment"># 认证授权的密码，防止非法节点的进入</span></span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># 虚拟ip</span></span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.1.110</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="重启-Keepalived-后进行测试"><a href="#重启-Keepalived-后进行测试" class="headerlink" title="重启 Keepalived 后进行测试"></a>重启 Keepalived 后进行测试</h5><p>访问 VIP，<a target="_blank" rel="noopener" href="http://192.168.1.110/">http://192.168.1.110</a></p>
+<p><img data-src="https://file.ckx.ink/upload/2021/11/Snipaste_2021-11-07_22-59-37-8a35213cf69540f7be677920ea374028.png" alt="image.png"></p>
+<p>关闭 104 节点 Keepalived，继续访问 VIP</p>
+<p><img data-src="https://file.ckx.ink/upload/2021/11/Snipaste_2021-11-07_23-35-45-859f68c0b6b648de8bc9388deb9676d4.png" alt="image.png"></p>
+<h5 id="配置-Nginx-自动重启"><a href="#配置-Nginx-自动重启" class="headerlink" title="配置 Nginx 自动重启"></a>配置 Nginx 自动重启</h5><p>在 Keepalived 配置文件加添加</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">vrrp_script check_nginx_alive &#123;</span><br><span class="line">    script <span class="string">&quot;/etc/keepalived/check_nginx_alive_or_not.sh&quot;</span></span><br><span class="line">    <span class="comment"># 每隔两秒运行上一行脚本</span></span><br><span class="line">    interval 2 </span><br><span class="line">    <span class="comment"># 如果脚本运行成功，则加权重10</span></span><br><span class="line">    weight 10 </span><br><span class="line">    <span class="comment"># 如果脚本运行失败，则减权重10</span></span><br><span class="line">    <span class="comment"># weight -10 </span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    track_script &#123;</span><br><span class="line">        check_nginx_alive <span class="comment"># 追踪 nginx 脚本</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">A=`ps -C nginx --no-header |<span class="built_in">wc</span> -l`</span><br><span class="line"><span class="comment"># 判断nginx是否宕机，如果宕机了，尝试重启</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$A</span> -eq 0 ];<span class="keyword">then</span></span><br><span class="line">    /usr/local/nginx/sbin/nginx</span><br><span class="line">    <span class="comment"># 等待一小会再次检查nginx，如果没有启动成功，则停止keepalived，使其启动备用机</span></span><br><span class="line">    <span class="built_in">sleep</span> 3</span><br><span class="line">    <span class="keyword">if</span> [ `ps -C nginx --no-header |<span class="built_in">wc</span> -l` -eq 0 ];<span class="keyword">then</span></span><br><span class="line">        killall keepalived</span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="双主热备"><a href="#双主热备" class="headerlink" title="双主热备"></a>双主热备</h4><h5 id="修改配置文件（104）"><a href="#修改配置文件（104）" class="headerlink" title="修改配置文件（104）"></a>修改配置文件（104）</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">global_defs &#123;</span><br><span class="line">   <span class="comment"># 路由id：当前安装keepalived节点主机的标识符，全局唯一</span></span><br><span class="line">   router_id keep_104</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_script check_nginx_alive &#123;</span><br><span class="line">    script <span class="string">&quot;/etc/keepalived/check_nginx_alive_or_not.sh&quot;</span></span><br><span class="line">    interval 2 <span class="comment"># 每隔两秒运行上一行脚本</span></span><br><span class="line">    weight 10 <span class="comment"># 如果脚本运行成功，则升级权重为10</span></span><br><span class="line">    <span class="comment"># weight -10 # 如果脚本运行失败，则降低权重为-10</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    <span class="comment"># 表示的状态，当前的104为Nginx主节点，MASTER/BACKUP</span></span><br><span class="line">    state MASTER</span><br><span class="line">    <span class="comment"># 当前实例绑定的网卡</span></span><br><span class="line">    interface ens33</span><br><span class="line">    <span class="comment"># 保证主备节点一致</span></span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    <span class="comment"># 优先级/权重，谁的优先级高，在MASTER挂掉之后，就会成为MASTER</span></span><br><span class="line">    priority 100</span><br><span class="line">    <span class="comment"># 主备之间同步检查的时间间隔，默认1秒</span></span><br><span class="line">    advert_int 1</span><br><span class="line">    <span class="comment"># 认证授权的密码，防止非法节点的进入</span></span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    track_script &#123;</span><br><span class="line">        check_nginx_alive <span class="comment"># 追踪 nginx 脚本</span></span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.1.110</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_2 &#123;</span><br><span class="line">    state BACKUP</span><br><span class="line">    interface ens33</span><br><span class="line">    virtual_router_id 52</span><br><span class="line">    priority 80</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.1.111</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="修改配置文件（105）"><a href="#修改配置文件（105）" class="headerlink" title="修改配置文件（105）"></a>修改配置文件（105）</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">global_defs &#123;</span><br><span class="line">   <span class="comment"># 路由id：当前安装keepalived节点主机的标识符，全局唯一</span></span><br><span class="line">   router_id keep_105</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_script check_nginx_alive &#123;</span><br><span class="line">    script <span class="string">&quot;/etc/keepalived/check_nginx_alive_or_not.sh&quot;</span></span><br><span class="line">    interval 2 <span class="comment"># 每隔两秒运行上一行脚本</span></span><br><span class="line">    weight 10 <span class="comment"># 如果脚本运行成功，则升级权重为10</span></span><br><span class="line">    <span class="comment"># weight -10 # 如果脚本运行失败，则降低权重为-10</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    <span class="comment"># 表示的状态，当前的104为Nginx主节点，MASTER/BACKUP</span></span><br><span class="line">    state BACKUP</span><br><span class="line">    <span class="comment"># 当前实例绑定的网卡</span></span><br><span class="line">    interface ens33</span><br><span class="line">    <span class="comment"># 保证主备节点一致</span></span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    <span class="comment"># 优先级/权重，谁的优先级高，在MASTER挂掉之后，就会成为MASTER</span></span><br><span class="line">    priority 80</span><br><span class="line">    <span class="comment"># 主备之间同步检查的时间间隔，默认1秒</span></span><br><span class="line">    advert_int 1</span><br><span class="line">    <span class="comment"># 认证授权的密码，防止非法节点的进入</span></span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    track_script &#123;</span><br><span class="line">        check_nginx_alive <span class="comment"># 追踪 nginx 脚本</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># 虚拟ip</span></span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.1.110</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_2 &#123;</span><br><span class="line">    state MASTER</span><br><span class="line">    interface ens33</span><br><span class="line">    virtual_router_id 52</span><br><span class="line">    priority 100</span><br><span class="line">    advert_int 1</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.1.111</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><h5 id="问题处理"><a href="#问题处理" class="headerlink" title="问题处理"></a>问题处理</h5><ul>
+<li>nginx: [emerg] mkdir() “&#x2F;var&#x2F;temp&#x2F;nginx&#x2F;client” failed (2: No such file or directory)<br>解决方案：mkdir -p &#x2F;var&#x2F;temp&#x2F;nginx</li>
+<li>nginx: [emerg] bind() to 0.0.0.0:80 failed (98: Address already in use)<br>解决方案：检查防火墙，kill 掉 nginx 进程并重新启动</li>
+<li>nginx: [emerg] open() “&#x2F;var&#x2F;run&#x2F;nginx&#x2F;nginx.pid” failed (2: No such file or directory)<br>解决方案：touch &#x2F;var&#x2F;run&#x2F;nginx&#x2F;nginx.pid</li>
+</ul>
+<h5 id="日志文件定时切割"><a href="#日志文件定时切割" class="headerlink" title="日志文件定时切割"></a>日志文件定时切割</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">touch</span> cut_my_log.sh</span><br><span class="line"><span class="built_in">chmod</span> +x cut_my_log.sh</span><br><span class="line">vim cut_my_log.sh</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">LOG_PATH=<span class="string">&quot;/var/log/nginx/&quot;</span></span><br><span class="line">RECORD_TIME=$(<span class="built_in">date</span> -d <span class="string">&quot;yesterday&quot;</span> +%Y-%m-%d+%H:%M)</span><br><span class="line">PID=/var/run/nginx/nginx.pid</span><br><span class="line"><span class="built_in">mv</span> <span class="variable">$&#123;LOG_PATH&#125;</span>/access.log <span class="variable">$&#123;LOG_PATH&#125;</span>/access.<span class="variable">$&#123;RECORD_TIME&#125;</span>.<span class="built_in">log</span></span><br><span class="line"><span class="built_in">mv</span> <span class="variable">$&#123;LOG_PATH&#125;</span>/error.log <span class="variable">$&#123;LOG_PATH&#125;</span>/error.<span class="variable">$&#123;RECORD_TIME&#125;</span>.<span class="built_in">log</span></span><br><span class="line"><span class="comment"># 向Nginx主进程发送信号，用于重新打开日志文件</span></span><br><span class="line"><span class="built_in">kill</span> -USR1 `<span class="built_in">cat</span> <span class="variable">$PID</span>`</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">yum install crontabs</span><br><span class="line"></span><br><span class="line">crontab -e</span><br><span class="line"><span class="comment"># 每天凌晨1点执行</span></span><br><span class="line">0 1 * * * /usr/local/nginx/sbin/cut_my_log.sh</span><br><span class="line"></span><br><span class="line">crontab -l</span><br><span class="line">service crond restart</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>开心
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.ckx.ink/2021/11/07/195703.html" title="Nginx+Keepalived实现双机主备和双主热备">https://blog.ckx.ink/2021/11/07/195703.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Nginx/" rel="tag"><i class="fa fa-tag"></i> Nginx</a>
+              <a href="/tags/Keepalived/" rel="tag"><i class="fa fa-tag"></i> Keepalived</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/10/27/201356.html" rel="prev" title="Nginx相关配置">
+                  <i class="fa fa-chevron-left"></i> Nginx相关配置
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2021/11/08/205723.html" rel="next" title="索引失效问题">
+                  索引失效问题 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81ODIwNS8zNDY2OA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20013274号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">开心</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">100k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">6:02</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/chenkaixin12121" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@next-theme/pjax/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="/lib/jquery/dist/jquery.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="/lib/pangu/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="/lib/quicklink/dist/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://blog.ckx.ink/2021/11/07/195703.html"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>

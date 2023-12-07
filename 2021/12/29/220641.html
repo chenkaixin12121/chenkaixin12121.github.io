@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://file.ckx.ink/upload/2020/04/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://file.ckx.ink/upload/2020/04/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://file.ckx.ink/upload/2020/04/favicon-16x16.png">
+  <link rel="mask-icon" href="https://file.ckx.ink/favicon.ico" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic%7CRoboto+Slab:300,300italic,400,400italic,700,700italic%7CPT+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/lib/@fortawesome/fontawesome-free/css/all.min.css" integrity="sha256-/4UQcSmErDzPCMAiuOiWPVVsNN2s3ZY/NsmXNcj0IFc=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/animate.css/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="/lib/pace-js/themes/blue/pace-theme-minimal.css">
+  <script src="/lib/pace-js/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.ckx.ink","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.15.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Dockerfile">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dockerfile">
+<meta property="og:url" content="https://blog.ckx.ink/2021/12/29/220641.html">
+<meta property="og:site_name" content="开心">
+<meta property="og:description" content="Dockerfile">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-29T14:06:41.000Z">
+<meta property="article:modified_time" content="2023-12-06T15:40:00.264Z">
+<meta property="article:author" content="开心">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://blog.ckx.ink/2021/12/29/220641.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://blog.ckx.ink/2021/12/29/220641.html","path":"2021/12/29/220641.html","title":"Dockerfile"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Dockerfile | 开心</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">开心</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">盛年不重来，一日难再晨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-reader"><a href="https://reader.ckx.ink/" rel="section" target="_blank"><i class="fa fa-book fa-fw"></i>reader</a></li><li class="menu-item menu-item-openai"><a href="https://openai.ckx.ink/" rel="section" target="_blank"><i class="fa fa-robot fa-fw"></i>openai</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#FROM"><span class="nav-number">1.</span> <span class="nav-text">FROM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LABEL"><span class="nav-number">2.</span> <span class="nav-text">LABEL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RUN"><span class="nav-number">3.</span> <span class="nav-text">RUN</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CMD-%E5%92%8C-ENTRYPOINT"><span class="nav-number">4.</span> <span class="nav-text">CMD 和 ENTRYPOINT</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%83%BD%E5%8F%AF%E4%BB%A5%E4%BD%9C%E4%B8%BA%E5%AE%B9%E5%99%A8%E5%90%AF%E5%8A%A8%E5%85%A5%E5%8F%A3"><span class="nav-number">4.1.</span> <span class="nav-text">都可以作为容器启动入口</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%AA%E8%83%BD%E6%9C%89%E4%B8%80%E4%B8%AA-CMD"><span class="nav-number">4.2.</span> <span class="nav-text">只能有一个 CMD</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CMD-%E4%B8%BA-ENTRYPOINT-%E6%8F%90%E4%BE%9B%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0"><span class="nav-number">4.3.</span> <span class="nav-text">CMD 为 ENTRYPOINT 提供默认参数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#docker-run-%E5%90%AF%E5%8A%A8%E5%8F%82%E6%95%B0%E4%BC%9A%E8%A6%86%E7%9B%96-CMD-%E5%86%85%E5%AE%B9"><span class="nav-number">4.4.</span> <span class="nav-text">docker run 启动参数会覆盖 CMD 内容</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ARG-%E5%92%8C-ENV"><span class="nav-number">5.</span> <span class="nav-text">ARG 和 ENV</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#ARG"><span class="nav-number">5.1.</span> <span class="nav-text">ARG</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ENV"><span class="nav-number">5.2.</span> <span class="nav-text">ENV</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E6%B5%8B%E8%AF%95%E7%A4%BA%E4%BE%8B"><span class="nav-number">5.3.</span> <span class="nav-text">综合测试示例</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ADD-%E5%92%8C-COPY"><span class="nav-number">6.</span> <span class="nav-text">ADD 和 COPY</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#COPY"><span class="nav-number">6.1.</span> <span class="nav-text">COPY</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ADD"><span class="nav-number">6.2.</span> <span class="nav-text">ADD</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#WORKDIR-%E5%92%8C-VOLUME"><span class="nav-number">7.</span> <span class="nav-text">WORKDIR 和 VOLUME</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#WORKDIR"><span class="nav-number">7.1.</span> <span class="nav-text">WORKDIR</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#VOLUME"><span class="nav-number">7.2.</span> <span class="nav-text">VOLUME</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#USER"><span class="nav-number">8.</span> <span class="nav-text">USER</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#EXPOSE"><span class="nav-number">9.</span> <span class="nav-text">EXPOSE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#multi-stage-builds"><span class="nav-number">10.</span> <span class="nav-text">multi-stage builds</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">11.</span> <span class="nav-text">示例</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="开心"
+      src="https://file.ckx.ink/upload/2020/04/android-chrome-512x512.png">
+  <p class="site-author-name" itemprop="name">开心</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">72</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/chenkaixin12121" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;chenkaixin12121" rel="noopener me" target="_blank">GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:chenkaixin12121@163.com" title="E-Mail → mailto:chenkaixin12121@163.com" rel="noopener me" target="_blank">E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/lib/@creativecommons/vocabulary/assets/license_badges/small/by_nc_sa.svg" alt="Creative Commons"></a>
+  </div>
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+
+    
+    <div class="sidebar-inner sidebar-blogroll">
+      <div class="links-of-blogroll animated">
+        <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+          链接
+        </div>
+        <ul class="links-of-blogroll-list">
+            <li class="links-of-blogroll-item">
+              <a href="https://dev-james.xyz/" title="https:&#x2F;&#x2F;dev-james.xyz" rel="noopener" target="_blank">James Blog</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://blog.levnli.cn/" title="https:&#x2F;&#x2F;blog.levnli.cn" rel="noopener" target="_blank">木子李</a>
+            </li>
+            <li class="links-of-blogroll-item">
+              <a href="https://huangdf.xyz/" title="https:&#x2F;&#x2F;huangdf.xyz&#x2F;" rel="noopener" target="_blank">柒月是ni的谎言</a>
+            </li>
+        </ul>
+      </div>
+    </div>
+        <div class="pjax">
+        <div class="sidebar-inner sidebar-post-related">
+          <div class="animated">
+              <div class="links-of-blogroll-title"><i class="fa fa-signs-post fa-fw"></i>
+    相关文章
+  </div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2022/11/30/103745.html" rel="bookmark">
+        <time class="popular-posts-time">2022-11-30</time>
+        <br>
+      Linux常用软件安装脚本
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2021/12/29/204450.html" rel="bookmark">
+        <time class="popular-posts-time">2021-12-29</time>
+        <br>
+      Docker学习
+      </a>
+    </li>
+  </ul>
+
+          </div>
+        </div>
+        </div>
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.ckx.ink/2021/12/29/220641.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://file.ckx.ink/upload/2020/04/android-chrome-512x512.png">
+      <meta itemprop="name" content="开心">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="开心">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Dockerfile | 开心">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Dockerfile
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-12-29 22:06:41" itemprop="dateCreated datePublished" datetime="2021-12-29T22:06:41+08:00">2021-12-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-12-06 23:40:00" itemprop="dateModified" datetime="2023-12-06T23:40:00+08:00">2023-12-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>Dockerfile</p>
+</blockquote>
+<span id="more"></span>
+
+<table>
+<thead>
+<tr>
+<th align="center">指令</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">FROM</td>
+<td align="center">指定基础镜像</td>
+</tr>
+<tr>
+<td align="center">MAINTAINER</td>
+<td align="center">指定维护者信息，已经过时，可以使用 LABEL maintainer&#x3D;xxx 来替代</td>
+</tr>
+<tr>
+<td align="center">RUN</td>
+<td align="center">运行命令</td>
+</tr>
+<tr>
+<td align="center">CMD</td>
+<td align="center">指定启动容器时默认的命令</td>
+</tr>
+<tr>
+<td align="center">ENTRYPOINT</td>
+<td align="center">指定镜像的默认入口，运行命令</td>
+</tr>
+<tr>
+<td align="center">EXPOSE</td>
+<td align="center">声明镜像内服务监听的端口</td>
+</tr>
+<tr>
+<td align="center">ENV</td>
+<td align="center">指定环境变量，可以在 docker run 的时候使用 -e 改变，会被固化到 image 的 config 里面</td>
+</tr>
+<tr>
+<td align="center">ADD</td>
+<td align="center">复制指定的 src 路径下的内容到容器中的 dest 路径下，src 可以为 url 会自动下载，可以为 tar 文件，会自动解压</td>
+</tr>
+<tr>
+<td align="center">COPY</td>
+<td align="center">复制本地主机的 src 路径下的内容到镜像中的 dest 路径下，但不会自动解压等</td>
+</tr>
+<tr>
+<td align="center">LABEL</td>
+<td align="center">指定生成镜像的元数据标签信息</td>
+</tr>
+<tr>
+<td align="center">VOLUME</td>
+<td align="center">创建数据卷挂载点</td>
+</tr>
+<tr>
+<td align="center">USER</td>
+<td align="center">指定运行容器时的用户名或 UID</td>
+</tr>
+<tr>
+<td align="center">WORKDIR</td>
+<td align="center">配置工作目录，为后续的 RUN、CMD、ENTRYPOINT 指令配置工作目录</td>
+</tr>
+<tr>
+<td align="center">ARG</td>
+<td align="center">指定镜像内使用的参数（如版本号信息等），可以在 build 的时候，使用 –buildargs 改变</td>
+</tr>
+<tr>
+<td align="center">OBBUILD</td>
+<td align="center">配置当创建的镜像作为其他镜像的基础镜像是，所指定的创建操作指令</td>
+</tr>
+<tr>
+<td align="center">STOPSIGNAL</td>
+<td align="center">容器退出的信号值</td>
+</tr>
+<tr>
+<td align="center">HEALTHCHECK</td>
+<td align="center">健康检查</td>
+</tr>
+<tr>
+<td align="center">SHELL</td>
+<td align="center">指定使用 shell 时的默认 shell 类型</td>
+</tr>
+</tbody></table>
+<h4 id="FROM"><a href="#FROM" class="headerlink" title="FROM"></a>FROM</h4><p>FROM 指定基础镜像，最好挑一些 apline，slim 之类的基础小镜像，scratch 镜像是一个空镜像，常用于多阶段构建</p>
+<h4 id="LABEL"><a href="#LABEL" class="headerlink" title="LABEL"></a>LABEL</h4><p>标注镜像的一些说明信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LABEL multi.label1=<span class="string">&quot;value1&quot;</span> multi.label2=<span class="string">&quot;value2&quot;</span> other=<span class="string">&quot;value3&quot;</span></span><br><span class="line">LABEL multi.label1=<span class="string">&quot;value1&quot;</span> \</span><br><span class="line">    multi.label2=<span class="string">&quot;value2&quot;</span> \</span><br><span class="line">    other=<span class="string">&quot;value3&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="RUN"><a href="#RUN" class="headerlink" title="RUN"></a>RUN</h4><p>RUN 指令在当前镜像层顶部的新层执行任何命令，并提交结果，生成新的镜像层<br>生成的提交映像将用于 Dockerfile 中的下一步，分层运行 RUN 指令并生成提交符合 Docker 的核心概念，就像源代码控制一样<br>exec 形式可以避免破坏 shell 字符串，并使用不包含指定 shell 可执行文件的基本映像运行 RUN 命令，可以使用 SHELL 命令更改 shell 形式的默认 shell，在 shell 形式中，您可以使用 \ 将一条 RUN 指令继续到下一行</p>
+<blockquote>
+<p>RUN <command> (shell 形式, &#x2F;bin&#x2F;sh -c 的方式运行，避免破坏 shell 字符串)<br>RUN [“executable”, “param1”, “param2”] (exec 形式)</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RUN /bin/bash -c <span class="string">&#x27;source $HOME/.bashrc; \</span></span><br><span class="line"><span class="string">echo $HOME&#x27;</span></span><br><span class="line"><span class="comment"># 上面等于下面这种写法</span></span><br><span class="line">RUN /bin/bash -c <span class="string">&#x27;source $HOME/.bashrc; echo $HOME&#x27;</span></span><br><span class="line">RUN [<span class="string">&quot;/bin/bash&quot;</span>, <span class="string">&quot;-c&quot;</span>, <span class="string">&quot;echo hello&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试案例</span></span><br><span class="line">FROM alpine</span><br><span class="line">LABEL maintainer=leifengyang xx=aa</span><br><span class="line">ENV msg=<span class="string">&#x27;hello atguigu itdachang&#x27;</span></span><br><span class="line">RUN <span class="built_in">echo</span> <span class="variable">$msg</span></span><br><span class="line">RUN [<span class="string">&quot;echo&quot;</span>,<span class="string">&quot;<span class="variable">$msg</span>&quot;</span>]</span><br><span class="line">RUN /bin/sh -c <span class="string">&#x27;echo $msg&#x27;</span></span><br><span class="line">RUN [<span class="string">&quot;/bin/sh&quot;</span>,<span class="string">&quot;-c&quot;</span>,<span class="string">&quot;echo <span class="variable">$msg</span>&quot;</span>]</span><br><span class="line">CMD <span class="built_in">sleep</span> 10000</span><br><span class="line"><span class="comment"># 总结：由于 [] 不是 shell 形式，所以不能输出变量信息，而是输出 $msg，其他任何 /bin/sh -c 的形式都可以输出变量信息</span></span><br><span class="line">1. shell 是 /bin/sh -c &lt;<span class="built_in">command</span>&gt; 的方式，</span><br><span class="line">2. <span class="built_in">exec</span> [<span class="string">&quot;/bin/sh&quot;</span>,<span class="string">&quot;-c&quot;</span>,<span class="built_in">command</span>] 的方式 == shell 方式，也就是<span class="built_in">exec</span> 默认方式不会进行变量替换</span><br></pre></td></tr></table></figure>
+
+<h4 id="CMD-和-ENTRYPOINT"><a href="#CMD-和-ENTRYPOINT" class="headerlink" title="CMD 和 ENTRYPOINT"></a>CMD 和 ENTRYPOINT</h4><h5 id="都可以作为容器启动入口"><a href="#都可以作为容器启动入口" class="headerlink" title="都可以作为容器启动入口"></a>都可以作为容器启动入口</h5><p>CMD 的三种写法：<br>    CMD [“executable”,”param1”,”param2”] ( exec 方式, 首选方式)<br>    CMD [“param1”,”param2”] (为ENTRYPOINT提供默认参数)<br>    CMD command param1 param2 ( shell 形式)<br>ENTRYPOINT 的两种写法：<br>    ENTRYPOINT [“executable”, “param1”, “param2”] ( exec 方式, 首选方式)<br>    ENTRYPOINT command param1 param2 (shell 形式)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一个示例</span></span><br><span class="line">FROM alpine</span><br><span class="line">LABEL maintainer=leifengyang</span><br><span class="line">CMD [<span class="string">&quot;1111&quot;</span>]</span><br><span class="line">CMD [<span class="string">&quot;2222&quot;</span>]</span><br><span class="line">ENTRYPOINT [<span class="string">&quot;echo&quot;</span>]</span><br><span class="line"><span class="comment"># 构建出如上镜像后测试</span></span><br><span class="line">docker run xxxx：效果 <span class="built_in">echo</span> 1111</span><br></pre></td></tr></table></figure>
+
+<h5 id="只能有一个-CMD"><a href="#只能有一个-CMD" class="headerlink" title="只能有一个 CMD"></a>只能有一个 CMD</h5><p>Dockerfile 中只能有一条 CMD 指令，如果您列出多个 CMD，则只有最后一个 CMD 才会生效。<br>CMD 的主要目的是为执行中的容器提供默认值，这些默认值可以包含可执行文件，也可以省略可执行文件，在这种情况下，您还必须指定 ENTRYPOINT 指令</p>
+<h5 id="CMD-为-ENTRYPOINT-提供默认参数"><a href="#CMD-为-ENTRYPOINT-提供默认参数" class="headerlink" title="CMD 为 ENTRYPOINT 提供默认参数"></a>CMD 为 ENTRYPOINT 提供默认参数</h5><p>如果使用 CMD 为 ENTRYPOINT 指令提供默认参数，则 CMD 和 ENTRYPOINT 指令均应使用 JSON 数组格式指定</p>
+<h5 id="docker-run-启动参数会覆盖-CMD-内容"><a href="#docker-run-启动参数会覆盖-CMD-内容" class="headerlink" title="docker run 启动参数会覆盖 CMD 内容"></a>docker run 启动参数会覆盖 CMD 内容</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一个示例</span></span><br><span class="line">FROM alpine</span><br><span class="line">LABEL maintainer=leifengyang</span><br><span class="line">CMD [<span class="string">&quot;1111&quot;</span>]</span><br><span class="line">ENTRYPOINT [<span class="string">&quot;echo&quot;</span>]</span><br><span class="line"><span class="comment"># 构建出如上镜像后测试</span></span><br><span class="line">docker run xxxx：什么都不传则 <span class="built_in">echo</span> 1111</span><br><span class="line">docker run xxx arg1：传入arg1 则<span class="built_in">echo</span> arg1</span><br></pre></td></tr></table></figure>
+
+<h4 id="ARG-和-ENV"><a href="#ARG-和-ENV" class="headerlink" title="ARG 和 ENV"></a>ARG 和 ENV</h4><h5 id="ARG"><a href="#ARG" class="headerlink" title="ARG"></a>ARG</h5><p>ARG 指令定义了一个变量，用户可以在构建时使用 –build-arg &#x3D; 传递，docker build 命令会将其传递给构建器<br>–build-arg 指定参数会覆盖 Dockerfile 中指定的同名参数<br>如果用户指定了“未在 Dockerfile 中定义的构建参数”，则构建会输出“警告”<br>ARG 只在构建期有效，运行期无效<br>不建议使用构建时变量来传递诸如 github 密钥，用户凭据等机密，因为构建时变量值使用 dockerhistory 是可见的<br>ARG 变量定义从 Dockerfile 中定义的行开始生效<br>使用 ENV 指令定义的环境变量始终会覆盖同名的 ARG 指令</p>
+<h5 id="ENV"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</h5><p>在构建阶段中所有后续指令的环境中使用，并且在许多情况下也可以内联替换<br>引号和反斜杠可用于在值中包含空格<br>ENV 可以使用 key value 的写法，但是这种不建议使用了，后续版本可能会删除</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ENV MY_MSG hello</span><br><span class="line">ENV MY_NAME=<span class="string">&quot;John Doe&quot;</span></span><br><span class="line">ENV MY_DOG=Rex\ The\ Dog</span><br><span class="line">ENV MY_CAT=fluffy</span><br><span class="line"><span class="comment"># 多行写法如下</span></span><br><span class="line">ENV MY_NAME=<span class="string">&quot;John Doe&quot;</span> MY_DOG=Rex\ The\ Dog \</span><br><span class="line">MY_CAT=fluffy</span><br></pre></td></tr></table></figure>
+
+<p>docker run –env 可以修改这些值<br>容器运行时 ENV 值可以生效<br>ENV 在 image 阶段就会被解析并持久化（docker inspect image 查看），参照下面示例</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FROM alpine</span><br><span class="line">ENV arg=1111111</span><br><span class="line">ENV runcmd=<span class="variable">$arg</span></span><br><span class="line">RUN <span class="built_in">echo</span> <span class="variable">$runcmd</span></span><br><span class="line">CMD <span class="built_in">echo</span> <span class="variable">$runcmd</span></span><br><span class="line"><span class="comment"># ENV 的固化问题： 改变 arg，会不会改变 echo的值，会改变哪些值，如何修改这些值?</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="综合测试示例"><a href="#综合测试示例" class="headerlink" title="综合测试示例"></a>综合测试示例</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FROM alpine</span><br><span class="line">ARG arg1=22222</span><br><span class="line">ENV arg2=1111111</span><br><span class="line">ENV runcmd=<span class="variable">$arg1</span></span><br><span class="line">RUN <span class="built_in">echo</span> <span class="variable">$arg1</span> <span class="variable">$arg2</span> <span class="variable">$runcmd</span></span><br><span class="line">CMD <span class="built_in">echo</span> <span class="variable">$arg1</span> <span class="variable">$arg2</span> <span class="variable">$runcmd</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="ADD-和-COPY"><a href="#ADD-和-COPY" class="headerlink" title="ADD 和 COPY"></a>ADD 和 COPY</h4><h5 id="COPY"><a href="#COPY" class="headerlink" title="COPY"></a>COPY</h5><p>COPY 的两种写法</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">COPY [--<span class="built_in">chown</span>=&lt;user&gt;:&lt;group&gt;] &lt;src&gt;... &lt;dest&gt;</span><br><span class="line">COPY [--<span class="built_in">chown</span>=&lt;user&gt;:&lt;group&gt;] [<span class="string">&quot;&lt;src&gt;&quot;</span>,... <span class="string">&quot;&lt;dest&gt;&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>–chown 功能仅在用于构建 Linux 容器的 Dockerfiles 上受支持，而在 Windows 容器上不起作用<br>COPY 指令从 src 复制新文件或目录，并将它们添加到容器的文件系统中，路径为 dest<br>可以指定多个 src 资源，但是文件和目录的路径将被解释为相对于构建上下文的源<br>每个 src 都可以包含通配符，并且匹配将使用 Go 的 filepath.Match 规则进行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">COPY hom* /mydir/ <span class="comment"># 当前上下文，以 home 开始的所有资源</span></span><br><span class="line">COPY hom?.txt /mydir/ <span class="comment"># ? 匹配单个字符</span></span><br><span class="line">COPY test.txt relativeDir/ <span class="comment"># 目标路径如果设置为相对路径，则相对与 WORKDIR 开始</span></span><br><span class="line"><span class="comment"># 把 “test.txt” 添加到 &lt;WORKDIR&gt;/relativeDir/</span></span><br><span class="line">COPY test.txt /absoluteDir/ <span class="comment"># 也可以使用绝对路径，复制到容器指定位置</span></span><br><span class="line"><span class="comment"># 所有复制的新文件都是 uid(0)/gid(0) 的用户，可以使用 --chown 改变</span></span><br><span class="line">COPY --<span class="built_in">chown</span>=55:mygroup files* /somedir/</span><br><span class="line">COPY --<span class="built_in">chown</span>=bin files* /somedir/</span><br><span class="line">COPY --<span class="built_in">chown</span>=1 files* /somedir/</span><br><span class="line">COPY --<span class="built_in">chown</span>=10:11 files* /somedir/</span><br></pre></td></tr></table></figure>
+
+<h5 id="ADD"><a href="#ADD" class="headerlink" title="ADD"></a>ADD</h5><p>同 COPY 用法，不过 ADD 拥有自动下载远程文件和解压的功能。<br>注意：<br>src 路径必须在构建的上下文中，不能使用 ..&#x2F;something &#x2F;something 这种方式，因为 docker 构建的第一步是将上下文目录（和子目录）发送到 docker 守护程序<br>如果 src 是 URL，并且 dest 不以斜杠结尾，则从 URL 下载文件并将其复制到 dest<br>    如果 dest 以斜杠结尾，将自动推断出 url 的名字（保留最后一部分），保存到 dest<br>如果 src 是目录，则将复制目录的整个内容，包括文件系统元数据</p>
+<h4 id="WORKDIR-和-VOLUME"><a href="#WORKDIR-和-VOLUME" class="headerlink" title="WORKDIR 和 VOLUME"></a>WORKDIR 和 VOLUME</h4><h5 id="WORKDIR"><a href="#WORKDIR" class="headerlink" title="WORKDIR"></a>WORKDIR</h5><p>WORKDIR 指令为 Dockerfile 中跟随它的所有 RUN，CMD，ENTRYPOINT，COPY，ADD 指令设置工作目录。 如果 WORKDIR 不存在，即使以后的 Dockerfile 指令中未使用它也将被创建<br>WORKDIR 指令可在 Dockerfile 中多次使用，如果提供了相对路径，则它将相对于上一个 WORKDIR 指令的路径，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">WORKDIR /a</span><br><span class="line">WORKDIR b</span><br><span class="line">WORKDIR c</span><br><span class="line">RUN <span class="built_in">pwd</span></span><br><span class="line"><span class="comment"># 结果 /a/b/c</span></span><br></pre></td></tr></table></figure>
+
+<p>也可以用到环境变量</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ENV DIRPATH=/path</span><br><span class="line">WORKDIR <span class="variable">$DIRPATH</span>/<span class="variable">$DIRNAME</span></span><br><span class="line">RUN <span class="built_in">pwd</span></span><br><span class="line"><span class="comment"># 结果 /path/$DIRNAME</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="VOLUME"><a href="#VOLUME" class="headerlink" title="VOLUME"></a>VOLUME</h5><p>作用：把容器的某些文件夹映射到主机外部<br>写法：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">VOLUME [<span class="string">&quot;/var/log/&quot;</span>] <span class="comment"># 可以是 JSON 数组</span></span><br><span class="line">VOLUME /var/log <span class="comment"># 可以直接写</span></span><br><span class="line">VOLUME /var/log /var/db <span class="comment"># 可以空格分割多个</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：用 VOLUME 声明了卷，那么以后对于卷内容的修改会被丢弃，所以一定在 volume 声明之前修改内容</p>
+<h4 id="USER"><a href="#USER" class="headerlink" title="USER"></a>USER</h4><p>写法：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">USER &lt;user&gt;[:&lt;group&gt;]</span><br><span class="line">USER &lt;UID&gt;[:&lt;GID&gt;]</span><br></pre></td></tr></table></figure>
+
+<p>USER 指令设置运行映像时要使用的用户名（或 UID）以及可选的用户组（或 GID），以及 Dockerfile 中 USER 后面所有 RUN，CMD 和 ENTRYPOINT 指令</p>
+<h4 id="EXPOSE"><a href="#EXPOSE" class="headerlink" title="EXPOSE"></a>EXPOSE</h4><p>EXPOSE 指令通知 Docker 容器在运行时在指定的网络端口上进行侦听，可以指定端口是侦听 TCP 还是 UDP，如果未指定协议，则默认值为 TCP<br>EXPOSE 指令实际上不会发布端口，它充当构建映像的人员和运行容器的人员之间的一种文档，即有关打算发布哪些端口的信息，要在运行容器时实际发布端口，请在 docker run 上使用 -p 标志发布并映射一个或多个端口，或使用 -P 标志发布所有公开的端口并将其映射到高阶端口</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">EXPOSE &lt;port&gt; [&lt;port&gt;/&lt;protocol&gt;...]</span><br><span class="line">EXPOSE [80,443]</span><br><span class="line">EXPOSE 80/tcp</span><br><span class="line">EXPOSE 80/udp</span><br></pre></td></tr></table></figure>
+
+<h4 id="multi-stage-builds"><a href="#multi-stage-builds" class="headerlink" title="multi-stage builds"></a>multi-stage builds</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 以下所有前提 保证 Dockerfile 和项目在同一个文件夹</span></span><br><span class="line"><span class="comment"># 第一阶段：环境构建，用这个也可以</span></span><br><span class="line">FROM maven:3.5.0-jdk-8-alpine AS builder</span><br><span class="line">WORKDIR /app</span><br><span class="line">ADD ./ /app</span><br><span class="line">RUN mvn clean package -Dmaven.test.skip=<span class="literal">true</span></span><br><span class="line"><span class="comment"># 第二阶段，最小运行时环境，只需要 jre；第二阶段并不会有第一阶段哪些没用的层</span></span><br><span class="line"><span class="comment"># 基础镜像没有 jmap；jdk，springboot-actutor（jdk）</span></span><br><span class="line">FROM openjdk:8-jre-alpine</span><br><span class="line">LABEL maintainer=<span class="string">&quot;chenkaixin12121@163.com&quot;</span></span><br><span class="line"><span class="comment"># 从上一个阶段复制内容</span></span><br><span class="line">COPY --from=builder /app/target/*.jar /app.jar</span><br><span class="line"><span class="comment"># 修改时区</span></span><br><span class="line">RUN <span class="built_in">ln</span> -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; <span class="built_in">echo</span></span><br><span class="line"><span class="string">&#x27;Asia/Shanghai&#x27;</span> &gt;/etc/timezone &amp;&amp; <span class="built_in">touch</span> /app.jar</span><br><span class="line">ENV JAVA_OPTS=<span class="string">&quot;&quot;</span></span><br><span class="line">ENV PARAMS=<span class="string">&quot;&quot;</span></span><br><span class="line"><span class="comment"># 运行 jar 包</span></span><br><span class="line">ENTRYPOINT [ <span class="string">&quot;sh&quot;</span>, <span class="string">&quot;-c&quot;</span>, <span class="string">&quot;java -Djava.security.egd=file:/dev/./urandom</span></span><br><span class="line"><span class="string"><span class="variable">$JAVA_OPTS</span> -jar /app.jar <span class="variable">$PARAMS</span>&quot;</span> ]</span><br></pre></td></tr></table></figure>
+
+<h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">FROM openjdk:8-jre-alpine</span><br><span class="line">LABEL maintainer=<span class="string">&quot;chenkaixin12121@163.com&quot;</span></span><br><span class="line">COPY target/*.jar /app.jar</span><br><span class="line">RUN <span class="built_in">ln</span> -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime &amp;&amp; <span class="built_in">echo</span></span><br><span class="line"><span class="string">&#x27;Asia/Shanghai&#x27;</span> &gt;/etc/timezone &amp;&amp; <span class="built_in">touch</span> /app.jar</span><br><span class="line">ENV JAVA_OPTS=<span class="string">&quot;&quot;</span></span><br><span class="line">ENV PARAMS=<span class="string">&quot;&quot;</span></span><br><span class="line">ENTRYPOINT [ <span class="string">&quot;sh&quot;</span>, <span class="string">&quot;-c&quot;</span>, <span class="string">&quot;java -Djava.security.egd=file:/dev/./urandom</span></span><br><span class="line"><span class="string"><span class="variable">$JAVA_OPTS</span> -jar /app.jar <span class="variable">$PARAMS</span>&quot;</span> ]</span><br><span class="line"><span class="comment"># 运行命令 docker run -e JAVA_OPTS=&quot;-Xmx512m -Xms33 -&quot; -e PARAMS=&quot;--</span></span><br><span class="line">spring.profiles=dev --server.port=8080<span class="string">&quot; -jar /app/app.jar</span></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>开心
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://blog.ckx.ink/2021/12/29/220641.html" title="Dockerfile">https://blog.ckx.ink/2021/12/29/220641.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Docker/" rel="tag"><i class="fa fa-tag"></i> Docker</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2021/12/29/204450.html" rel="prev" title="Docker学习">
+                  <i class="fa fa-chevron-left"></i> Docker学习
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/07/06/171457.html" rel="next" title="Frp配置远程桌面">
+                  Frp配置远程桌面 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC81ODIwNS8zNDY2OA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20013274号-1 </a>
+  </div>
+
+<div class="copyright">
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">开心</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">100k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">6:02</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/chenkaixin12121" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="/lib/animejs/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="/lib/@next-theme/pjax/pjax.min.js" integrity="sha256-vxLn1tSKWD4dqbMRyv940UYw4sXgMtYcK6reefzZrao=" crossorigin="anonymous"></script>
+  <script src="/lib/jquery/dist/jquery.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script src="/lib/@fancyapps/fancybox/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="/lib/lozad/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="/lib/pangu/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/pjax.js"></script>
+
+  <script src="/lib/hexo-generator-searchdb/dist/search.js" integrity="sha256-1kfA5uHPf65M5cphT2dvymhkuyHPQp5A53EGZOnOLmc=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+  <script src="/lib/quicklink/dist/quicklink.umd.js" integrity="sha256-yvJQOINiH9fWemHn0vCA5lsHWJaHs6/ZmO+1Ft04SvM=" crossorigin="anonymous"></script>
+  <script class="next-config" data-name="quicklink" type="application/json">{"enable":true,"home":true,"archive":true,"delay":true,"timeout":3000,"priority":true,"url":"https://blog.ckx.ink/2021/12/29/220641.html"}</script>
+  <script src="/js/third-party/quicklink.js"></script>
+<script src="/js/third-party/comments/livere.js"></script>
+
+</body>
+</html>
