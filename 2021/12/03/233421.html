@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="https://file.ckx.ink/upload/2020/04/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="https://file.ckx.ink/upload/2020/04/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="https://file.ckx.ink/upload/2020/04/favicon-16x16.png">
-  <link rel="mask-icon" href="https://file.ckx.ink/favicon.ico" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/../../../../upload/2020/04/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/../../../../upload/2020/04/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/../../../../upload/2020/04/favicon-16x16.png">
+  <link rel="mask-icon" href="/../../../../favicon.ico" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
@@ -29,14 +29,14 @@
 <meta property="og:site_name" content="开心">
 <meta property="og:description" content="JVM 编译优化">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://file.ckx.ink/upload/2021/12/Snipaste_2021-12-06_11-34-24-965e6c35818b4de89b0dc846c70a9477.png">
-<meta property="og:image" content="https://file.ckx.ink/upload/2021/12/Snipaste_2021-12-06_11-37-15-46f3f29b2d9646a5bdb16dc07cb925c3.png">
+<meta property="og:image" content="https://blog.ckx.ink/upload/2021/12/Snipaste_2021-12-06_11-34-24-965e6c35818b4de89b0dc846c70a9477.png">
+<meta property="og:image" content="https://blog.ckx.ink/upload/2021/12/Snipaste_2021-12-06_11-37-15-46f3f29b2d9646a5bdb16dc07cb925c3.png">
 <meta property="article:published_time" content="2021-12-03T15:34:21.000Z">
-<meta property="article:modified_time" content="2023-12-06T15:13:14.508Z">
+<meta property="article:modified_time" content="2023-12-12T02:26:30.514Z">
 <meta property="article:author" content="开心">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://file.ckx.ink/upload/2021/12/Snipaste_2021-12-06_11-34-24-965e6c35818b4de89b0dc846c70a9477.png">
+<meta name="twitter:image" content="https://blog.ckx.ink/upload/2021/12/Snipaste_2021-12-06_11-34-24-965e6c35818b4de89b0dc846c70a9477.png">
 
 
 <link rel="canonical" href="https://blog.ckx.ink/2021/12/03/233421.html">
@@ -153,7 +153,7 @@
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="开心"
-      src="https://file.ckx.ink/upload/2020/04/android-chrome-512x512.png">
+      src="/../../../../upload/2020/04/android-chrome-512x512.png">
   <p class="site-author-name" itemprop="name">开心</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -237,7 +237,7 @@
     <link itemprop="mainEntityOfPage" href="https://blog.ckx.ink/2021/12/03/233421.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://file.ckx.ink/upload/2020/04/android-chrome-512x512.png">
+      <meta itemprop="image" content="/../../../../upload/2020/04/android-chrome-512x512.png">
       <meta itemprop="name" content="开心">
     </span>
 
@@ -270,7 +270,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-12-06 23:13:14" itemprop="dateModified" datetime="2023-12-06T23:13:14+08:00">2023-12-06</time>
+      <time title="修改时间：2023-12-12 10:26:30" itemprop="dateModified" datetime="2023-12-12T10:26:30+08:00">2023-12-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -348,12 +348,12 @@
 <ul>
 <li>方法调用计数器（Invocation Counter）</li>
 </ul>
-<p><img data-src="https://file.ckx.ink/upload/2021/12/Snipaste_2021-12-06_11-34-24-965e6c35818b4de89b0dc846c70a9477.png" alt="image.png"></p>
+<p><img data-src="/../../../../upload/2021/12/Snipaste_2021-12-06_11-34-24-965e6c35818b4de89b0dc846c70a9477.png" alt="image.png"></p>
 <p>用于统计方法被调用的次数，在不开启分层编译的情况下，在 C1 编译器下的默认阈值是 1500 次，在 C2 模式下是 10000 次，也可用 -XX:CompileThreshold&#x3D;X 指定阈值</p>
 <ul>
 <li>回边计数器（Back Edge Counter）</li>
 </ul>
-<p><img data-src="https://file.ckx.ink/upload/2021/12/Snipaste_2021-12-06_11-37-15-46f3f29b2d9646a5bdb16dc07cb925c3.png" alt="image.png"></p>
+<p><img data-src="/../../../../upload/2021/12/Snipaste_2021-12-06_11-37-15-46f3f29b2d9646a5bdb16dc07cb925c3.png" alt="image.png"></p>
 <p>用于统计一个方法中循环体代码执行的次数，在字节码中遇到控制流向后跳转的指令称为“回边”（Back Edge），在不开启分层编译的情况下，C1 编译器下的默认阈值 13995，C2 默认为 10700，可使用 -XX:OnStackReplacePercentage&#x3D;X 指定阈值<br>建立回边计数器的主要目的是为了触发 OSR（OnStackReplacement），所以 OSR 就是在运行中替换正在运行的函数的栈帧的技术</p>
 <h4 id="方法内联"><a href="#方法内联" class="headerlink" title="方法内联"></a>方法内联</h4><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">private int add4(int x1, int x2, int x3, int x4) &#123;</span><br><span class="line">    return add2(x1, x2) + add2(x3, x4);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private int add2(int x1, int x2) &#123;</span><br><span class="line">    return x1 + x2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 内联后</span><br><span class="line">private int add4(int x1, int x2, int x3, int x4) &#123;</span><br><span class="line">    return x1 + x2 + x3 + x4;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 

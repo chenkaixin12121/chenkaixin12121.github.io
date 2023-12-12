@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
 
-  <link rel="apple-touch-icon" sizes="180x180" href="https://file.ckx.ink/upload/2020/04/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="https://file.ckx.ink/upload/2020/04/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="https://file.ckx.ink/upload/2020/04/favicon-16x16.png">
-  <link rel="mask-icon" href="https://file.ckx.ink/favicon.ico" color="#222">
+  <link rel="apple-touch-icon" sizes="180x180" href="/../../../../upload/2020/04/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/../../../../upload/2020/04/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/../../../../upload/2020/04/favicon-16x16.png">
+  <link rel="mask-icon" href="/../../../../favicon.ico" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
 
@@ -29,17 +29,17 @@
 <meta property="og:site_name" content="开心">
 <meta property="og:description" content="Nginx+Keepalived实现双机主备和双主热备">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://file.ckx.ink/upload/2021/11/Snipaste_2021-11-07_22-59-10-0324ed8c358346069e4d9eefb70697de.png">
-<meta property="og:image" content="https://file.ckx.ink/upload/2021/11/Snipaste_2021-11-07_23-05-12-c0c1ab6e51d540bcb044d8641e371114.png">
-<meta property="og:image" content="https://file.ckx.ink/upload/2021/11/Snipaste_2021-11-07_22-59-37-8a35213cf69540f7be677920ea374028.png">
-<meta property="og:image" content="https://file.ckx.ink/upload/2021/11/Snipaste_2021-11-07_23-35-45-859f68c0b6b648de8bc9388deb9676d4.png">
+<meta property="og:image" content="https://blog.ckx.ink/upload/2021/11/Snipaste_2021-11-07_22-59-10-0324ed8c358346069e4d9eefb70697de.png">
+<meta property="og:image" content="https://blog.ckx.ink/upload/2021/11/Snipaste_2021-11-07_23-05-12-c0c1ab6e51d540bcb044d8641e371114.png">
+<meta property="og:image" content="https://blog.ckx.ink/upload/2021/11/Snipaste_2021-11-07_22-59-37-8a35213cf69540f7be677920ea374028.png">
+<meta property="og:image" content="https://blog.ckx.ink/upload/2021/11/Snipaste_2021-11-07_23-35-45-859f68c0b6b648de8bc9388deb9676d4.png">
 <meta property="article:published_time" content="2021-11-07T11:57:03.000Z">
-<meta property="article:modified_time" content="2023-12-07T09:39:06.005Z">
+<meta property="article:modified_time" content="2023-12-12T02:26:30.472Z">
 <meta property="article:author" content="开心">
 <meta property="article:tag" content="Nginx">
 <meta property="article:tag" content="Keepalived">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://file.ckx.ink/upload/2021/11/Snipaste_2021-11-07_22-59-10-0324ed8c358346069e4d9eefb70697de.png">
+<meta name="twitter:image" content="https://blog.ckx.ink/upload/2021/11/Snipaste_2021-11-07_22-59-10-0324ed8c358346069e4d9eefb70697de.png">
 
 
 <link rel="canonical" href="https://blog.ckx.ink/2021/11/07/195703.html">
@@ -156,7 +156,7 @@
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="开心"
-      src="https://file.ckx.ink/upload/2020/04/android-chrome-512x512.png">
+      src="/../../../../upload/2020/04/android-chrome-512x512.png">
   <p class="site-author-name" itemprop="name">开心</p>
   <div class="site-description" itemprop="description"></div>
 </div>
@@ -285,7 +285,7 @@
     <link itemprop="mainEntityOfPage" href="https://blog.ckx.ink/2021/11/07/195703.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://file.ckx.ink/upload/2020/04/android-chrome-512x512.png">
+      <meta itemprop="image" content="/../../../../upload/2020/04/android-chrome-512x512.png">
       <meta itemprop="name" content="开心">
     </span>
 
@@ -318,7 +318,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-12-07 17:39:06" itemprop="dateModified" datetime="2023-12-07T17:39:06+08:00">2023-12-07</time>
+      <time title="修改时间：2023-12-12 10:26:30" itemprop="dateModified" datetime="2023-12-12T10:26:30+08:00">2023-12-12</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -381,7 +381,7 @@
 
 <h5 id="修改两个-Nginx-的-index-html"><a href="#修改两个-Nginx-的-index-html" class="headerlink" title="修改两个 Nginx 的 index.html"></a>修改两个 Nginx 的 index.html</h5><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim html/index.html</span><br><span class="line">将 h1 标签下 Welcome to nginx! 后添加当前主机的 ip，主要为了和另外一台机器做区分</span><br><span class="line">sbin/nginx -s reload</span><br></pre></td></tr></table></figure>
 
-<h5 id="访问-Nginx"><a href="#访问-Nginx" class="headerlink" title="访问 Nginx"></a>访问 Nginx</h5><p><img data-src="https://file.ckx.ink/upload/2021/11/Snipaste_2021-11-07_22-59-10-0324ed8c358346069e4d9eefb70697de.png" alt="image.png"><br><img data-src="https://file.ckx.ink/upload/2021/11/Snipaste_2021-11-07_23-05-12-c0c1ab6e51d540bcb044d8641e371114.png" alt="image.png"></p>
+<h5 id="访问-Nginx"><a href="#访问-Nginx" class="headerlink" title="访问 Nginx"></a>访问 Nginx</h5><p><img data-src="/../../../../upload/2021/11/Snipaste_2021-11-07_22-59-10-0324ed8c358346069e4d9eefb70697de.png" alt="image.png"><br><img data-src="/../../../../upload/2021/11/Snipaste_2021-11-07_23-05-12-c0c1ab6e51d540bcb044d8641e371114.png" alt="image.png"></p>
 <h4 id="安装-Keepalived"><a href="#安装-Keepalived" class="headerlink" title="安装 Keepalived"></a>安装 Keepalived</h4><h5 id="下载-1"><a href="#下载-1" class="headerlink" title="下载"></a>下载</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget https://www.keepalived.org/software/keepalived-2.2.4.tar.gz</span><br><span class="line">tar -zxvf keepalived-2.2.4.tar.gz</span><br></pre></td></tr></table></figure>
 
 <h5 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> keepalived-2.2.4</span><br><span class="line">./configure --prefix=/usr/local/keepalived --sysconf=/etc</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure>
@@ -399,9 +399,9 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">! Configuration File <span class="keyword">for</span> keepalived</span><br><span class="line">global_defs &#123;</span><br><span class="line">   <span class="comment"># 路由id：当前安装keepalived节点主机的标识符，全局唯一</span></span><br><span class="line">   router_id keep_105</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    <span class="comment"># 表示的状态，当前的104为Nginx主节点，MASTER/BACKUP</span></span><br><span class="line">    state BACKUP</span><br><span class="line">    <span class="comment"># 当前实例绑定的网卡</span></span><br><span class="line">    interface ens33</span><br><span class="line">    <span class="comment"># 保证主备节点一致</span></span><br><span class="line">    virtual_router_id 51</span><br><span class="line">    <span class="comment"># 优先级/权重，谁的优先级高，在MASTER挂掉之后，就会成为MASTER</span></span><br><span class="line">    priority 80</span><br><span class="line">    <span class="comment"># 主备之间同步检查的时间间隔，默认1秒</span></span><br><span class="line">    advert_int 1</span><br><span class="line">    <span class="comment"># 认证授权的密码，防止非法节点的进入</span></span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment"># 虚拟ip</span></span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.1.110</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h5 id="重启-Keepalived-后进行测试"><a href="#重启-Keepalived-后进行测试" class="headerlink" title="重启 Keepalived 后进行测试"></a>重启 Keepalived 后进行测试</h5><p>访问 VIP，<a target="_blank" rel="noopener" href="http://192.168.1.110/">http://192.168.1.110</a></p>
-<p><img data-src="https://file.ckx.ink/upload/2021/11/Snipaste_2021-11-07_22-59-37-8a35213cf69540f7be677920ea374028.png" alt="image.png"></p>
+<p><img data-src="/../../../../upload/2021/11/Snipaste_2021-11-07_22-59-37-8a35213cf69540f7be677920ea374028.png" alt="image.png"></p>
 <p>关闭 104 节点 Keepalived，继续访问 VIP</p>
-<p><img data-src="https://file.ckx.ink/upload/2021/11/Snipaste_2021-11-07_23-35-45-859f68c0b6b648de8bc9388deb9676d4.png" alt="image.png"></p>
+<p><img data-src="/../../../../upload/2021/11/Snipaste_2021-11-07_23-35-45-859f68c0b6b648de8bc9388deb9676d4.png" alt="image.png"></p>
 <h5 id="配置-Nginx-自动重启"><a href="#配置-Nginx-自动重启" class="headerlink" title="配置 Nginx 自动重启"></a>配置 Nginx 自动重启</h5><p>在 Keepalived 配置文件加添加</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">vrrp_script check_nginx_alive &#123;</span><br><span class="line">    script <span class="string">&quot;/etc/keepalived/check_nginx_alive_or_not.sh&quot;</span></span><br><span class="line">    <span class="comment"># 每隔两秒运行上一行脚本</span></span><br><span class="line">    interval 2 </span><br><span class="line">    <span class="comment"># 如果脚本运行成功，则加权重10</span></span><br><span class="line">    weight 10 </span><br><span class="line">    <span class="comment"># 如果脚本运行失败，则减权重10</span></span><br><span class="line">    <span class="comment"># weight -10 </span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    track_script &#123;</span><br><span class="line">        check_nginx_alive <span class="comment"># 追踪 nginx 脚本</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
