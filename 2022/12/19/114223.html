@@ -30,7 +30,7 @@
 <meta property="og:description" content="Git 常见问题整理">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-12-19T03:42:23.000Z">
-<meta property="article:modified_time" content="2024-01-22T08:57:15.915Z">
+<meta property="article:modified_time" content="2024-01-29T08:45:38.751Z">
 <meta property="article:author" content="开心">
 <meta property="article:tag" content="Git">
 <meta name="twitter:card" content="summary">
@@ -307,7 +307,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>867</span>
+      <span>884</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -359,7 +359,9 @@
 
 <h4 id="配置代理"><a href="#配置代理" class="headerlink" title="配置代理"></a>配置代理</h4><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.proxy http://127.0.0.1:1080</span><br><span class="line">git config --global https.proxy https://127.0.0.1:1080</span><br></pre></td></tr></table></figure>
 
-<h4 id="git-生成-ssh-key-并配置到-GitLab"><a href="#git-生成-ssh-key-并配置到-GitLab" class="headerlink" title="git 生成 ssh key 并配置到 GitLab"></a>git 生成 ssh key 并配置到 GitLab</h4><ol>
+<h4 id="git-生成-ssh-key-并配置到-GitLab"><a href="#git-生成-ssh-key-并配置到-GitLab" class="headerlink" title="git 生成 ssh key 并配置到 GitLab"></a>git 生成 ssh key 并配置到 GitLab</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global --list</span><br><span class="line">git config --global user.name &quot;chenkaixin12121&quot;</span><br><span class="line">git config --global user.email &quot;chenkaixin12121@163.com&quot;</span><br></pre></td></tr></table></figure>
+
+<ol>
 <li>控制台输入命令 <code>ssh-keygen -t rsa -C &#39;chenkaixin12121@163.com&#39;</code></li>
 <li>提示输入 rsa 文件保存位置及密码，这里使用默认保存位置并且不设置密码（设置密码后每次拉取代码都需要输入密码）</li>
 <li>打开并复制内容 rsa文件地址&#x2F;.ssh&#x2F;id_rsa.pub</li>
@@ -448,7 +450,7 @@
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:07</span>
+    <span title="站点阅读时长">6:08</span>
   </span>
 </div>
 <div class="busuanzi-count">
