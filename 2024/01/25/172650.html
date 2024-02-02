@@ -44,7 +44,7 @@
 <meta property="og:image" content="https://blog.ckx.ink/upload/2024/01/%E7%99%BB%E5%BD%95.png">
 <meta property="og:image" content="https://blog.ckx.ink/upload/2024/01/%E7%99%BB%E5%BD%95%E6%88%90%E5%8A%9F.png">
 <meta property="article:published_time" content="2024-01-25T09:26:50.000Z">
-<meta property="article:modified_time" content="2024-01-31T03:36:59.167Z">
+<meta property="article:modified_time" content="2024-02-01T06:09:19.653Z">
 <meta property="article:author" content="开心">
 <meta property="article:tag" content="k8s">
 <meta name="twitter:card" content="summary">
@@ -158,7 +158,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kubernetes-%E9%95%9C%E5%83%8F"><span class="nav-number">1.</span> <span class="nav-text">Kubernetes 镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8-Kubernetes"><span class="nav-number">2.</span> <span class="nav-text">启动 Kubernetes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-Kubernetes"><span class="nav-number">3.</span> <span class="nav-text">配置 Kubernetes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8C"><span class="nav-number">4.</span> <span class="nav-text">配置访问令牌</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Kubernetes-%E9%95%9C%E5%83%8F"><span class="nav-number">1.</span> <span class="nav-text">Kubernetes 镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8-Kubernetes"><span class="nav-number">2.</span> <span class="nav-text">启动 Kubernetes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-Kubernetes"><span class="nav-number">3.</span> <span class="nav-text">配置 Kubernetes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E8%AE%BF%E9%97%AE%E4%BB%A4%E7%89%8C"><span class="nav-number">4.</span> <span class="nav-text">配置访问令牌</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Helm"><span class="nav-number">5.</span> <span class="nav-text">安装 Helm</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4"><span class="nav-number">5.1.</span> <span class="nav-text">步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Helm-%E5%AE%89%E8%A3%85-wordpress"><span class="nav-number">5.2.</span> <span class="nav-text">Helm 安装 wordpress</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Istio"><span class="nav-number">6.</span> <span class="nav-text">安装 Istio</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-1"><span class="nav-number">6.1.</span> <span class="nav-text">步骤</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-Book-Info%EF%BC%88%E5%9C%A8-istio-%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%A7%E8%A1%8C%EF%BC%89"><span class="nav-number">6.2.</span> <span class="nav-text">安装 Book Info（在 istio 目录下执行）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8-kiali%EF%BC%88%E5%9C%A8-istio-%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%A7%E8%A1%8C%EF%BC%89"><span class="nav-number">6.3.</span> <span class="nav-text">启动 kiali（在 istio 目录下执行）</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -173,7 +173,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">78</span>
+          <span class="site-state-item-count">80</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -184,7 +184,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-count">38</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -240,6 +240,20 @@
       </a>
     </li>
     <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2023/10/04/191229.html" rel="bookmark">
+        <time class="popular-posts-time">2023-10-04</time>
+        <br>
+      DockerCompose部署SkyWalking
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2023/10/04/172822.html" rel="bookmark">
+        <time class="popular-posts-time">2023-10-04</time>
+        <br>
+      DockerCompose部署Prometheus与Grafana
+      </a>
+    </li>
+    <li class="popular-posts-item">
       <a class="popular-posts-link" href="/2022/09/16/165812.html" rel="bookmark">
         <time class="popular-posts-time">2022-09-16</time>
         <br>
@@ -247,24 +261,10 @@
       </a>
     </li>
     <li class="popular-posts-item">
-      <a class="popular-posts-link" href="/2023/04/17/154155.html" rel="bookmark">
-        <time class="popular-posts-time">2023-04-17</time>
+      <a class="popular-posts-link" href="/2023/08/09/215223.html" rel="bookmark">
+        <time class="popular-posts-time">2023-08-09</time>
         <br>
-      iOS源阅读IPA文件重签名
-      </a>
-    </li>
-    <li class="popular-posts-item">
-      <a class="popular-posts-link" href="/2021/12/29/204450.html" rel="bookmark">
-        <time class="popular-posts-time">2021-12-29</time>
-        <br>
-      Docker学习
-      </a>
-    </li>
-    <li class="popular-posts-item">
-      <a class="popular-posts-link" href="/2023/03/19/163022.html" rel="bookmark">
-        <time class="popular-posts-time">2023-03-19</time>
-        <br>
-      Hexo博客搭建
+      SpringBoot整合Protobuf
       </a>
     </li>
   </ul>
@@ -343,14 +343,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>293</span>
+      <span>666</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
+      <span>2 分钟</span>
     </span>
 </div>
 
@@ -449,7 +449,29 @@
 <p>3.登录</p>
 <p><img data-src="/../../../../upload/2024/01/%E7%99%BB%E5%BD%95.png" alt="image.png"></p>
 <p><img data-src="/../../../../upload/2024/01/%E7%99%BB%E5%BD%95%E6%88%90%E5%8A%9F.png" alt="image.png"></p>
+<h4 id="安装-Helm"><a href="#安装-Helm" class="headerlink" title="安装 Helm"></a>安装 Helm</h4><h5 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h5><ol>
+<li>下载 <a target="_blank" rel="noopener" href="https://github.com/helm/helm/releases">https://github.com/helm/helm/releases</a></li>
+<li>解压缩并添加到环境变量</li>
+<li>验证 <code>helm version</code></li>
+<li>配置 chart 仓库 <code>helm repo add stable http://mirror.azure.cn/kubernetes/charts/</code></li>
+<li>更新 chart 仓库 <code>helm repo update</code></li>
+<li>查看可以被安装的 charts 列表 <code>helm search repo stable</code></li>
+</ol>
+<h5 id="Helm-安装-wordpress"><a href="#Helm-安装-wordpress" class="headerlink" title="Helm 安装 wordpress"></a>Helm 安装 wordpress</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">从 Artifact Hub 搜索 wordpress</span></span><br><span class="line">helm search hub wordpress</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">从本地 helm 客户端中的仓库中搜索 wordpress</span></span><br><span class="line">helm search repo wordpress</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">安装 wordpress</span></span><br><span class="line">helm install wordpress stable/wordpress</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看 wordpress 状态</span></span><br><span class="line">helm status wordpress</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">卸载 wordpress</span></span><br><span class="line">helm uninstall wordpress</span><br></pre></td></tr></table></figure>
 
+<h4 id="安装-Istio"><a href="#安装-Istio" class="headerlink" title="安装 Istio"></a>安装 Istio</h4><h5 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤"></a>步骤</h5><ol>
+<li>下载 <a target="_blank" rel="noopener" href="https://github.com/istio/istio/releases/tag/1.20.2">https://github.com/istio/istio/releases/tag/1.20.2</a></li>
+<li>解压缩并添加到环境变量</li>
+<li>验证 <code>istioctl version</code></li>
+<li>执行安装 <code>istioctl manifest apply --set profile=demo</code></li>
+<li>检查状态 <code>kubectl get pods -n istio-system</code></li>
+<li>为 default 名空间开启自动 sidecar 注入<br><code>kubectl label namespace default istio-injection=enabled</code><br><code>kubectl get namespace -L istio-injection</code></li>
+</ol>
+<h5 id="安装-Book-Info（在-istio-目录下执行）"><a href="#安装-Book-Info（在-istio-目录下执行）" class="headerlink" title="安装 Book Info（在 istio 目录下执行）"></a>安装 Book Info（在 istio 目录下执行）</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">部署示例应用</span></span><br><span class="line">kubectl apply -f samples/bookinfo/platform/kube/bookinfo.yaml</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看示例应用资源</span></span><br><span class="line">kubectl get svc,pod</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">确认示例应用在运行中</span></span><br><span class="line">kubectl exec -it $(kubectl get pod -l app=ratings -o jsonpath=&#x27;&#123;.items[0].metadata.name&#125;&#x27;) -c ratings -- curl productpage:9080/productpage | grep -o &quot;&lt;title&gt;.*&lt;/title&gt;&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">创建 Ingress Gateway</span></span><br><span class="line">kubectl apply -f samples/bookinfo/networking/bookinfo-gateway.yaml</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">查看 Gateway 配置</span></span><br><span class="line">kubectl get gateway</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">确认示例应用可以访问</span></span><br><span class="line">export GATEWAY_URL=localhost:80</span><br><span class="line">curl -s http://$&#123;GATEWAY_URL&#125;/productpage | grep -o &quot;&lt;title&gt;.*&lt;/title&gt;&quot;</span><br><span class="line"></span><br><span class="line">访问 http://localhost/productpage</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">删除实例应用</span></span><br><span class="line">samples/bookinfo/platform/kube/cleanup.sh</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">卸载 Istio</span></span><br><span class="line">istioctl manifest generate --set profile=demo | kubectl delete -f -</span><br></pre></td></tr></table></figure>
+
+<h5 id="启动-kiali（在-istio-目录下执行）"><a href="#启动-kiali（在-istio-目录下执行）" class="headerlink" title="启动 kiali（在 istio 目录下执行）"></a>启动 kiali（在 istio 目录下执行）</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f samples/addons/kiali.yaml</span><br><span class="line">istioctl dashboard kiali</span><br><span class="line"></span><br><span class="line">http://localhost:20001/kiali</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -525,14 +547,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">101k</span>
+    <span title="站点总字数">102k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">6:08</span>
+    <span title="站点阅读时长">6:11</span>
   </span>
 </div>
 <div class="busuanzi-count">
