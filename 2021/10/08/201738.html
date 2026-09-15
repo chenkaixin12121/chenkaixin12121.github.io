@@ -36,7 +36,7 @@
 <meta property="og:image" content="https://blog.ckx.ink/upload/2021/12/image-e3cdc70cf8734cbdabae985ab933780a.png">
 <meta property="og:image" content="https://blog.ckx.ink/upload/2021/12/image-029d13727a7c4d159b84030dd495c209.png">
 <meta property="article:published_time" content="2021-10-08T12:17:38.000Z">
-<meta property="article:modified_time" content="2024-01-31T03:29:25.737Z">
+<meta property="article:modified_time" content="2026-09-15T08:28:03.823Z">
 <meta property="article:author" content="开心">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -159,7 +159,7 @@
     <img class="site-author-image" itemprop="image" alt="开心"
       src="/../../../../upload/2020/04/android-chrome-512x512.png">
   <p class="site-author-name" itemprop="name">开心</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">开心 的技术博客，记录 Java、JVM、分布式、数据库与运维部署的学习笔记</div>
 </div>
 <div class="site-state-wrap animated">
   <nav class="site-state">
@@ -171,7 +171,7 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -261,7 +261,7 @@
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="开心">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="开心 的技术博客，记录 Java、JVM、分布式、数据库与运维部署的学习笔记">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
@@ -307,7 +307,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>9.5k</span>
+      <span>9.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -409,7 +409,7 @@
 <li>操作数栈中元素的数据类型必须与字节码指令的序列严格匹配，这由编译器在编译期间进行验证，同时在类加载过程中的类检验阶段的数据流分析阶段要再次验证 </li>
 <li>另外，我们说 java 虚拟机的解释引擎是基于栈的执行引擎，其中的栈指的就是操作数栈</li>
 </ul>
-<p>栈顶缓存（Top-of-stack-Cashing）:</p>
+<p>栈顶缓存（Top-of-stack-Caching）:</p>
 <ul>
 <li>HotSpot 的执行引擎采用的并非是基于寄存器的架构，但这并不代表 HotSpot VM 的实现并没有间接利用到寄存器资源，寄存器是物理 CPU 中的组成部分之一，它同时也是 CPU 中非常重要的高速存储资源，一般来说，寄存器的读&#x2F;写速度非常迅速，甚至可以比内存的读&#x2F;写速度快上几十倍不止，不过寄存器资源却非常有限，不同平台下的 CPU 寄存器数量是不同和不规律的，寄存器主要用于缓存本地机器指令、数值和下一条需要被执行的指令地址等数据</li>
 <li>基于栈式架构的虚拟机所使用的零地址指令更加紧凑，但完成一项操作的时候必然需要使用更多的入栈和出栈指令，这同时也就意味着将需要更多的指令分派（instruction dispatch）次数和内存读&#x2F;写次数，由于操作数是存储在内存中的，因此频繁的执行内存读&#x2F;写操作必然会影响执行速度，为了解决这个问题，HotSpot JVM 设计者们提出了栈顶缓存技术，将栈顶元素全部缓存在物理 CPU 的寄存器中，以此降低对内存的读&#x2F;写次数，提升执行引擎的执行效率</li>
@@ -430,11 +430,11 @@
 <p>对应的方法的绑定机制为：早期绑定（Early Binding）和晚期绑定（Late Binding），绑定是一个字段、方法或者类在符号引用被替换为直接引用的过程，这仅仅发生一次</p>
 <ul>
 <li>早期绑定：早期绑定就是指被调用的目标方法如果在编译期可知，且运行期保持不变时，即可将这个方法与所属的类型进行绑定，这样一来，由于明确了被调用的目标方法究竟是哪一个，因此也就可以使用静态链接的方式将符号引用转换为直接引用</li>
-<li>晚期绑定：如果被调用的方法在编译器无法被确定下来，只能够在程序运行期根据实际的类型绑定相关的方法，这种绑定方式就被称为晚期绑定</li>
+<li>晚期绑定：如果被调用的方法在编译期无法被确定下来，只能够在程序运行期根据实际的类型绑定相关的方法，这种绑定方式就被称为晚期绑定</li>
 </ul>
 <p>虚方法和非虚方法</p>
 <ul>
-<li>如果方法在编译器就确定了具体的调用版本，这个版本在运行时是不可变的，这样的方法称为非虚方法，比如静态方法、私有方法、final 方法、实例构造器、父类方法都是非虚方法 </li>
+<li>如果方法在编译期就确定了具体的调用版本，这个版本在运行时是不可变的，这样的方法称为非虚方法，比如静态方法、私有方法、final 方法、实例构造器、父类方法都是非虚方法 </li>
 <li>其他方法称为虚方法</li>
 </ul>
 <p>虚方法表</p>
@@ -462,7 +462,7 @@
 <h5 id="为什么要使用本地方法"><a href="#为什么要使用本地方法" class="headerlink" title="为什么要使用本地方法"></a>为什么要使用本地方法</h5><ul>
 <li>与 java 环境外交互：有时 java 应用需要与 java 外面的环境交互，这就是本地方法存在的原因</li>
 <li>与操作系统交互：JVM 支持 java 语言本身和运行时库，但是有时仍需要依赖一些底层系统的支持，通过本地方法，我们可以实现用 java 与实现了 jre 的底层系统交互， JVM 的一些部分就是 C 语言写的</li>
-<li>Sun’s Java：Sun 的解释器就是 C 实现的，这使得它能像一些普通的 C 一样与外部交互，jre 大部分都是用 java 实现的，它也通过一些本地方法与外界交互，比如，类 java.lang.Thread 的 setPriority() 的方法是用 java 实现的，但它实现调用的是该类的本地方法 setPrioruty()，该方法是 C 实现的，并被植入 JVM 内部</li>
+<li>Sun’s Java：Sun 的解释器就是 C 实现的，这使得它能像一些普通的 C 一样与外部交互，jre 大部分都是用 java 实现的，它也通过一些本地方法与外界交互，比如，类 java.lang.Thread 的 setPriority() 的方法是用 java 实现的，但它实现调用的是该类的本地方法 setPriority0()，该方法是 C 实现的，并被植入 JVM 内部</li>
 </ul>
 <h4 id="程序计数器"><a href="#程序计数器" class="headerlink" title="程序计数器"></a>程序计数器</h4><p>程序计数寄存器（Program Counter Register），Register 的命名源于 CPU 的寄存器，寄存器存储指令相关的线程信息，CPU 只有把数据装载到寄存器才能够运行</p>
 <p>这里，并非是广义上所指的物理寄存器，叫程序计数器（或PC计数器或指令计数器）会更加贴切，并且也不容易引起一些不必要的误会，JVM 中的 PC 寄存器是对物理 PC 寄存器的一种抽象模拟</p>
@@ -480,12 +480,14 @@
 <li>它是唯一一个在 JVM 规范中没有规定任何 OutOfMemoryError 情况的区域</li>
 </ul>
 <h4 id="堆内存"><a href="#堆内存" class="headerlink" title="堆内存"></a>堆内存</h4><h5 id="内存划分"><a href="#内存划分" class="headerlink" title="内存划分"></a>内存划分</h5><p>对于大多数应用，java 堆是 java 虚拟机管理的内存中最大的一块，被所有线程共享，此内存区域的唯一目的就是存放对象实例，几乎所有的对象实例以及数据都在这里分配内存</p>
-<p>为了进行高效的垃圾回收，虚拟机把堆内存逻辑上划分成三块区域（分代的唯一理由就是优化 GC 性能）：</p>
+<p>为了进行高效的垃圾回收，虚拟机把堆内存逻辑上划分成两块区域（分代的唯一理由就是优化 GC 性能）：</p>
 <ul>
 <li>新生代（年轻代）：新对象和没达到一定年龄的对象都在新生代</li>
 <li>老年代（养老区）：被长时间使用的对象，老年代的内存空间应该要比年轻代更大</li>
-<li>元空间（JDK8 之前叫永久代）：像一些方法中的操作临时对象等，JDK8 之前是占用 JVM 内存，JDK8 之后直接使用物理内存</li>
 </ul>
+<blockquote>
+<p>注：元空间（JDK8 之前叫永久代）属于方法区，位于堆外内存（Non-Heap），JDK8 之前占用 JVM 内存，JDK8 之后直接使用物理内存，不纳入堆的分代划分</p>
+</blockquote>
 <p><img data-src="/../../../../upload/2021/12/image-f73e3ecec3e440269e84ab71abe8f69b.png" alt="image.png"></p>
 <p>java 虚拟机规范规定，java 堆可以是处于物理上不连续的内存空间中，只要逻辑上是连续的即可，像磁盘空间一样，实现时，既可以是固定大小，也可以是可扩展的，主流虚拟机都是可扩展的（通过 -Xmx 和 -Xms 控制），如果堆中没有完成实例分配，并且堆无法再扩展时，就会抛出 OutOfMemoryError 异常</p>
 <h6 id="年轻代（Young-Generation）"><a href="#年轻代（Young-Generation）" class="headerlink" title="年轻代（Young Generation）"></a>年轻代（Young Generation）</h6><p>年轻代是所有新对象创建的地方，在年轻代执行的垃圾收集被称为 Minor GC，年轻代默认被分为一个 Eden 和两个 Survivor，默认比例是 8:1:1</p>
@@ -498,7 +500,7 @@
 <li>经历过默认 15 次垃圾回收的对象将会放到老年代</li>
 </ul>
 <p>空间分配担保：</p>
-<p>在发生 Minor GC 之前，虚拟机会先检查老年代最大可用的连续空间是否大于新生代所有对象总空间，如果这个条件成立，那么 Minor GC 可以确保是安全的，如果不成立，则虚拟机会查看 HandlerPromotionFailure（true，false）是否允许担保失败，如果允许，那么会继续检查老年代最大可用的连续空间是否大于历次晋升到老年代对象的平均大小，如果大于，将尝试进行一次 Minor GC，尽管这次 Minor GC 是有风险的，如果小于，或者 HandlerPromotionFailure 为 false，那么这次 Minor GC 将升级为 Full GC</p>
+<p>在发生 Minor GC 之前，虚拟机会先检查老年代最大可用的连续空间是否大于新生代所有对象总空间，如果这个条件成立，那么 Minor GC 可以确保是安全的，如果不成立，则虚拟机会查看 HandlePromotionFailure（true，false）是否允许担保失败，如果允许，那么会继续检查老年代最大可用的连续空间是否大于历次晋升到老年代对象的平均大小，如果大于，将尝试进行一次 Minor GC，尽管这次 Minor GC 是有风险的，如果小于，或者 HandlePromotionFailure 为 false，那么这次 Minor GC 将升级为 Full GC</p>
 <h6 id="老年代（Old-Generation）"><a href="#老年代（Old-Generation）" class="headerlink" title="老年代（Old Generation）"></a>老年代（Old Generation）</h6><p>老年代主要存放大对象或者生命周期较长的对象，老年代的垃圾收集称为 Major GC，通常需要更长的时间</p>
 <p>大对象直接进入老年代（大对象是指需要大量连续内存空间的对象），这样做的目的是避免在 Eden 区和两个 Survivor 区之间发生大量的内存拷贝</p>
 <p>年轻代如何进入到老年代：</p>
@@ -606,7 +608,7 @@
 <li>方法名称</li>
 <li>方法的返回类型</li>
 <li>方法参数的数量和类型</li>
-<li>方法的修饰符（public、private、protected、static、final、synchronized、native、abstract 的一个子集） 方法的字符码（bytecodes）、操作数栈、局部变量表及大小（abstract 和 native 方法除外）</li>
+<li>方法的修饰符（public、private、protected、static、final、synchronized、native、abstract 的一个子集） 方法的字节码（bytecodes）、操作数栈、局部变量表及大小（abstract 和 native 方法除外）</li>
 <li>异常表（abstract 和 native 方法除外）<ul>
 <li>每个异常处理的开始位置、结束位置、代码处理在程序计数器中的偏移地址、被捕获的异常类的常量池索引</li>
 </ul>
@@ -711,7 +713,7 @@
 
 <div class="copyright">
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

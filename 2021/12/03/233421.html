@@ -29,14 +29,14 @@
 <meta property="og:site_name" content="开心">
 <meta property="og:description" content="JVM 编译优化">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://blog.ckx.ink/upload/2021/12/Snipaste_2021-12-06_11-34-24-965e6c35818b4de89b0dc846c70a9477.png">
+<meta property="og:image" content="https://blog.ckx.ink/upload/2021/12/Snipaste_2021-12-06_11-37-15-46f3f29b2d9646a5bdb16dc07cb925c3.png">
 <meta property="og:image" content="https://blog.ckx.ink/upload/2021/12/Snipaste_2021-12-06_11-37-15-46f3f29b2d9646a5bdb16dc07cb925c3.png">
 <meta property="article:published_time" content="2021-12-03T15:34:21.000Z">
-<meta property="article:modified_time" content="2024-01-31T03:31:22.851Z">
+<meta property="article:modified_time" content="2026-09-15T08:31:46.912Z">
 <meta property="article:author" content="开心">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://blog.ckx.ink/upload/2021/12/Snipaste_2021-12-06_11-34-24-965e6c35818b4de89b0dc846c70a9477.png">
+<meta name="twitter:image" content="https://blog.ckx.ink/upload/2021/12/Snipaste_2021-12-06_11-37-15-46f3f29b2d9646a5bdb16dc07cb925c3.png">
 
 
 <link rel="canonical" href="https://blog.ckx.ink/2021/12/03/233421.html">
@@ -155,7 +155,7 @@
     <img class="site-author-image" itemprop="image" alt="开心"
       src="/../../../../upload/2020/04/android-chrome-512x512.png">
   <p class="site-author-name" itemprop="name">开心</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">开心 的技术博客，记录 Java、JVM、分布式、数据库与运维部署的学习笔记</div>
 </div>
 <div class="site-state-wrap animated">
   <nav class="site-state">
@@ -167,7 +167,7 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -240,7 +240,7 @@
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="开心">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="开心 的技术博客，记录 Java、JVM、分布式、数据库与运维部署的学习笔记">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
@@ -338,7 +338,7 @@
 <ul>
 <li>方法调用计数器（Invocation Counter）</li>
 </ul>
-<p><img data-src="/../../../../upload/2021/12/Snipaste_2021-12-06_11-34-24-965e6c35818b4de89b0dc846c70a9477.png" alt="image.png"></p>
+<p><img data-src="/../../../../upload/2021/12/Snipaste_2021-12-06_11-37-15-46f3f29b2d9646a5bdb16dc07cb925c3.png" alt="image.png"></p>
 <p>用于统计方法被调用的次数，在不开启分层编译的情况下，在 C1 编译器下的默认阈值是 1500 次，在 C2 模式下是 10000 次，也可用 -XX:CompileThreshold&#x3D;X 指定阈值</p>
 <ul>
 <li>回边计数器（Back Edge Counter）</li>
@@ -379,7 +379,7 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">-XX:+Printinlining</td>
+<td align="center">-XX:+PrintInlining</td>
 <td align="center">-</td>
 <td align="center">打印内联详情，该参数需和 -XX:+UnlockDiagnosticVMOptions 配合使用</td>
 </tr>
@@ -399,9 +399,9 @@
 <td align="center">如果热点方法的字节码超过该值，则无法内联，单位字节</td>
 </tr>
 <tr>
-<td align="center">-XX:InlineSamllCode&#x3D;n</td>
+<td align="center">-XX:InlineSmallCode&#x3D;n</td>
 <td align="center">1000</td>
-<td align="center">目标编译后生成的机器码代销大于该值则无法内联，单位字节</td>
+<td align="center">目标编译后生成的机器码大小大于该值则无法内联，单位字节</td>
 </tr>
 <tr>
 <td align="center">-XX:MaxInlineLevel&#x3D;n</td>
@@ -414,7 +414,7 @@
 <td align="center">如果方法的字节码少于该值，则直接内联，单位字节</td>
 </tr>
 <tr>
-<td align="center">-XX:MinlnliningThreshold&#x3D;n</td>
+<td align="center">-XX:MinInliningThreshold&#x3D;n</td>
 <td align="center">250</td>
 <td align="center">如果目标方法的调用次数低于该值，则不去内联</td>
 </tr>
@@ -429,7 +429,7 @@
 <td align="center">如果方法的调用点（call site）的执行次数超过该值，则触发内联</td>
 </tr>
 <tr>
-<td align="center">-XX:MaxRecursivelnlineLevel&#x3D;n</td>
+<td align="center">-XX:MaxRecursiveInlineLevel&#x3D;n</td>
 <td align="center">1</td>
 <td align="center">递归调用大于这么多次就不内联</td>
 </tr>
@@ -466,7 +466,7 @@
 </ul>
 </li>
 </ul>
-<h5 id="栈上分配"><a href="#栈上分配" class="headerlink" title="栈上分配"></a>栈上分配</h5><p>我们都知道 Java 的对象是在堆上分配的，而堆是对所有对象可见的。同时，JVM 需要对所分配的堆内存进行管理，并且在对象不再被引用时回收其所占据的内存。如果逃逸分析能够证明某些新建的对象不逃逸，那么 JVM 完全可以将其分配至栈上，并且在 new 语句所在的方法退出时，通过弹出当前方法的栈桢来自动回收所分配的内存空间。</p>
+<h5 id="栈上分配"><a href="#栈上分配" class="headerlink" title="栈上分配"></a>栈上分配</h5><p>我们都知道 Java 的对象是在堆上分配的，而堆是对所有对象可见的。同时，JVM 需要对所分配的堆内存进行管理，并且在对象不再被引用时回收其所占据的内存。如果逃逸分析能够证明某些新建的对象不逃逸，那么 JVM 完全可以将其分配至栈上，并且在 new 语句所在的方法退出时，通过弹出当前方法的栈帧来自动回收所分配的内存空间。</p>
 <p>这样一来，我们便无须借助垃圾回收器来处理不再被引用的对象。不过 Hotspot 虚拟机，并没有进行实际的栈上分配，而是使用了标量替换这一技术。所谓的标量，就是仅能存储一个值的变量，比如 Java 代码中的基本类型。与之相反，聚合量则可能同时存储多个值，其中一个典型的例子便是 Java 的对象。编译器会在方法内将未逃逸的聚合量分解成多个标量，以此来减少堆上分配</p>
 <h5 id="标量替换"><a href="#标量替换" class="headerlink" title="标量替换"></a>标量替换</h5><p>标量：不能被进一步分解的量，如基本数据类型、对象引用<br>聚合量：可以被进一步分解的量</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">    <span class="type">int</span> weight;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Example</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">example</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Person</span> <span class="variable">person</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Person</span>(<span class="number">1</span>, <span class="number">10</span>);</span><br><span class="line">        addAgeAndWeight(person.age(), person.weight());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -474,7 +474,7 @@
 <p>经过逃逸分析，person 对象未逃逸出 example() 的调用，因此可以对聚合量 person 进行分解，得到两个标量 age 和 weight，进行标量替换后的伪代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Person</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> age;</span><br><span class="line">    <span class="type">int</span> weight;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Example</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">example</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">age</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">weight</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">        addAgeAndWeight(age, weight);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h5 id="同步消除"><a href="#同步消除" class="headerlink" title="同步消除"></a>同步消除</h5><p>如果即时编译器能够证明锁对象不逃逸，那么对该锁对象的加锁、解锁操作没就有意义。因为线程并不能获得该锁对象。在这种情况下，即时编译器会消除对该不逃逸锁对象的加锁、解锁操作。实际上，编译器仅需证明锁对象不逃逸出线程，便可以进行锁消除。由于 Java 虚拟机即时编译的限制，上述条件被强化为证明锁对象不逃逸出当前编译的方法。不过，基于逃逸分析的锁消除实际上并不多见</p>
+<h5 id="同步消除"><a href="#同步消除" class="headerlink" title="同步消除"></a>同步消除</h5><p>如果即时编译器能够证明锁对象不逃逸，那么对该锁对象的加锁、解锁操作就没有意义。因为线程并不能获得该锁对象。在这种情况下，即时编译器会消除对该不逃逸锁对象的加锁、解锁操作。实际上，编译器仅需证明锁对象不逃逸出线程，便可以进行锁消除。由于 Java 虚拟机即时编译的限制，上述条件被强化为证明锁对象不逃逸出当前编译的方法。不过，基于逃逸分析的锁消除实际上并不多见</p>
 
     </div>
 
@@ -539,7 +539,7 @@
 
 <div class="copyright">
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

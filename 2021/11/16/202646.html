@@ -30,7 +30,7 @@
 <meta property="og:description" content="测试数据：https:&#x2F;&#x2F;github.com&#x2F;datacharmer&#x2F;test_db">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-11-16T12:26:46.000Z">
-<meta property="article:modified_time" content="2024-01-31T03:30:56.737Z">
+<meta property="article:modified_time" content="2026-09-15T09:14:59.991Z">
 <meta property="article:author" content="开心">
 <meta property="article:tag" content="mysql">
 <meta name="twitter:card" content="summary">
@@ -143,7 +143,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B0%83%E4%BC%98%E7%9A%84%E4%B8%83%E4%B8%AA%E7%BB%B4%E5%BA%A6"><span class="nav-number">1.</span> <span class="nav-text">数据库调优的七个维度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97"><span class="nav-number">2.</span> <span class="nav-text">慢查询日志</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">使用方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E5%AD%98%E6%94%BE%E4%BD%8D%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">日志存放位置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97"><span class="nav-number">2.3.</span> <span class="nav-text">分析慢查询日志</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Explain-%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">Explain 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#select-type"><span class="nav-number">3.1.</span> <span class="nav-text">select_type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#type"><span class="nav-number">3.2.</span> <span class="nav-text">type</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">SQL 性能分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OPTIMIZER-TRACE"><span class="nav-number">5.</span> <span class="nav-text">OPTIMIZER_TRACE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%8A%E6%96%AD%E5%91%BD%E4%BB%A4"><span class="nav-number">6.</span> <span class="nav-text">数据库诊断命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JOIN-%E4%BC%98%E5%8C%96"><span class="nav-number">7.</span> <span class="nav-text">JOIN 优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LIMIT-%E4%BC%98%E5%8C%96"><span class="nav-number">8.</span> <span class="nav-text">LIMIT 优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#COUNT-%E4%BC%98%E5%8C%96"><span class="nav-number">9.</span> <span class="nav-text">COUNT 优化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E8%AE%BA"><span class="nav-number">9.1.</span> <span class="nav-text">实验结论</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96"><span class="nav-number">9.2.</span> <span class="nav-text">如何优化</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ORDER-BY-%E4%BC%98%E5%8C%96"><span class="nav-number">10.</span> <span class="nav-text">ORDER BY 优化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#rowid-%E6%8E%92%E5%BA%8F%EF%BC%88%E5%B8%B8%E8%A7%84%E6%8E%92%E5%BA%8F%EF%BC%89"><span class="nav-number">10.1.</span> <span class="nav-text">rowid 排序（常规排序）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%A8%E5%AD%97%E6%AE%B5%E6%8E%92%E5%BA%8F%EF%BC%88%E4%BC%98%E5%8C%96%E6%8E%92%E5%BA%8F%EF%BC%89"><span class="nav-number">10.2.</span> <span class="nav-text">全字段排序（优化排序）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E5%AD%97%E6%AE%B5%E6%8E%92%E5%BA%8F"><span class="nav-number">10.3.</span> <span class="nav-text">打包字段排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E5%8C%96-Order-By"><span class="nav-number">10.4.</span> <span class="nav-text">优化 Order By</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96-filesort"><span class="nav-number">10.5.</span> <span class="nav-text">如何优化 filesort</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GROUP-BY-%E4%BC%98%E5%8C%96"><span class="nav-number">11.</span> <span class="nav-text">GROUP BY 优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%A8%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%BC%98%E5%8C%96"><span class="nav-number">12.</span> <span class="nav-text">表结构设计优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E8%B0%83%E4%BC%98"><span class="nav-number">13.</span> <span class="nav-text">索引调优</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%97%E6%AE%B5%E7%9A%84%E8%B0%83%E4%BC%98"><span class="nav-number">13.1.</span> <span class="nav-text">字段的调优</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%95%E5%88%97%E7%B4%A2%E5%BC%95%E5%92%8C%E7%BB%84%E5%90%88%E7%B4%A2%E5%BC%95"><span class="nav-number">13.2.</span> <span class="nav-text">单列索引和组合索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95"><span class="nav-number">13.3.</span> <span class="nav-text">覆盖索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%87%8D%E5%A4%8D%E7%B4%A2%E5%BC%95"><span class="nav-number">13.4.</span> <span class="nav-text">重复索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%97%E4%BD%99%E7%B4%A2%E5%BC%95%EF%BC%88%E9%92%88%E5%AF%B9-B-Tree-%E5%92%8C-B-Tree%EF%BC%89"><span class="nav-number">13.5.</span> <span class="nav-text">冗余索引（针对 B-Tree 和 B+Tree）</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B0%83%E4%BC%98%E7%9A%84%E4%B8%83%E4%B8%AA%E7%BB%B4%E5%BA%A6"><span class="nav-number">1.</span> <span class="nav-text">数据库调优的七个维度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97"><span class="nav-number">2.</span> <span class="nav-text">慢查询日志</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">使用方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E5%AD%98%E6%94%BE%E4%BD%8D%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">日志存放位置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E6%9E%90%E6%85%A2%E6%9F%A5%E8%AF%A2%E6%97%A5%E5%BF%97"><span class="nav-number">2.3.</span> <span class="nav-text">分析慢查询日志</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Explain-%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">Explain 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#select-type"><span class="nav-number">3.1.</span> <span class="nav-text">select_type</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#type"><span class="nav-number">3.2.</span> <span class="nav-text">type</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL-%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">SQL 性能分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%8A%E6%96%AD%E5%91%BD%E4%BB%A4"><span class="nav-number">5.</span> <span class="nav-text">数据库诊断命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JOIN-%E4%BC%98%E5%8C%96"><span class="nav-number">6.</span> <span class="nav-text">JOIN 优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LIMIT-%E4%BC%98%E5%8C%96"><span class="nav-number">7.</span> <span class="nav-text">LIMIT 优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#COUNT-%E4%BC%98%E5%8C%96"><span class="nav-number">8.</span> <span class="nav-text">COUNT 优化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%9E%E9%AA%8C%E7%BB%93%E8%AE%BA"><span class="nav-number">8.1.</span> <span class="nav-text">实验结论</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96"><span class="nav-number">8.2.</span> <span class="nav-text">如何优化</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ORDER-BY-%E4%BC%98%E5%8C%96"><span class="nav-number">9.</span> <span class="nav-text">ORDER BY 优化</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#rowid-%E6%8E%92%E5%BA%8F%EF%BC%88%E5%B8%B8%E8%A7%84%E6%8E%92%E5%BA%8F%EF%BC%89"><span class="nav-number">9.1.</span> <span class="nav-text">rowid 排序（常规排序）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%A8%E5%AD%97%E6%AE%B5%E6%8E%92%E5%BA%8F%EF%BC%88%E4%BC%98%E5%8C%96%E6%8E%92%E5%BA%8F%EF%BC%89"><span class="nav-number">9.2.</span> <span class="nav-text">全字段排序（优化排序）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E5%AD%97%E6%AE%B5%E6%8E%92%E5%BA%8F"><span class="nav-number">9.3.</span> <span class="nav-text">打包字段排序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BC%98%E5%8C%96-Order-By"><span class="nav-number">9.4.</span> <span class="nav-text">优化 Order By</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96-filesort"><span class="nav-number">9.5.</span> <span class="nav-text">如何优化 filesort</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#GROUP-BY-%E4%BC%98%E5%8C%96"><span class="nav-number">10.</span> <span class="nav-text">GROUP BY 优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%A8%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1%E4%BC%98%E5%8C%96"><span class="nav-number">11.</span> <span class="nav-text">表结构设计优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E8%B0%83%E4%BC%98"><span class="nav-number">12.</span> <span class="nav-text">索引调优</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AD%97%E6%AE%B5%E7%9A%84%E8%B0%83%E4%BC%98"><span class="nav-number">12.1.</span> <span class="nav-text">字段的调优</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8D%95%E5%88%97%E7%B4%A2%E5%BC%95%E5%92%8C%E7%BB%84%E5%90%88%E7%B4%A2%E5%BC%95"><span class="nav-number">12.2.</span> <span class="nav-text">单列索引和组合索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95"><span class="nav-number">12.3.</span> <span class="nav-text">覆盖索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%87%8D%E5%A4%8D%E7%B4%A2%E5%BC%95"><span class="nav-number">12.4.</span> <span class="nav-text">重复索引</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%97%E4%BD%99%E7%B4%A2%E5%BC%95%EF%BC%88%E9%92%88%E5%AF%B9-B-Tree-%E5%92%8C-B-Tree%EF%BC%89"><span class="nav-number">12.5.</span> <span class="nav-text">冗余索引（针对 B-Tree 和 B+Tree）</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -152,7 +152,7 @@
     <img class="site-author-image" itemprop="image" alt="开心"
       src="/../../../../upload/2020/04/android-chrome-512x512.png">
   <p class="site-author-name" itemprop="name">开心</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">开心 的技术博客，记录 Java、JVM、分布式、数据库与运维部署的学习笔记</div>
 </div>
 <div class="site-state-wrap animated">
   <nav class="site-state">
@@ -164,7 +164,7 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -225,17 +225,17 @@
       </a>
     </li>
     <li class="popular-posts-item">
-      <a class="popular-posts-link" href="/2021/08/25/195945.html" rel="bookmark">
-        <time class="popular-posts-time">2021-08-25</time>
-        <br>
-      分布式事务解决方案-Seata
-      </a>
-    </li>
-    <li class="popular-posts-item">
       <a class="popular-posts-link" href="/2020/05/09/221141.html" rel="bookmark">
         <time class="popular-posts-time">2020-05-09</time>
         <br>
       MySQL配置主从复制
+      </a>
+    </li>
+    <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2021/08/25/195945.html" rel="bookmark">
+        <time class="popular-posts-time">2021-08-25</time>
+        <br>
+      分布式事务解决方案-Seata
       </a>
     </li>
     <li class="popular-posts-item">
@@ -282,7 +282,7 @@
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="开心">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="开心 的技术博客，记录 Java、JVM、分布式、数据库与运维部署的学习笔记">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
@@ -392,7 +392,7 @@
 </tr>
 </thead>
 <tbody><tr>
-<td align="center">log_out_put</td>
+<td align="center">log_output</td>
 <td align="center">日志输出到哪儿，默认 FILE，表示文件，设置成TABLE，则将日志记录到 mysql.slow_log 中，也可设置多种格式，比如 FILE, TABLE</td>
 <td align="center">FILE</td>
 </tr>
@@ -419,7 +419,7 @@
 <tr>
 <td align="center">log_slow_admin_statements</td>
 <td align="center">是否要记录管理语句，默认关闭，管理语句包括 ALTER TABLE，ANALYZE TABLE，CHECK TABLE，CREATE INDEX，DROP INDEX，OPTIMIZE TABLE，and REPAIR TAB</td>
-<td align="center">ОFF</td>
+<td align="center">OFF</td>
 </tr>
 <tr>
 <td align="center">slow_query_log_file</td>
@@ -594,7 +594,7 @@
 </tbody></table>
 <h5 id="type"><a href="#type" class="headerlink" title="type"></a>type</h5><p>扫描方式由快到慢</p>
 <ul>
-<li>sytem：该表只有一行（等于系统表），system 是 const 类型的特殊</li>
+<li>system：该表只有一行（等于系统表），system 是 const 类型的特殊</li>
 <li>const：命中主键和唯一索引，最多返回一条数据，const 查询非常快，因为它只读取一次</li>
 <li>eq_ref：当使用了索引的全部组成部分，并且索引是主键或唯一索引才会使用该类型</li>
 <li>ref：当满足索引的最左前缀规则，或者命中普通索引时才会发生</li>
@@ -610,20 +610,20 @@
 <h4 id="SQL-性能分析"><a href="#SQL-性能分析" class="headerlink" title="SQL 性能分析"></a>SQL 性能分析</h4><ul>
 <li>information_schema</li>
 </ul>
-<p>从 MySQL8.0 开始，这个表已经开始被废弃</p>
+<p>MySQL 8.0 起 information_schema 改用数据字典实现，部分查询建议改用 performance_schema</p>
 <ul>
 <li>performance_schema</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"># 查看是否开启性能监控</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> performance_schema.setup_actors;</span><br><span class="line"># 开启相关监控项</span><br><span class="line"><span class="keyword">UPDATE</span> performance_schema.setup_instruments <span class="keyword">SET</span> ENABLED <span class="operator">=</span> <span class="string">&#x27;YES&#x27;</span>, TIMED <span class="operator">=</span> <span class="string">&#x27;YES&#x27;</span> <span class="keyword">WHERE</span> NAME <span class="keyword">LIKE</span> <span class="string">&#x27;%statement/%&#x27;</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> performance_schema.setup_instruments <span class="keyword">SET</span> ENABLED <span class="operator">=</span> <span class="string">&#x27;YES&#x27;</span>, TIMED <span class="operator">=</span> <span class="string">&#x27;YES&#x27;</span> <span class="keyword">WHERE</span> NAME <span class="keyword">LIKE</span> <span class="string">&#x27;%stage/%&#x27;</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> performance_schema.setup_consumers <span class="keyword">SET</span> ENABLED <span class="operator">=</span> <span class="string">&#x27;YES&#x27;</span> <span class="keyword">WHERE</span> NAME <span class="keyword">LIKE</span> <span class="string">&#x27;%events_statements_%&#x27;</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> performance_schema.setup_consumers <span class="keyword">SET</span> ENABLED <span class="operator">=</span> <span class="string">&#x27;YES&#x27;</span> <span class="keyword">WHERE</span> NAME <span class="keyword">LIKE</span> <span class="string">&#x27;%events_stages_%&#x27;</span>;</span><br><span class="line"># 要执行的 <span class="keyword">SQL</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> salaries;</span><br><span class="line"># 获取语句的 EVENT_ID</span><br><span class="line"><span class="keyword">SELECT</span> EVENT_ID, <span class="keyword">TRUNCATE</span> ( TIMER_WAIT <span class="operator">/</span> <span class="number">1000000000000</span>, <span class="number">6</span> ) <span class="keyword">AS</span> Duration, SQL_TEXT <span class="keyword">FROM</span> PERFORMANCE_SCHEMA.events_statements_history_long <span class="keyword">WHERE</span> SQL_TEXT <span class="keyword">LIKE</span> <span class="string">&#x27;%salaries%&#x27;</span></span><br><span class="line"># 性能分析</span><br><span class="line"><span class="keyword">SELECT</span> event_name <span class="keyword">AS</span> Stage, <span class="keyword">TRUNCATE</span> ( TIMER_WAIT <span class="operator">/</span> <span class="number">1000000000000</span>, <span class="number">6</span> ) <span class="keyword">AS</span> Duration <span class="keyword">FROM</span> PERFORMANCE_SCHEMA.events_stages_history_long <span class="keyword">WHERE</span> NESTING_EVENT_ID <span class="operator">=</span> <span class="number">268</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="OPTIMIZER-TRACE"><a href="#OPTIMIZER-TRACE" class="headerlink" title="OPTIMIZER_TRACE"></a>OPTIMIZER_TRACE</h4><h4 id="数据库诊断命令"><a href="#数据库诊断命令" class="headerlink" title="数据库诊断命令"></a>数据库诊断命令</h4><ul>
+<h4 id="数据库诊断命令"><a href="#数据库诊断命令" class="headerlink" title="数据库诊断命令"></a>数据库诊断命令</h4><ul>
 <li>SHOW PROCESSLIST：查看当前正在运行的进程</li>
 <li>SHOW STATUS：查看服务器相关信息</li>
 <li>SHOW VARIABLES：查看 MySQL 的变量</li>
 <li>SHOW TABLE STATUS：查看表以及视图的状态</li>
 <li>SHOW INDEX：查看索引相关信息</li>
 <li>SHOW ENGINE：展示有关存储引擎的相关信息</li>
-<li>SHOW MASTER STATUS：展示有并 master binlog 文件的相关信息</li>
+<li>SHOW MASTER STATUS：展示有关 master binlog 文件的相关信息</li>
 <li>SHOW SLAVE STATUS：展示 slave 线程的相关信息</li>
 <li>SHOW PROCEDURE：查看存储过程</li>
 <li>SHOW FUNCTION STATUS：查看函数</li>
@@ -637,7 +637,7 @@
 <h4 id="JOIN-优化"><a href="#JOIN-优化" class="headerlink" title="JOIN 优化"></a>JOIN 优化</h4><p>外层循环的表是驱动表，内层循环的表是被驱动表</p>
 <ul>
 <li>小表驱动大表</li>
-<li>如果有 where 条件，应当要能够使用索引，并尽可能地减少外尝循环的数据量</li>
+<li>如果有 where 条件，应当要能够使用索引，并尽可能地减少外层循环的数据量</li>
 <li>join 的字段尽量创建索引</li>
 <li>尽量减少扫描的行数</li>
 <li>参数 join 的表不要太多</li>
@@ -680,7 +680,7 @@
 <li>把数据库引擎换成 MyISAM，一般不使用</li>
 <li>汇总表</li>
 <li>缓存结果</li>
-<li>sql_calc_found_rows</li>
+<li>sql_calc_found_rows（MySQL 8.0.17 起已废弃，建议改用单独的 COUNT 查询）</li>
 </ul>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> sql_calc_found_rows <span class="operator">*</span> <span class="keyword">from</span> salaries;</span><br><span class="line"><span class="keyword">select</span> found_rows() <span class="keyword">as</span> salary_count;</span><br></pre></td></tr></table></figure>
 
@@ -697,7 +697,7 @@
 <h4 id="ORDER-BY-优化"><a href="#ORDER-BY-优化" class="headerlink" title="ORDER BY 优化"></a>ORDER BY 优化</h4><h5 id="rowid-排序（常规排序）"><a href="#rowid-排序（常规排序）" class="headerlink" title="rowid 排序（常规排序）"></a>rowid 排序（常规排序）</h5><ol>
 <li>从表中获取满足 WHERE 条件的记录</li>
 <li>对于每条记录，将记录的主键及排序键（id，order_column）取出放入 sort buffer（由 sort_buffer_size 控制） </li>
-<li>如果 sort_buffer 能存放所有满足条件的（id，order_column），则进行排序，否则 sort_buffer 满后，排序（快速排序算法<br>）并写到临时文件</li>
+<li>如果 sort_buffer 能存放所有满足条件的（id，order_column），则进行排序，否则 sort_buffer 满后，排序（快速排序算法）并写到临时文件</li>
 <li>若排序中产生了临时文件，需要利用归并排序算法，从而保证有序</li>
 <li>循环执行上述过程，直到所有满足条件的记录全部参与排序</li>
 <li>扫描排好序的（id，order_column）对，并利用 id 去取 SELECT 需要返回的其他字段</li>
@@ -849,7 +849,7 @@
 
 <div class="copyright">
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

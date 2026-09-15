@@ -30,7 +30,7 @@
 <meta property="og:description" content="Dockerfile">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-29T14:06:41.000Z">
-<meta property="article:modified_time" content="2024-01-31T03:33:04.834Z">
+<meta property="article:modified_time" content="2026-09-15T08:37:27.169Z">
 <meta property="article:author" content="开心">
 <meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary">
@@ -152,7 +152,7 @@
     <img class="site-author-image" itemprop="image" alt="开心"
       src="/../../../../upload/2020/04/android-chrome-512x512.png">
   <p class="site-author-name" itemprop="name">开心</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">开心 的技术博客，记录 Java、JVM、分布式、数据库与运维部署的学习笔记</div>
 </div>
 <div class="site-state-wrap animated">
   <nav class="site-state">
@@ -164,7 +164,7 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -275,7 +275,7 @@
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="开心">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="开心 的技术博客，记录 Java、JVM、分布式、数据库与运维部署的学习笔记">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
@@ -321,7 +321,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.5k</span>
+      <span>2.6k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -405,11 +405,11 @@
 </tr>
 <tr>
 <td align="center">ARG</td>
-<td align="center">指定镜像内使用的参数（如版本号信息等），可以在 build 的时候，使用 –buildargs 改变</td>
+<td align="center">指定镜像内使用的参数（如版本号信息等），可以在 build 的时候，使用 –build-arg 改变</td>
 </tr>
 <tr>
-<td align="center">OBBUILD</td>
-<td align="center">配置当创建的镜像作为其他镜像的基础镜像是，所指定的创建操作指令</td>
+<td align="center">ONBUILD</td>
+<td align="center">配置当创建的镜像作为其他镜像的基础镜像时，所指定的创建操作指令</td>
 </tr>
 <tr>
 <td align="center">STOPSIGNAL</td>
@@ -424,7 +424,7 @@
 <td align="center">指定使用 shell 时的默认 shell 类型</td>
 </tr>
 </tbody></table>
-<h4 id="FROM"><a href="#FROM" class="headerlink" title="FROM"></a>FROM</h4><p>FROM 指定基础镜像，最好挑一些 apline，slim 之类的基础小镜像，scratch 镜像是一个空镜像，常用于多阶段构建</p>
+<h4 id="FROM"><a href="#FROM" class="headerlink" title="FROM"></a>FROM</h4><p>FROM 指定基础镜像，最好挑一些 alpine，slim 之类的基础小镜像，scratch 镜像是一个空镜像，常用于多阶段构建</p>
 <h4 id="LABEL"><a href="#LABEL" class="headerlink" title="LABEL"></a>LABEL</h4><p>标注镜像的一些说明信息</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LABEL multi.label1=<span class="string">&quot;value1&quot;</span> multi.label2=<span class="string">&quot;value2&quot;</span> other=<span class="string">&quot;value3&quot;</span></span><br><span class="line">LABEL multi.label1=<span class="string">&quot;value1&quot;</span> \</span><br><span class="line">    multi.label2=<span class="string">&quot;value2&quot;</span> \</span><br><span class="line">    other=<span class="string">&quot;value3&quot;</span></span><br></pre></td></tr></table></figure>
 
@@ -443,7 +443,7 @@
 <h5 id="CMD-为-ENTRYPOINT-提供默认参数"><a href="#CMD-为-ENTRYPOINT-提供默认参数" class="headerlink" title="CMD 为 ENTRYPOINT 提供默认参数"></a>CMD 为 ENTRYPOINT 提供默认参数</h5><p>如果使用 CMD 为 ENTRYPOINT 指令提供默认参数，则 CMD 和 ENTRYPOINT 指令均应使用 JSON 数组格式指定</p>
 <h5 id="docker-run-启动参数会覆盖-CMD-内容"><a href="#docker-run-启动参数会覆盖-CMD-内容" class="headerlink" title="docker run 启动参数会覆盖 CMD 内容"></a>docker run 启动参数会覆盖 CMD 内容</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 一个示例</span></span><br><span class="line">FROM alpine</span><br><span class="line">LABEL maintainer=leifengyang</span><br><span class="line">CMD [<span class="string">&quot;1111&quot;</span>]</span><br><span class="line">ENTRYPOINT [<span class="string">&quot;echo&quot;</span>]</span><br><span class="line"><span class="comment"># 构建出如上镜像后测试</span></span><br><span class="line">docker run xxxx：什么都不传则 <span class="built_in">echo</span> 1111</span><br><span class="line">docker run xxx arg1：传入arg1 则<span class="built_in">echo</span> arg1</span><br></pre></td></tr></table></figure>
 
-<h4 id="ARG-和-ENV"><a href="#ARG-和-ENV" class="headerlink" title="ARG 和 ENV"></a>ARG 和 ENV</h4><h5 id="ARG"><a href="#ARG" class="headerlink" title="ARG"></a>ARG</h5><p>ARG 指令定义了一个变量，用户可以在构建时使用 –build-arg &#x3D; 传递，docker build 命令会将其传递给构建器<br>–build-arg 指定参数会覆盖 Dockerfile 中指定的同名参数<br>如果用户指定了“未在 Dockerfile 中定义的构建参数”，则构建会输出“警告”<br>ARG 只在构建期有效，运行期无效<br>不建议使用构建时变量来传递诸如 github 密钥，用户凭据等机密，因为构建时变量值使用 dockerhistory 是可见的<br>ARG 变量定义从 Dockerfile 中定义的行开始生效<br>使用 ENV 指令定义的环境变量始终会覆盖同名的 ARG 指令</p>
+<h4 id="ARG-和-ENV"><a href="#ARG-和-ENV" class="headerlink" title="ARG 和 ENV"></a>ARG 和 ENV</h4><h5 id="ARG"><a href="#ARG" class="headerlink" title="ARG"></a>ARG</h5><p>ARG 指令定义了一个变量，用户可以在构建时使用 –build-arg &#x3D; 传递，docker build 命令会将其传递给构建器<br>–build-arg 指定参数会覆盖 Dockerfile 中指定的同名参数<br>如果用户指定了“未在 Dockerfile 中定义的构建参数”，则构建会输出“警告”<br>ARG 只在构建期有效，运行期无效<br>不建议使用构建时变量来传递诸如 github 密钥，用户凭据等机密，因为构建时变量值使用 docker history 是可见的<br>ARG 变量定义从 Dockerfile 中定义的行开始生效<br>使用 ENV 指令定义的环境变量始终会覆盖同名的 ARG 指令</p>
 <h5 id="ENV"><a href="#ENV" class="headerlink" title="ENV"></a>ENV</h5><p>在构建阶段中所有后续指令的环境中使用，并且在许多情况下也可以内联替换<br>引号和反斜杠可用于在值中包含空格<br>ENV 可以使用 key value 的写法，但是这种不建议使用了，后续版本可能会删除</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ENV MY_MSG hello</span><br><span class="line">ENV MY_NAME=<span class="string">&quot;John Doe&quot;</span></span><br><span class="line">ENV MY_DOG=Rex\ The\ Dog</span><br><span class="line">ENV MY_CAT=fluffy</span><br><span class="line"><span class="comment"># 多行写法如下</span></span><br><span class="line">ENV MY_NAME=<span class="string">&quot;John Doe&quot;</span> MY_DOG=Rex\ The\ Dog \</span><br><span class="line">MY_CAT=fluffy</span><br></pre></td></tr></table></figure>
 
@@ -542,7 +542,7 @@
 
 <div class="copyright">
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

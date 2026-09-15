@@ -30,7 +30,7 @@
 <meta property="og:description" content="Nginx 相关配置">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-10-27T12:13:56.000Z">
-<meta property="article:modified_time" content="2024-01-31T03:30:56.751Z">
+<meta property="article:modified_time" content="2026-09-15T08:29:25.531Z">
 <meta property="article:author" content="开心">
 <meta property="article:tag" content="nginx">
 <meta name="twitter:card" content="summary">
@@ -152,7 +152,7 @@
     <img class="site-author-image" itemprop="image" alt="开心"
       src="/../../../../upload/2020/04/android-chrome-512x512.png">
   <p class="site-author-name" itemprop="name">开心</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">开心 的技术博客，记录 Java、JVM、分布式、数据库与运维部署的学习笔记</div>
 </div>
 <div class="site-state-wrap animated">
   <nav class="site-state">
@@ -164,7 +164,7 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -282,7 +282,7 @@
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="开心">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="开心 的技术博客，记录 Java、JVM、分布式、数据库与运维部署的学习笔记">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
@@ -328,7 +328,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>658</span>
+      <span>656</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -355,11 +355,11 @@
 
 <h4 id="修改工作进程"><a href="#修改工作进程" class="headerlink" title="修改工作进程"></a>修改工作进程</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 工作进程数，一般是 CPU 核心数，设置成 auto 也可</span></span><br><span class="line">worker_processes 4;</span><br><span class="line"><span class="comment"># 工作进程的最大打开文件限制，太小会出现 `Too many open files`，此参数受系统文件的最大打开数限制，通过 `cat /proc/sys/fs/file-max` 查看，使用 `ulimit -n` 修改文件系统最大打开数</span></span><br><span class="line">worker_rlimit_nofile 10240; </span><br><span class="line">event &#123;</span><br><span class="line">    <span class="comment"># 每个工作进程对应的连接数</span></span><br><span class="line">    worker_connections 1024; </span><br><span class="line">    <span class="comment"># 使用 epoll 的 I/O 多路复用模型</span></span><br><span class="line">    use epoll; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="长连接"><a href="#长连接" class="headerlink" title="长连接"></a>长连接</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">   <span class="comment"># 与浏览器的长连接时间</span></span><br><span class="line">   keepalived_timeout 65; </span><br><span class="line"></span><br><span class="line">   upstream server_pool &#123;</span><br><span class="line">      server localhost:8080 weight=1 max_fails=2 fail_timeout=30s;</span><br><span class="line">      server localhost:8081 weight=1 max_fails=2 fail_timeout=30s;</span><br><span class="line">      <span class="comment"># 与服务器的长连接数</span></span><br><span class="line">      keepalive 300;</span><br><span class="line">   &#125;</span><br><span class="line">   location / &#123;</span><br><span class="line">      proxy_http_version 1.1;</span><br><span class="line">      proxy_set_header Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">      proxy_set_header Connection <span class="string">&quot;upgrade&quot;</span>;</span><br><span class="line">      proxy_pass http://server_pool/;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="长连接"><a href="#长连接" class="headerlink" title="长连接"></a>长连接</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">   <span class="comment"># 与浏览器的长连接时间</span></span><br><span class="line">   keepalive_timeout 65; </span><br><span class="line"></span><br><span class="line">   upstream server_pool &#123;</span><br><span class="line">      server localhost:8080 weight=1 max_fails=2 fail_timeout=30s;</span><br><span class="line">      server localhost:8081 weight=1 max_fails=2 fail_timeout=30s;</span><br><span class="line">      <span class="comment"># 与服务器的长连接数</span></span><br><span class="line">      keepalive 300;</span><br><span class="line">   &#125;</span><br><span class="line">   location / &#123;</span><br><span class="line">      proxy_http_version 1.1;</span><br><span class="line">      proxy_set_header Upgrade <span class="variable">$http_upgrade</span>;</span><br><span class="line">      proxy_set_header Connection <span class="string">&quot;upgrade&quot;</span>;</span><br><span class="line">      proxy_pass http://server_pool/;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="高效传输"><a href="#高效传输" class="headerlink" title="高效传输"></a>高效传输</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 减少文件在应用和内核之间拷贝</span></span><br><span class="line">sendfile on;</span><br><span class="line"><span class="comment"># 当数据包达到一定大小再发送</span></span><br><span class="line">tcp_nopush on; </span><br></pre></td></tr></table></figure>
 
-<h4 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">   <span class="comment"># 开启压缩</span></span><br><span class="line">   gzip on; </span><br><span class="line">   <span class="comment"># 压缩的 http 协议版本</span></span><br><span class="line">   gzip_http version 1.1; </span><br><span class="line">   <span class="comment"># 压缩级别，1-9，级别越大 CPU 使用越高</span></span><br><span class="line">   gzip_comp_level 6; </span><br><span class="line">   <span class="comment"># 限制最小压缩，小于 1k 文件不会压缩</span></span><br><span class="line">   gzip_min_length 1k;</span><br><span class="line">   <span class="comment"># gzip 申请内存的大小，按块大小的倍数申请内存空间</span></span><br><span class="line">   gzip_buffers 4 16k; </span><br><span class="line">   <span class="comment"># IE6 及以下版本不启用bvbvzip</span></span><br><span class="line">   gzip <span class="built_in">disable</span> <span class="string">&quot;MSIE [1-6]\.&quot;</span>; </span><br><span class="line">   <span class="comment"># 需要压缩的类型</span></span><br><span class="line">   gzip_types text/plain application/x-javascript text/css application/xml text/javascript application/x-httpd-php application/javascript application/json;</span><br><span class="line">   <span class="comment"># 启用应答头 Vary: Accept-Encoding</span></span><br><span class="line">   gzip_vary on;</span><br><span class="line">   gzip_proxied any;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">   <span class="comment"># 开启压缩</span></span><br><span class="line">   gzip on; </span><br><span class="line">   <span class="comment"># 压缩的 http 协议版本</span></span><br><span class="line">   gzip_http_version 1.1; </span><br><span class="line">   <span class="comment"># 压缩级别，1-9，级别越大 CPU 使用越高</span></span><br><span class="line">   gzip_comp_level 6; </span><br><span class="line">   <span class="comment"># 限制最小压缩，小于 1k 文件不会压缩</span></span><br><span class="line">   gzip_min_length 1k;</span><br><span class="line">   <span class="comment"># gzip 申请内存的大小，按块大小的倍数申请内存空间</span></span><br><span class="line">   gzip_buffers 4 16k; </span><br><span class="line">   <span class="comment"># IE6 及以下版本不启用 gzip</span></span><br><span class="line">   gzip_disable <span class="string">&quot;MSIE [1-6]\.&quot;</span>; </span><br><span class="line">   <span class="comment"># 需要压缩的类型</span></span><br><span class="line">   gzip_types text/plain application/x-javascript text/css application/xml text/javascript application/x-httpd-php application/javascript application/json;</span><br><span class="line">   <span class="comment"># 启用应答头 Vary: Accept-Encoding</span></span><br><span class="line">   gzip_vary on;</span><br><span class="line">   gzip_proxied any;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">   location ~* \.(ico|jpe?g|gif|png|bmp|swf|flv)$ &#123;</span><br><span class="line">      <span class="comment"># 过期时间</span></span><br><span class="line">      expires 12h;</span><br><span class="line">      <span class="comment"># expires @22h30m;</span></span><br><span class="line">   &#125;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -434,7 +434,7 @@
 
 <div class="copyright">
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

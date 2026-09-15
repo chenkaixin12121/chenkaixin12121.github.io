@@ -31,7 +31,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.ckx.ink/upload/2020/09/image-1f412ceebd7248f2b75d683efb6033e9.png">
 <meta property="article:published_time" content="2020-09-24T16:30:42.000Z">
-<meta property="article:modified_time" content="2024-01-31T02:52:34.608Z">
+<meta property="article:modified_time" content="2026-09-15T08:25:05.480Z">
 <meta property="article:author" content="开心">
 <meta property="article:tag" content="rabbitmq">
 <meta name="twitter:card" content="summary">
@@ -154,7 +154,7 @@
     <img class="site-author-image" itemprop="image" alt="开心"
       src="/../../../../upload/2020/04/android-chrome-512x512.png">
   <p class="site-author-name" itemprop="name">开心</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">开心 的技术博客，记录 Java、JVM、分布式、数据库与运维部署的学习笔记</div>
 </div>
 <div class="site-state-wrap animated">
   <nav class="site-state">
@@ -166,7 +166,7 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -270,7 +270,7 @@
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="开心">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="开心 的技术博客，记录 Java、JVM、分布式、数据库与运维部署的学习笔记">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
@@ -344,7 +344,7 @@
 <ol>
 <li>生成数据库消息日志，状态为投递中，再把消息放入队列</li>
 <li>根据 confirm（ConfirmCallback 和 ReturnCallback）的结果来确定消息是否投递成功，投递成功的，修改投递状态为发送成功，投递失败的消息由定时任务定期扫描并重新投递</li>
-<li>定时任务重新投递发送失败的消息，如果投递次数达过阈值后还是发送失败，设置投递状态为发送失败，由人工进行检查</li>
+<li>定时任务重新投递发送失败的消息，如果投递次数达到阈值后还是发送失败，设置投递状态为发送失败，由人工进行检查</li>
 <li>消费者取到消息后，从消息中取出唯一标识，先判断此消息有没有被消费过，若已消费过，则直接 ack（避免重复消费）</li>
 <li>正常处理成功后，修改投递状态为消费成功，并 ack</li>
 <li>遇到异常时，捕获异常，验证消息重试次数是否达到阈值，超过则修改投递状态为消费失败，由人工进行处理</li>
@@ -381,7 +381,7 @@
 <li>basicNack：拒绝一个或多个接收的消息，可以设置 requeue 是否重回队列  </li>
 <li>basicReject：拒绝一个消息，其他同上</li>
 </ul>
-<h4 id="失败消息重新投递"><a href="#失败消息重新投递" class="headerlink" title="失败消息重新投递"></a>失败消息重新投递</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ResendMsgTask</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> IMsgLogService msgLogService;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> RabbitTemplate rabbitTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Scheduled(cron = &quot;0/20 * * * * ?&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">resend</span><span class="params">()</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;定时任务 -&gt; 重新投递消息 -&gt; 开始&quot;</span>);</span><br><span class="line">        </span><br><span class="line">        List&lt;MsgLog&gt; msgLogList = msgLogService.selectTimeoutMsg();</span><br><span class="line">        msgLogList.forEach(</span><br><span class="line">                msgLog -&gt; &#123;</span><br><span class="line">                    <span class="type">String</span> <span class="variable">msgId</span> <span class="operator">=</span> msgLog.getMsgId();</span><br><span class="line">                    <span class="keyword">if</span> (msgLog.getTryCount() &gt;= MAX_TRY_COUNT) &#123;</span><br><span class="line">                        <span class="comment">// 设置该条消息发送失败</span></span><br><span class="line">                        msgLogService.updateStatus(msgId, MSG_DELIVER_FAIL);</span><br><span class="line">                        log.info(<span class="string">&quot;超过最大重试次数，消息投递失败，msgId: &#123;&#125;&quot;</span>, msgId);</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        msgLogService.updateTryCount(msgId, msgLog.getNextTryTime());</span><br><span class="line">                        rabbitTemplate.convertAndSend(msgLog.getExchange(), msgLog.getRoutingKey(), msgLog.getMsg(), <span class="keyword">new</span> <span class="title class_">CorrelationData</span>(msgId));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">        );</span><br><span class="line">        </span><br><span class="line">        log.info(<span class="string">&quot;任务结束 &lt;- 重新投递消息 &lt;- 结束&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="失败消息重新投递"><a href="#失败消息重新投递" class="headerlink" title="失败消息重新投递"></a>失败消息重新投递</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequiredArgsConstructor</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ResendMsgTask</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> IMsgLogService msgLogService;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> RabbitTemplate rabbitTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Scheduled(cron = &quot;0/20 * * * * ?&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">resend</span><span class="params">()</span> &#123;</span><br><span class="line">        log.info(<span class="string">&quot;定时任务 -&gt; 重新投递消息 -&gt; 开始&quot;</span>);</span><br><span class="line">        </span><br><span class="line">        List&lt;MsgLog&gt; msgLogList = msgLogService.selectTimeoutMsg();</span><br><span class="line">        msgLogList.forEach(</span><br><span class="line">                msgLog -&gt; &#123;</span><br><span class="line">                    <span class="type">String</span> <span class="variable">msgId</span> <span class="operator">=</span> msgLog.getMsgId();</span><br><span class="line">                    <span class="keyword">if</span> (msgLog.getTryCount() &gt;= MAX_TRY_COUNT) &#123;</span><br><span class="line">                        <span class="comment">// 设置该条消息发送失败</span></span><br><span class="line">                        msgLogService.updateStatus(msgId, MSG_DELIVER_FAIL);</span><br><span class="line">                        log.info(<span class="string">&quot;超过最大重试次数，消息投递失败，msgId: &#123;&#125;&quot;</span>, msgId);</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        msgLogService.updateTryCount(msgId, msgLog.getNextTryTime());</span><br><span class="line">                        <span class="type">Message</span> <span class="variable">message</span> <span class="operator">=</span> MessageBuilder.withBody(msgLog.getMsg().getBytes()).build();</span><br><span class="line">                        message.getMessageProperties().setContentType(MessageProperties.CONTENT_TYPE_JSON);</span><br><span class="line">                        rabbitTemplate.convertAndSend(msgLog.getExchange(), msgLog.getRoutingKey(), message, <span class="keyword">new</span> <span class="title class_">CorrelationData</span>(msgId));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">        );</span><br><span class="line">        </span><br><span class="line">        log.info(<span class="string">&quot;任务结束 &lt;- 重新投递消息 &lt;- 结束&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="问题处理"><a href="#问题处理" class="headerlink" title="问题处理"></a>问题处理</h4><p>消费者消费消息的时候抛出异常，由于 设置 basicNack（重回队列）为 true，消息回滚到消息队列的时候不会回到队列尾部，而是仍是在队列头部，这时消费者又立即接收到这条消息进行处理，接着抛出异常，进行回滚，造成死循环  </p>
 <p>解决方案：无论消费是否成功，都必须对 channel 进行应答，使用 nack 时设置 requeue 为 false，抛出异常后进入延迟队列进行重试机制，达到阈值时修改投递状态为消费失败，不再重试</p>
@@ -449,7 +449,7 @@
 
 <div class="copyright">
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

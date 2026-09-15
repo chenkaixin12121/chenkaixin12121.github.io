@@ -31,7 +31,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://blog.ckx.ink/upload/2020/09/image-a69735bdcc754219bf29ddf601b80a0e.png">
 <meta property="article:published_time" content="2020-06-05T15:17:40.000Z">
-<meta property="article:modified_time" content="2024-01-31T02:51:16.676Z">
+<meta property="article:modified_time" content="2026-09-15T08:24:49.618Z">
 <meta property="article:author" content="开心">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -154,7 +154,7 @@
     <img class="site-author-image" itemprop="image" alt="开心"
       src="/../../../../upload/2020/04/android-chrome-512x512.png">
   <p class="site-author-name" itemprop="name">开心</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">开心 的技术博客，记录 Java、JVM、分布式、数据库与运维部署的学习笔记</div>
 </div>
 <div class="site-state-wrap animated">
   <nav class="site-state">
@@ -166,7 +166,7 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -220,6 +220,13 @@
   </div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
+      <a class="popular-posts-link" href="/2021/10/16/150548.html" rel="bookmark">
+        <time class="popular-posts-time">2021-10-16</time>
+        <br>
+      JVM参数类型
+      </a>
+    </li>
+    <li class="popular-posts-item">
       <a class="popular-posts-link" href="/2021/12/25/230138.html" rel="bookmark">
         <time class="popular-posts-time">2021-12-25</time>
         <br>
@@ -256,7 +263,7 @@
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="开心">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="开心 的技术博客，记录 Java、JVM、分布式、数据库与运维部署的学习笔记">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
@@ -351,7 +358,7 @@
 </ul>
 <h4 id="内存泄露问题"><a href="#内存泄露问题" class="headerlink" title="内存泄露问题"></a>内存泄露问题</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">Entry</span> <span class="keyword">extends</span> <span class="title class_">WeakReference</span>&lt;ThreadLocal&lt;?&gt;&gt; &#123;</span><br><span class="line">    <span class="comment">/** The value associated with this ThreadLocal. */</span></span><br><span class="line">    Object value;</span><br><span class="line"></span><br><span class="line">    Entry(ThreadLocal&lt;?&gt; k, Object v) &#123;</span><br><span class="line">        <span class="built_in">super</span>(k);</span><br><span class="line">        value = v;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h5 id="value-的泄露"><a href="#value-的泄露" class="headerlink" title="value 的泄露"></a>value 的泄露</h5><p>ThreadLocalMap 中的每一个 Entry 都是对 key 的弱引用（弱引用的特点是，如果这个对象只被弱引用关联，那么这个对象就可以被回收），同时每个 Entry 都包含了一个对 value 的强引用<br>正常情况下，当线程终止，保存在 ThreadLocal 里的 value 会被垃圾回收，因为没有任何强引用了<br>但是，如果线程不终止（比如线程需要保持很久），那么 key 对应的 value 就不能被回收，所以有以下的调用链：Thread -&gt; ThreadLocalMap -&gt; Entry（key 为 null）-&gt; value<br>因为 value 和 Thread 之间还存在这个强引用链路，所以导致 value 无法回收，就可能会出现 OOM<br>为了解决这个问题，JDK 会在 set、remove、rehash 方法中扫描 key 为 null 的 Entry，并把对应的 value 设置为 null，这样 value 对象就会被回收<br>但是如果一个 TreadLocal 不被使用，那么实际上 set、remove、rehash 方法也不会被调用，如果同时线程又不停止，那么调用链就会一直存在，那么就导致了 value 的内存泄露</p>
+<h5 id="value-的泄露"><a href="#value-的泄露" class="headerlink" title="value 的泄露"></a>value 的泄露</h5><p>ThreadLocalMap 中的每一个 Entry 都是对 key 的弱引用（弱引用的特点是，如果这个对象只被弱引用关联，那么这个对象就可以被回收），同时每个 Entry 都包含了一个对 value 的强引用<br>正常情况下，当线程终止，保存在 ThreadLocal 里的 value 会被垃圾回收，因为没有任何强引用了<br>但是，如果线程不终止（比如线程需要保持很久），那么 key 对应的 value 就不能被回收，所以有以下的调用链：Thread -&gt; ThreadLocalMap -&gt; Entry（key 为 null）-&gt; value<br>因为 value 和 Thread 之间还存在这个强引用链路，所以导致 value 无法回收，就可能会出现 OOM<br>为了解决这个问题，JDK 会在 set、remove、rehash 方法中扫描 key 为 null 的 Entry，并把对应的 value 设置为 null，这样 value 对象就会被回收<br>但是如果一个 ThreadLocal 不被使用，那么实际上 set、remove、rehash 方法也不会被调用，如果同时线程又不停止，那么调用链就会一直存在，那么就导致了 value 的内存泄露</p>
 <h5 id="如何避免"><a href="#如何避免" class="headerlink" title="如何避免"></a>如何避免</h5><p>调用 remove 方法，就会删除对应的 Entry 对象，可以避免内存泄露，所以使用完 ThreadLocal 之后，应该调用 remove 方法</p>
 
     </div>
@@ -417,7 +424,7 @@
 
 <div class="copyright">
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -30,7 +30,7 @@
 <meta property="og:description" content="Linux 常见问题整理">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-06-05T04:06:32.000Z">
-<meta property="article:modified_time" content="2024-01-31T02:51:16.669Z">
+<meta property="article:modified_time" content="2026-09-15T08:24:44.239Z">
 <meta property="article:author" content="开心">
 <meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
@@ -152,7 +152,7 @@
     <img class="site-author-image" itemprop="image" alt="开心"
       src="/../../../../upload/2020/04/android-chrome-512x512.png">
   <p class="site-author-name" itemprop="name">开心</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">开心 的技术博客，记录 Java、JVM、分布式、数据库与运维部署的学习笔记</div>
 </div>
 <div class="site-state-wrap animated">
   <nav class="site-state">
@@ -164,7 +164,7 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -282,7 +282,7 @@
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="开心">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="开心 的技术博客，记录 Java、JVM、分布式、数据库与运维部署的学习笔记">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
@@ -328,7 +328,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>197</span>
+      <span>198</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -388,7 +388,7 @@
 </tr>
 </tbody></table>
 <h4 id="yum-命令不能使用"><a href="#yum-命令不能使用" class="headerlink" title="yum 命令不能使用"></a>yum 命令不能使用</h4><p>查看网卡是否启动，vim &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-ens33，将 ONBOOT 改成 yes，重启网卡，service network restart，如果还是不行的话，设置如下<br>vi &#x2F;etc&#x2F;yum&#x2F;pluginconf.d&#x2F;fastestmirror.conf，设置 enabled&#x3D;0<br>vi &#x2F;etc&#x2F;yum.conf，设置 plugins&#x3D;0</p>
-<h4 id="连不上外网"><a href="#连不上外网" class="headerlink" title="连不上外网"></a>连不上外网</h4><p>检测网络配置，cat &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ens-*</p>
+<h4 id="连不上外网"><a href="#连不上外网" class="headerlink" title="连不上外网"></a>连不上外网</h4><p>检测网络配置，cat &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-ens*</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">TYPE=Ethernet</span><br><span class="line">PROXY_METHOD=none</span><br><span class="line">BROWSER_ONLY=no</span><br><span class="line">BOOTPROTO=static</span><br><span class="line">DEFROUTE=yes</span><br><span class="line">IPV4_FAILURE_FATAL=no</span><br><span class="line">IPV6INIT=yes</span><br><span class="line">IPV6_AUTOCONF=yes</span><br><span class="line">IPV6_DEFROUTE=yes</span><br><span class="line">IPV6_FAILURE_FATAL=no</span><br><span class="line">IPV6_ADDR_GEN_MODE=stable-privacy</span><br><span class="line">NAME=enp0s3</span><br><span class="line">UUID=eac2ccd5-8840-41da-8da5-fa3967bf63fa</span><br><span class="line">DEVICE=enp0s3</span><br><span class="line">ONBOOT=yes</span><br><span class="line">IPADDR=192.168.1.14</span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line">GATEWAY=192.168.1.1</span><br></pre></td></tr></table></figure>
 
 <p>如果配置没问题就检查 dns，cat &#x2F;etc&#x2F;resolv.conf，重启网络</p>
@@ -456,7 +456,7 @@
 
 <div class="copyright">
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

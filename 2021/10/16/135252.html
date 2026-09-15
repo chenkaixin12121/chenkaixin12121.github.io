@@ -30,7 +30,7 @@
 <meta property="og:description" content="Java监控调优工具">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-10-16T05:52:52.000Z">
-<meta property="article:modified_time" content="2024-01-31T03:30:56.754Z">
+<meta property="article:modified_time" content="2026-09-15T08:26:52.544Z">
 <meta property="article:author" content="开心">
 <meta property="article:tag" content="java">
 <meta name="twitter:card" content="summary">
@@ -152,7 +152,7 @@
     <img class="site-author-image" itemprop="image" alt="开心"
       src="/../../../../upload/2020/04/android-chrome-512x512.png">
   <p class="site-author-name" itemprop="name">开心</p>
-  <div class="site-description" itemprop="description"></div>
+  <div class="site-description" itemprop="description">开心 的技术博客，记录 Java、JVM、分布式、数据库与运维部署的学习笔记</div>
 </div>
 <div class="site-state-wrap animated">
   <nav class="site-state">
@@ -164,7 +164,7 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -254,7 +254,7 @@
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="开心">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content="开心 的技术博客，记录 Java、JVM、分布式、数据库与运维部署的学习笔记">
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
@@ -355,7 +355,7 @@
 </tr>
 <tr>
 <td align="center">hostid</td>
-<td align="center">想要查看的主机的标识符，例：jps -l rmi:&#x2F;&#x2F;remote.comain:1231</td>
+<td align="center">想要查看的主机的标识符，例：jps -l rmi:&#x2F;&#x2F;remote.domain:1231</td>
 </tr>
 </tbody></table>
 <h5 id="jstat"><a href="#jstat" class="headerlink" title="jstat"></a>jstat</h5><p>监控 JVM 统计信息，查看内存使用情况</p>
@@ -418,7 +418,7 @@
 </tr>
 </tbody></table>
 <h4 id="故障排查工具"><a href="#故障排查工具" class="headerlink" title="故障排查工具"></a>故障排查工具</h4><h5 id="jinfo"><a href="#jinfo" class="headerlink" title="jinfo"></a>jinfo</h5><p>查看和调整 JVM 参数</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输出当前 JVM 进程的全部参数和系统属性</span></span><br><span class="line">[root@localhost software]<span class="comment"># jinfo 1501</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看已经被赋过值的参数</span></span><br><span class="line">[root@localhost software]<span class="comment"># jinfo -flags 1501</span></span><br><span class="line">Attaching to process ID 1501, please <span class="built_in">wait</span>...</span><br><span class="line">Debugger attached successfully.</span><br><span class="line">Server compiler detected.</span><br><span class="line">JVM version is 25.302-b08</span><br><span class="line">Non-default VM flags: -XX:CICompilerCount=2 -XX:InitialHeapSize=31457280 -XX:MaxHeapSize=478150656 -XX:MaxNewSize=159383552 -XX:MinHeapDeltaBytes=524288 -XX:NewSize=10485760 -XX:OldSize=20971520 -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseParallelGC </span><br><span class="line">Command line: </span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看对应名称的参数</span></span><br><span class="line">[root@localhost software]<span class="comment"># jinfo -flag MaxHeapSize 1501</span></span><br><span class="line">-XX:MaxHeapSize=478150656</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启或者关闭对应名称的参数</span></span><br><span class="line">[root@localhost software]<span class="comment"># jinfo -flag +HeapDumpOnOutOfMemoryError 1501</span></span><br><span class="line">-XX:-PrintGC</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改指定参数的值（有一些参数不允许动态修改，如最大堆内存），使用 java -XX:+PrintFlagsInitial | grep manageable 查看可动态修改的参数</span></span><br><span class="line">[root@localhost software]<span class="comment"># jinfo -flag HeapDumpPath=/data/software 1501</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 输出当前 JVM 进程的全部参数和系统属性</span></span><br><span class="line">[root@localhost software]<span class="comment"># jinfo 1501</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看已经被赋过值的参数</span></span><br><span class="line">[root@localhost software]<span class="comment"># jinfo -flags 1501</span></span><br><span class="line">Attaching to process ID 1501, please <span class="built_in">wait</span>...</span><br><span class="line">Debugger attached successfully.</span><br><span class="line">Server compiler detected.</span><br><span class="line">JVM version is 25.302-b08</span><br><span class="line">Non-default VM flags: -XX:CICompilerCount=2 -XX:InitialHeapSize=31457280 -XX:MaxHeapSize=478150656 -XX:MaxNewSize=159383552 -XX:MinHeapDeltaBytes=524288 -XX:NewSize=10485760 -XX:OldSize=20971520 -XX:+UseCompressedClassPointers -XX:+UseCompressedOops -XX:+UseParallelGC </span><br><span class="line">Command line: </span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看对应名称的参数</span></span><br><span class="line">[root@localhost software]<span class="comment"># jinfo -flag MaxHeapSize 1501</span></span><br><span class="line">-XX:MaxHeapSize=478150656</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开启或者关闭对应名称的参数</span></span><br><span class="line">[root@localhost software]<span class="comment"># jinfo -flag +HeapDumpOnOutOfMemoryError 1501</span></span><br><span class="line">-XX:+HeapDumpOnOutOfMemoryError</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改指定参数的值（有一些参数不允许动态修改，如最大堆内存），使用 java -XX:+PrintFlagsInitial | grep manageable 查看可动态修改的参数</span></span><br><span class="line">[root@localhost software]<span class="comment"># jinfo -flag HeapDumpPath=/data/software 1501</span></span><br></pre></td></tr></table></figure>
 
 <h5 id="jmap"><a href="#jmap" class="headerlink" title="jmap"></a>jmap</h5><p>查看对象内存映射或堆内存详细信息</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看进程的内存映像信息</span></span><br><span class="line">[root@localhost software]<span class="comment"># jmap 1501</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看堆的详细信息</span></span><br><span class="line">[root@localhost software]<span class="comment"># jmap -heap 1501</span></span><br><span class="line"></span><br><span class="line">* 导出堆快照文件</span><br><span class="line">[root@localhost software]<span class="comment"># jmap -dump:format=b,file=1501_heap.hprof 1501</span></span><br><span class="line"></span><br><span class="line">* 查看等待回收的对象信息</span><br><span class="line">[root@localhost software]<span class="comment"># jmap -finalizerinfo 1501</span></span><br><span class="line">Attaching to process ID 1501, please <span class="built_in">wait</span>...</span><br><span class="line">Debugger attached successfully.</span><br><span class="line">Server compiler detected.</span><br><span class="line">JVM version is 25.302-b08</span><br><span class="line">Number of objects pending <span class="keyword">for</span> finalization: 0</span><br><span class="line"></span><br><span class="line">* 查看堆中对象的统计信息</span><br><span class="line">[root@localhost software]<span class="comment"># jmap -histo:live 1501</span></span><br><span class="line"></span><br><span class="line">* 查看类加载器信息</span><br><span class="line">[root@localhost software]<span class="comment"># jmap -clstats 1501</span></span><br></pre></td></tr></table></figure>
@@ -510,7 +510,7 @@
 
 <div class="copyright">
   &copy; 2020 – 
-  <span itemprop="copyrightYear">2025</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
